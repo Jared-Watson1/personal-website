@@ -44,9 +44,8 @@ const CureShowcase = () => {
       defaultPosition: 0,
       interval: 3000,
       indicators: {
-        activeClasses: "bg-white dark:bg-gray-800",
-        inactiveClasses:
-          "bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800",
+        activeClasses: "bg-gray-800",
+        inactiveClasses: "bg-gray-800/50 hover:bg-gray-800",
         items: items.map((_, index) => ({
           position: index,
           el: document.getElementById(`carousel-indicator-${index + 1}`),
@@ -58,7 +57,7 @@ const CureShowcase = () => {
     };
 
     const carousel = new Carousel(carouselRef.current, items, options);
-    carousel.cycle(); // Start the carousel cycling
+    // carousel.cycle(); // Start the carousel cycling
 
     // Event listeners for the next and prev buttons
     document
@@ -163,9 +162,9 @@ const CureShowcase = () => {
             className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
             data-carousel-prev
           >
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30 group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
               <svg
-                className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                className="w-4 h-4 text-gray-800 rtl:rotate-180"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -188,9 +187,9 @@ const CureShowcase = () => {
             className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
             data-carousel-next
           >
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800/30  group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-gray-800/70 group-focus:outline-none">
               <svg
-                className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                className="w-4 h-4 text-gray-800 rtl:rotate-180"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -335,9 +334,9 @@ const CureShowcase = () => {
                 href="https://www.askcureai.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-indigo-200 dark:focus:ring-indigo-800"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium  rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white text-white focus:ring-4 focus:outline-none ssfocus:ring-indigo-800"
               >
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
                   Learn More
                 </span>
               </a>

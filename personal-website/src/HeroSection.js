@@ -64,7 +64,7 @@ const HeroSection = () => {
             </div>
             <div className="rounded-md shadow">
               <a
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-blue-600 to-blue-400 group-hover:from-blue-500 group-hover:to-blue-300 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-800"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-blue-600 to-blue-400 group-hover:from-blue-500 group-hover:to-blue-300 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-800"
                 href="https://www.linkedin.com/in/jared-watson-b7b5b6220/"
                 target="_blank"
                 rel="noopener noreferrer"
