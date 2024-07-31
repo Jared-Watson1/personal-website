@@ -25,7 +25,7 @@ const skills = [
 
 const Skills = () => {
   return (
-    <div className="flex justify-center items-center py-16">
+    <div className="flex justify-center items-center py-8">
       <div className="mx-auto flex flex-col justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-4xl font-extrabold tracking-tight text-slate-200 sm:text-5xl md:text-6xl">
@@ -35,12 +35,12 @@ const Skills = () => {
               </span>
             </span>
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-lg text-gray-500 dark:text-slate-400 sm:mt-5 md:mt-5">
+          <p className="mx-auto mt-3 max-w-xl text-lg text-gray-500 dark:text-slate-400">
             Here are some of the technical skills I have acquired over the
             years, ranging from programming languages to cloud services and
             system design.
           </p>
-          <div className="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+          <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
             {skills.map((skill) => (
               <div
                 key={skill.name}
