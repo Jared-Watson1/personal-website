@@ -5,7 +5,7 @@ const HeroSection = () => {
     <div className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
       <div className="mx-auto mt-10 flex justify-center px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-slate-200 sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-200 sm:text-5xl md:text-6xl">
             <span className="block xl:inline">
               <span className="mb-1 block">Software Engineer and </span>
               <span className="bg-gradient-to-r from-indigo-400 to-pink-600 bg-clip-text text-transparent">
@@ -26,29 +26,29 @@ const HeroSection = () => {
               </span>
             </div>
           </h1>
-          <p className="mx-auto mt-3 max-w-xl text-lg text-gray-500 dark:text-slate-400 sm:mt-5 md:mt-5">
+          <p className="mx-auto mt-3 max-w-xl text-lg text-slate-400 sm:mt-5 md:mt-5">
             I'm Jared Watson, a software engineer and founder of Cure AI.
             Explore my projects and skills in software development and design.
           </p>
           <div className="mt-5 sm:mt-8 sm:flex sm:justify-center space-y-3 sm:space-y-0 sm:space-x-3">
             <div className="rounded-md shadow">
               <a
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-indigo-200 dark:focus:ring-indigo-800"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white text-white focus:ring-4 focus:outline-none  focus:ring-indigo-800"
                 href="#projects"
               >
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
                   View Projects
                 </span>
               </a>
             </div>
             <div className="rounded-md shadow">
               <a
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-gray-800 to-gray-600 group-hover:from-gray-700 group-hover:to-gray-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-gray-800 to-gray-600 group-hover:from-gray-700 group-hover:to-gray-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-gray-800"
                 href="https://github.com/Jared-Watson1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
                   <svg
                     className="w-5 h-5 mr-2"
                     aria-hidden="true"
@@ -64,12 +64,12 @@ const HeroSection = () => {
             </div>
             <div className="rounded-md shadow">
               <a
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-blue-600 to-blue-400 group-hover:from-blue-500 group-hover:to-blue-300 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-800"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-blue-600 to-blue-400 group-hover:from-blue-500 group-hover:to-blue-300 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-800"
                 href="https://www.linkedin.com/in/jared-watson-b7b5b6220/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
                   <svg
                     className="w-5 h-5 mr-2"
                     aria-hidden="true"

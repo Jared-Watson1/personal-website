@@ -6,13 +6,16 @@ import {
 } from "@heroicons/react/20/solid";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Carousel } from "flowbite"; // Import the Flowbite carousel
 
 gsap.registerPlugin(ScrollTrigger);
 
 const CureShowcase = () => {
   const imgRefs = useRef([]);
+  const carouselRef = useRef(null); // Create a ref for the carousel element
 
   useEffect(() => {
+    // GSAP animations
     imgRefs.current.forEach((imgRef) => {
       gsap.fromTo(
         imgRef,
@@ -29,6 +32,41 @@ const CureShowcase = () => {
         }
       );
     });
+
+    // Initialize the carousel
+    const items = [
+      { position: 0, el: imgRefs.current[0] },
+      { position: 1, el: imgRefs.current[1] },
+      { position: 2, el: imgRefs.current[2] },
+    ];
+
+    const options = {
+      defaultPosition: 0,
+      interval: 3000,
+      indicators: {
+        activeClasses: "bg-white dark:bg-gray-800",
+        inactiveClasses:
+          "bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800",
+        items: items.map((_, index) => ({
+          position: index,
+          el: document.getElementById(`carousel-indicator-${index + 1}`),
+        })),
+      },
+      onNext: () => console.log("next slider item is shown"),
+      onPrev: () => console.log("previous slider item is shown"),
+      onChange: () => console.log("new slider item has been shown"),
+    };
+
+    const carousel = new Carousel(carouselRef.current, items, options);
+    carousel.cycle(); // Start the carousel cycling
+
+    // Event listeners for the next and prev buttons
+    document
+      .getElementById("data-carousel-prev")
+      .addEventListener("click", () => carousel.prev());
+    document
+      .getElementById("data-carousel-next")
+      .addEventListener("click", () => carousel.next());
   }, []);
 
   return (
@@ -53,28 +91,122 @@ const CureShowcase = () => {
             </div>
           </div>
         </div>
-        <div className="lg:col-start-2 lg:row-start-1 lg:row-end-6 lg:sticky lg:top-0 lg:self-start flex flex-col items-center space-y-10">
-          <img
-            ref={(el) => (imgRefs.current[0] = el)}
-            alt="Cure AI screenshot 1"
-            src={`${process.env.PUBLIC_URL}/cure_ss_6:9:24.png`}
-            className="max-w-full rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
-            style={{ width: "80%", maxWidth: "40rem" }}
-          />
-          <img
-            ref={(el) => (imgRefs.current[1] = el)}
-            alt="Cure AI screenshot 2"
-            src={`${process.env.PUBLIC_URL}/cure-ss.png`}
-            className="max-w-full rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
-            style={{ width: "80%", maxWidth: "40rem" }}
-          />
-          <img
-            ref={(el) => (imgRefs.current[2] = el)}
-            alt="Cure AI screenshot 3"
-            src={`${process.env.PUBLIC_URL}/cure_ss_sourcepopup-7:9:24.png`}
-            className="max-w-full rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
-            style={{ width: "80%", maxWidth: "40rem" }}
-          />
+        <div
+          ref={carouselRef}
+          id="carousel-example"
+          className="relative w-full lg:col-start-2 lg:row-start-1 lg:row-end-6 lg:sticky lg:top-0 lg:self-start"
+        >
+          <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+            <div
+              ref={(el) => (imgRefs.current[0] = el)}
+              id="carousel-item-1"
+              className="hidden duration-700 ease-in-out"
+            >
+              <img
+                src={`${process.env.PUBLIC_URL}/cure_ss_6:9:24.png`}
+                alt="Cure AI screenshot 1"
+                className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-full rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
+                style={{ width: "80%", maxWidth: "40rem" }}
+              />
+            </div>
+            <div
+              ref={(el) => (imgRefs.current[1] = el)}
+              id="carousel-item-2"
+              className="hidden duration-700 ease-in-out"
+            >
+              <img
+                src={`${process.env.PUBLIC_URL}/cure-ss.png`}
+                alt="Cure AI screenshot 2"
+                className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-full rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
+                style={{ width: "80%", maxWidth: "40rem" }}
+              />
+            </div>
+            <div
+              ref={(el) => (imgRefs.current[2] = el)}
+              id="carousel-item-3"
+              className="hidden duration-700 ease-in-out"
+            >
+              <img
+                src={`${process.env.PUBLIC_URL}/cure_ss_sourcepopup-7:9:24.png`}
+                alt="Cure AI screenshot 3"
+                className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-w-full rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
+                style={{ width: "80%", maxWidth: "40rem" }}
+              />
+            </div>
+          </div>
+          <div className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse">
+            <button
+              id="carousel-indicator-1"
+              type="button"
+              className="h-3 w-3 rounded-full"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              id="carousel-indicator-2"
+              type="button"
+              className="h-3 w-3 rounded-full"
+              aria-current="false"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              id="carousel-indicator-3"
+              type="button"
+              className="h-3 w-3 rounded-full"
+              aria-current="false"
+              aria-label="Slide 3"
+            ></button>
+          </div>
+          <button
+            id="data-carousel-prev"
+            type="button"
+            className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+            data-carousel-prev
+          >
+            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+              <svg
+                className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 1 1 5l4 4"
+                />
+              </svg>
+              <span className="sr-only">Previous</span>
+            </span>
+          </button>
+          <button
+            id="data-carousel-next"
+            type="button"
+            className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+            data-carousel-next
+          >
+            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+              <svg
+                className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+              <span className="sr-only">Next</span>
+            </span>
+          </button>
         </div>
         <div className="lg:col-span-1 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:w-full lg:max-w-7xl lg:px-8">
           <div className="max-w-xl text-base leading-7 text-gray-300 lg:max-w-lg">
