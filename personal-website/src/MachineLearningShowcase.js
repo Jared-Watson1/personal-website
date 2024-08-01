@@ -31,7 +31,8 @@ const MachineLearningShowcase = () => {
             <p className="mt-6 text-lg leading-7 text-gray-400">
               My partner and I aimed to assess the fairness of machine learning
               models in loan approvals. We utilized the Lending Club Loan
-              dataset, comprising over <strong>890,000 applications</strong>.
+              dataset, comprising over{" "}
+              <strong>890,000 applications and over 200 attributes.</strong>.
             </p>
             <p className="mt-4 text-lg leading-7 text-gray-400">
               After preprocessing the data—removing irrelevant features,

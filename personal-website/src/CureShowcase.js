@@ -153,7 +153,7 @@ const CureShowcase = () => {
             </ul>
             <p className="mt-8 text-gray-300">
               <em>
-                Cure AI leverages AI to provide accurate and timely medical
+                Cure AI leverages LLMs to provide accurate and timely medical
                 information, improving clinical workflows and patient outcomes.
               </em>
             </p>
