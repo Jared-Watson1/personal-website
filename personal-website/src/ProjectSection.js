@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const ProjectSection = ({ scrollToCureShowcase }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -11,6 +12,24 @@ const ProjectSection = ({ scrollToCureShowcase }) => {
     setDropdownOpen(false);
     scrollToCureShowcase();
   };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownOpen]);
 
   return (
     <div className="relative isolate overflow-hidden px-6 py-8 sm:py-12 lg:overflow-visible lg:px-0">
@@ -33,7 +52,7 @@ const ProjectSection = ({ scrollToCureShowcase }) => {
             software development and design.
           </p>
           <div className="mt-5 sm:mt-8 sm:flex sm:justify-center space-y-3 sm:space-y-0 sm:space-x-3 relative">
-            <div className="rounded-md shadow">
+            <div className="rounded-md shadow" ref={dropdownRef}>
               <button
                 onClick={toggleDropdown}
                 id="dropdownHoverButton"
