@@ -5,6 +5,7 @@ import Skills from "./Skills";
 import CureShowcase from "./CureShowcase";
 import ProjectSection from "./ProjectSection";
 import Divider from "./Divider";
+import MachineLearningShowcase from "./MachineLearning";
 
 function App() {
   const projectRef = useRef(null);
@@ -30,6 +31,10 @@ function App() {
       <Divider />
       <div ref={cureRef}>
         <CureShowcase />
+      </div>
+      <Divider />
+      <div>
+        <MachineLearningShowcase />
       </div>
     </div>
   );
