@@ -6,6 +6,7 @@ import CureShowcase from "./CureShowcase";
 import ProjectSection from "./ProjectSection";
 import Divider from "./Divider";
 import MachineLearningShowcase from "./MachineLearningShowcase";
+import DooleyShowcase from "./DooleyShowcase";
 
 function App() {
   const projectRef = useRef(null);
@@ -43,6 +44,10 @@ function App() {
       <Divider />
       <div ref={mlRef}>
         <MachineLearningShowcase />
+      </div>
+      <Divider />
+      <div>
+        <DooleyShowcase />
       </div>
     </div>
   );
