@@ -16,7 +16,6 @@ const DooleyShowcase = () => {
   const imgRefs = useRef([]);
 
   useEffect(() => {
-    // GSAP animations
     imgRefs.current.forEach((imgRef) => {
       gsap.fromTo(
         imgRef,
@@ -49,23 +48,13 @@ const DooleyShowcase = () => {
               </span>
             </h1>
             <p className="mt-6 text-xl leading-8 text-gray-300">
-              <strong>
-                Connecting Emory students through task management and peer
-                support.
-              </strong>
+              <strong>Connecting Emory students for peer support.</strong>
             </p>
             <p className="mt-6 text-lg leading-7 text-gray-400">
-              DooleyAFavor is a platform designed to help Emory students manage
-              tasks and earn money by assisting their peers. Inspired by the
-              concept of TaskRabbit, it facilitates on-campus support among
-              students.
-            </p>
-            <p className="mt-4 text-lg leading-7 text-gray-400">
-              As the team leader, I oversaw the entire project lifecycle. My
-              responsibilities included system design, task division for each
-              sprint, communication with team members, and weekly progress
-              updates. Specifically, I developed the backend, including task
-              management and user management APIs.
+              DooleyAFavor helps Emory students manage tasks and earn money by
+              assisting peers. I led the project, overseeing system design, task
+              division, communication, and weekly progress updates. I also
+              developed the backend, including task and user management APIs.
             </p>
             <ul className="mt-8 space-y-8 text-gray-400">
               <li className="flex gap-x-3">
@@ -145,22 +134,6 @@ const DooleyShowcase = () => {
                     {" "}
                     All data is securely stored in ElephantSQL Database using
                     PostgreSQL.
-                  </p>
-                </span>
-              </li>
-              <li className="flex gap-x-3">
-                <CloudArrowUpIcon
-                  aria-hidden="true"
-                  className="mt-1 h-5 w-5 flex-none text-indigo-600"
-                />
-                <span>
-                  <strong className="font-semibold text-gray-100">
-                    Hosted on Heroku:
-                  </strong>
-                  <p className="inline">
-                    {" "}
-                    Our app is hosted using Heroku for reliable performance and
-                    scalability.
                   </p>
                 </span>
               </li>
