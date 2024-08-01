@@ -1,6 +1,6 @@
 import React from "react";
 
-const HeroSection = () => {
+const HeroSection = ({ scrollToProjects }) => {
   return (
     <div className="relative isolate overflow-hidden px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
       <div className="mx-auto mt-10 flex justify-center px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8">
@@ -32,14 +32,14 @@ const HeroSection = () => {
           </p>
           <div className="mt-5 sm:mt-8 sm:flex sm:justify-center space-y-3 sm:space-y-0 sm:space-x-3">
             <div className="rounded-md shadow">
-              <a
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white text-white focus:ring-4 focus:outline-none  focus:ring-indigo-800"
-                href="#projects"
+              <button
+                onClick={scrollToProjects}
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-indigo-800"
               >
                 <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
                   View Projects
                 </span>
-              </a>
+              </button>
             </div>
             <div className="rounded-md shadow">
               <a

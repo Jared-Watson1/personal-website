@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./App.css";
 import HeroSection from "./HeroSection";
 import Skills from "./Skills";
@@ -7,20 +7,28 @@ import ProjectSection from "./ProjectSection";
 import Divider from "./Divider";
 
 function App() {
+  const projectRef = useRef(null);
+  const cureRef = useRef(null);
+
+  const scrollToProjects = () => {
+    projectRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToCureShowcase = () => {
+    cureRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 min-h-screen">
-      <div className="py-8">
-        <HeroSection />
+      <HeroSection scrollToProjects={scrollToProjects} />
+      <Divider />
+      <Skills />
+      <Divider />
+      <div ref={projectRef}>
+        <ProjectSection scrollToCureShowcase={scrollToCureShowcase} />
       </div>
       <Divider />
-      <div className="py-8">
-        <Skills />
-      </div>
-      <Divider />
-      <div className="py-8">
-        <ProjectSection />
-      </div>
-      <div>
+      <div ref={cureRef}>
         <CureShowcase />
       </div>
     </div>
