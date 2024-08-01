@@ -7,6 +7,7 @@ import ProjectSection from "./ProjectSection";
 import Divider from "./Divider";
 import MachineLearningShowcase from "./MachineLearningShowcase";
 import DooleyShowcase from "./DooleyShowcase";
+import DodgeShowcase from "./DodgeShowcase";
 
 function App() {
   const projectRef = useRef(null);
@@ -53,6 +54,10 @@ function App() {
       <Divider />
       <div>
         <DooleyShowcase />
+      </div>
+      <Divider />
+      <div>
+        <DodgeShowcase />
       </div>
     </div>
   );
