@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import {
-  CloudArrowUpIcon,
-  LockClosedIcon,
-  ServerIcon,
+  ChatBubbleLeftEllipsisIcon,
+  ShieldCheckIcon,
+  BookOpenIcon,
+  LightBulbIcon,
+  ArrowRightOnRectangleIcon,
+  ChartBarIcon,
 } from "@heroicons/react/20/solid";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -52,7 +55,7 @@ const CureShowcase = () => {
             </p>
             <ul className="mt-8 space-y-8 text-gray-400">
               <li className="flex gap-x-3">
-                <CloudArrowUpIcon
+                <ChatBubbleLeftEllipsisIcon
                   aria-hidden="true"
                   className="mt-1 h-5 w-5 flex-none text-indigo-600"
                 />
@@ -68,7 +71,7 @@ const CureShowcase = () => {
                 </span>
               </li>
               <li className="flex gap-x-3">
-                <LockClosedIcon
+                <ShieldCheckIcon
                   aria-hidden="true"
                   className="mt-1 h-5 w-5 flex-none text-indigo-600"
                 />
@@ -84,7 +87,7 @@ const CureShowcase = () => {
                 </span>
               </li>
               <li className="flex gap-x-3">
-                <ServerIcon
+                <BookOpenIcon
                   aria-hidden="true"
                   className="mt-1 h-5 w-5 flex-none text-indigo-600"
                 />
@@ -100,7 +103,7 @@ const CureShowcase = () => {
                 </span>
               </li>
               <li className="flex gap-x-3">
-                <CloudArrowUpIcon
+                <LightBulbIcon
                   aria-hidden="true"
                   className="mt-1 h-5 w-5 flex-none text-indigo-600"
                 />
@@ -116,7 +119,7 @@ const CureShowcase = () => {
                 </span>
               </li>
               <li className="flex gap-x-3">
-                <LockClosedIcon
+                <ArrowRightOnRectangleIcon
                   aria-hidden="true"
                   className="mt-1 h-5 w-5 flex-none text-indigo-600"
                 />
@@ -132,7 +135,7 @@ const CureShowcase = () => {
                 </span>
               </li>
               <li className="flex gap-x-3">
-                <ServerIcon
+                <ChartBarIcon
                   aria-hidden="true"
                   className="mt-1 h-5 w-5 flex-none text-indigo-600"
                 />
