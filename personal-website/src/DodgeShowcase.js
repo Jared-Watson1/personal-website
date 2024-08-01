@@ -63,8 +63,8 @@ const DodgeShowcase = () => {
                   </strong>
                   <p className="inline">
                     {" "}
-                    Developed various classes for enemies, players, and
-                    power-ups.
+                    Developed various classes for enemies, players, power-ups,
+                    and GUI.
                   </p>
                 </span>
               </li>
