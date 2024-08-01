@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ChatBubbleLeftEllipsisIcon,
   ShieldCheckIcon,
@@ -9,11 +9,13 @@ import {
 } from "@heroicons/react/20/solid";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import CurePopup from "./CurePopup"; // Make sure this is the correct import path
 
 gsap.registerPlugin(ScrollTrigger);
 
 const CureShowcase = () => {
   const imgRefs = useRef([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     // GSAP animations
@@ -173,12 +175,20 @@ const CureShowcase = () => {
                 patient care.
               </strong>
             </p>
-            <div className="mt-10">
+            <div className="mt-10 flex space-x-3">
+              <button
+                onClick={() => setIsPopupOpen(true)}
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-indigo-800"
+              >
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                  View Tech Stack
+                </span>
+              </button>
               <a
                 href="https://www.askcureai.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-indigo-800"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-indigo-800"
               >
                 <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
                   Learn More
@@ -223,6 +233,7 @@ const CureShowcase = () => {
           </div>
         </div>
       </div>
+      <CurePopup isOpen={isPopupOpen} setIsOpen={setIsPopupOpen} />
     </div>
   );
 };
