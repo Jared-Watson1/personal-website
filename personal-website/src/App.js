@@ -5,11 +5,12 @@ import Skills from "./Skills";
 import CureShowcase from "./CureShowcase";
 import ProjectSection from "./ProjectSection";
 import Divider from "./Divider";
-import MachineLearningShowcase from "./MachineLearning";
+import MachineLearningShowcase from "./MachineLearningShowcase";
 
 function App() {
   const projectRef = useRef(null);
   const cureRef = useRef(null);
+  const mlRef = useRef(null);
 
   const scrollToProjects = () => {
     projectRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -19,6 +20,10 @@ function App() {
     cureRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToMLShowcase = () => {
+    mlRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 min-h-screen">
       <HeroSection scrollToProjects={scrollToProjects} />
@@ -26,14 +31,17 @@ function App() {
       <Skills />
       <Divider />
       <div ref={projectRef}>
-        <ProjectSection scrollToCureShowcase={scrollToCureShowcase} />
+        <ProjectSection
+          scrollToCureShowcase={scrollToCureShowcase}
+          scrollToMLShowcase={scrollToMLShowcase}
+        />
       </div>
       <Divider />
       <div ref={cureRef}>
         <CureShowcase />
       </div>
       <Divider />
-      <div>
+      <div ref={mlRef}>
         <MachineLearningShowcase />
       </div>
     </div>
