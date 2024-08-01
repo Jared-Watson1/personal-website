@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const ProjectSection = ({ scrollToCureShowcase, scrollToMLShowcase }) => {
+const ProjectSection = ({
+  scrollToCureShowcase,
+  scrollToMLShowcase,
+  scrollToDooleyShowcase,
+}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -16,6 +20,11 @@ const ProjectSection = ({ scrollToCureShowcase, scrollToMLShowcase }) => {
   const handleMLShowcaseClick = () => {
     setDropdownOpen(false);
     scrollToMLShowcase();
+  };
+
+  const handleDooleyShowcaseClick = () => {
+    setDropdownOpen(false);
+    scrollToDooleyShowcase();
   };
 
   const handleClickOutside = (event) => {
@@ -106,6 +115,14 @@ const ProjectSection = ({ scrollToCureShowcase, scrollToMLShowcase }) => {
                         className="block w-full text-left px-4 py-2 hover:bg-gray-600 hover:text-white"
                       >
                         Machine Learning Showcase
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleDooleyShowcaseClick}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-600 hover:text-white"
+                      >
+                        DooleyAFavor
                       </button>
                     </li>
                   </ul>

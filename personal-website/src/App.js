@@ -25,6 +25,10 @@ function App() {
     mlRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToDooleyShowcases = () => {
+    mlRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 min-h-screen">
       <HeroSection scrollToProjects={scrollToProjects} />
@@ -35,6 +39,7 @@ function App() {
         <ProjectSection
           scrollToCureShowcase={scrollToCureShowcase}
           scrollToMLShowcase={scrollToMLShowcase}
+          scrollToDooleyShowcase={scrollToDooleyShowcases}
         />
       </div>
       <Divider />

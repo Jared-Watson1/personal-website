@@ -52,9 +52,10 @@ const DooleyShowcase = () => {
             </p>
             <p className="mt-6 text-lg leading-7 text-gray-400">
               DooleyAFavor helps Emory students manage tasks and earn money by
-              assisting peers. I led the project, overseeing system design, task
-              division, communication, and weekly progress updates. I also
-              developed the backend, including task and user management APIs.
+              assisting peers. I led the project, overseeing system design,
+              sprint planning, communication with teammates, and weekly progress
+              updates. Specifically, I developed the backend, including task and
+              user management APIs.
             </p>
             <ul className="mt-8 space-y-8 text-gray-400">
               <li className="flex gap-x-3">
