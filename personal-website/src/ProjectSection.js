@@ -60,7 +60,7 @@ const ProjectSection = ({ scrollToCureShowcase }) => {
                 type="button"
               >
                 <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
-                  View Projects
+                  Projects
                   <svg
                     className="w-2.5 h-2.5 ms-2"
                     aria-hidden="true"
@@ -81,16 +81,16 @@ const ProjectSection = ({ scrollToCureShowcase }) => {
               {dropdownOpen && (
                 <div
                   id="dropdownHover"
-                  className="absolute z-10 mt-2 w-44 rounded-lg shadow-lg bg-white dark:bg-gray-700 divide-y divide-gray-100"
+                  className="absolute z-10 mt-2 w-44 rounded-lg shadow-lg bg-gray-700 divide-y divide-gray-100"
                 >
                   <ul
-                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                    className="py-2 text-sm text-gray-200"
                     aria-labelledby="dropdownHoverButton"
                   >
                     <li>
                       <button
                         onClick={handleCureShowcaseClick}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-600 hover:text-white"
                       >
                         Cure AI
                       </button>
