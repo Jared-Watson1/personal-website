@@ -40,14 +40,14 @@ const Skills = () => {
             years, ranging from programming languages to cloud services and
             system design.
           </p>
-          <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+          <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
             {skills.map((skill) => (
               <div
                 key={skill.name}
-                className="w-36 h-36 p-4 bg-gradient-to-br from-indigo-400 to-pink-600 rounded-lg shadow-md flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105"
+                className="w-24 h-24 p-4 bg-gradient-to-br from-indigo-400 to-pink-600 rounded-lg shadow-md flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105"
               >
-                <div className="text-white mb-2 text-2xl">{skill.icon}</div>
-                <h3 className="text-lg font-bold text-white text-center">
+                <div className="text-white mb-2 text-xl">{skill.icon}</div>
+                <h3 className="text-sm font-bold text-white text-center">
                   {skill.name}
                 </h3>
               </div>
