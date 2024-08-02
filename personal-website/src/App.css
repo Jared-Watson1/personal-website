@@ -1,19 +1,37 @@
 /* App.css */
-body {
+
+/* Reset and base styles */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: linear-gradient(to right, #2e2e2e, #383838, #2e2e2e);
+}
+
+body {
   color: #e4e4e4;
   font-family: "Arial", sans-serif;
+  min-height: 100vh;
 }
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
+}
+
+html,
+body {
+  background-color: #1e293b; /* Solid color matching slate-800 */
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #1e293b; /* Ensuring root also has the same background color */
 }
 
 .bg-custom-gradient {
-  background: linear-gradient(to right, #2e2e2e, #383838, #2e2e2e);
+  background-color: #1e293b; /* Ensure other elements match this background color if needed */
 }
 
 .text-custom-color {
