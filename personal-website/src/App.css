@@ -1,16 +1,11 @@
 /* App.css */
-
-/* Reset and base styles */
-* {
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
+  background-color: #1e293b; /* Solid color matching slate-800 */
   color: #e4e4e4;
   font-family: "Arial", sans-serif;
-  min-height: 100vh;
 }
 
 html {
@@ -36,4 +31,85 @@ body {
 
 .text-custom-color {
   color: #e4e4e4;
+}
+
+/* Header styles */
+.fixed-header {
+  background-color: transparent; /* Transparent background */
+  color: #e4e4e4;
+}
+
+.fixed-header button {
+  background-color: rgba(30, 41, 59, 0.8); /* Semi-transparent background */
+  color: #e4e4e4;
+  border-color: #4a5568; /* Darker border color */
+}
+
+.fixed-header button:hover {
+  background-color: rgba(30, 41, 59, 1); /* Slightly more opaque on hover */
+  color: #63b3ed; /* Hover text color matching indigo-400 */
+}
+
+.fixed-header button:focus {
+  ring-color: #5a67d8; /* Focus ring color matching indigo-800 */
+  text-color: #63b3ed; /* Focus text color matching indigo-400 */
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.header-container {
+  top: -80px; /* Ensure the header is fully off-screen when hidden */
+  width: 100%;
+  background: transparent;
+  transition: transform 0.5s ease-in-out;
+}
+
+body.scrolled .header-container {
+  transform: translateY(80px); /* Increased translation value for visibility */
+}
+
+.header-container .hide {
+  transform: translateY(-100%);
+}
+
+.header-content {
+  transition: transform 0.3s ease-in-out;
+}
+
+.header-container:hover .header-content {
+  transform: scale(1.05); /* Enlarges the header on hover */
+}
+
+@keyframes bounceIn {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  100% {
+    transform: translateY(-100%);
+  }
+  20% {
+    transform: translateY(10px); /* Adjusted to give a bounce effect */
+  }
+  40% {
+    transform: translateY(-15px); /* Adjusted to give a bounce effect */
+  }
+  60% {
+    transform: translateY(5px); /* Adjusted to give a bounce effect */
+  }
+  80% {
+    transform: translateY(-5px); /* Adjusted to give a bounce effect */
+  }
+  100% {
+    transform: translateY(
+      80px
+    ); /* Adjusted to place the header in view with padding */
+  }
+}
+
+.animate-bounceIn {
+  animation: bounceIn 0.8s;
 }

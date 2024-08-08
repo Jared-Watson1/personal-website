@@ -4,6 +4,7 @@ const ProjectSection = ({
   scrollToCureShowcase,
   scrollToMLShowcase,
   scrollToDooleyShowcase,
+  scrollToDodgeShowcase,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -25,6 +26,11 @@ const ProjectSection = ({
   const handleDooleyShowcaseClick = () => {
     setDropdownOpen(false);
     scrollToDooleyShowcase();
+  };
+
+  const handleDodgeShowcaseClick = () => {
+    setDropdownOpen(false);
+    scrollToDodgeShowcase();
   };
 
   const handleClickOutside = (event) => {
@@ -123,6 +129,14 @@ const ProjectSection = ({
                         className="block w-full text-left px-4 py-2 hover:bg-gray-600 hover:text-white"
                       >
                         DooleyAFavor
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleDodgeShowcaseClick}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-600 hover:text-white"
+                      >
+                        Dodge
                       </button>
                     </li>
                   </ul>

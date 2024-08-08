@@ -40,7 +40,7 @@ const Skills = () => {
             years, ranging from programming languages to cloud services and
             system design.
           </p>
-          <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+          <div className="mt-12 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
             {skills.map((skill) => (
               <div
                 key={skill.name}
