@@ -98,7 +98,7 @@ const CureShowcase = () => {
               <FeatureItem
                 icon={<StarIcon className="h-6 w-6 text-indigo-600" />}
                 title="Reputable Source Prioritization"
-                description="Results are ranked by journal quality and h5-index, ensuring authoritative sources."
+                description="Results are ranked by journal quality (h5-index), citation count, publication type, and relevance to query ensuring authoritative sources."
               />
             </ul>
             <div className="mt-10 flex space-x-4">
