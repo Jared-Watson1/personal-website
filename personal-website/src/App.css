@@ -1,11 +1,12 @@
-/* App.css */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap");
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   background-color: #1e293b; /* Solid color matching slate-800 */
   color: #e4e4e4;
-  font-family: "Arial", sans-serif;
+  font-family: "Merriweather", serif;
 }
 
 html {

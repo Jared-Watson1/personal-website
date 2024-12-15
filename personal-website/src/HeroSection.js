@@ -8,7 +8,7 @@ const HeroSection = ({ scrollToProjects }) => {
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-200 sm:text-4xl md:text-5xl lg:text-6xl">
             <span className="block xl:inline">
               <span className="mb-1 block">Software Engineer and </span>
-              <span className="bg-gradient-to-r from-indigo-400 to-pink-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-indigo-400 to-pink-600 bg-clip-text text-transparent ">
                 Founder of Cure AI:
               </span>
             </span>
