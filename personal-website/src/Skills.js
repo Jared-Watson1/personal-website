@@ -30,12 +30,12 @@ const Skills = () => {
         <div className="text-center">
           <h2 className="text-4xl font-extrabold tracking-tight text-slate-200 sm:text-5xl md:text-6xl">
             <span className="block xl:inline">
-              <span className="bg-gradient-to-r from-indigo-400 to-pink-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent">
                 Technical Skills
               </span>
             </span>
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-lg text-gray-500 dark:text-slate-400">
+          <p className="mx-auto mt-3 max-w-xl text-base sm:text-lg md:text-xl text-gray-300 sm:mt-5 md:mt-5 drop-shadow-md">
             Here are some of the technical skills I have acquired over the
             years, ranging from programming languages to cloud services and
             system design.

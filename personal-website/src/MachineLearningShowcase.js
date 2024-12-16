@@ -9,7 +9,7 @@ import {
 
 const MachineLearningShowcase = () => {
   return (
-    <div className="relative isolate overflow-hidden bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 px-6 py-12 sm:py-16 lg:overflow-visible lg:px-0">
+    <div className="relative isolate overflow-hidden  px-6 py-12 sm:py-16 lg:overflow-visible lg:px-0">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2 lg:gap-y-10 lg:items-center">
         <div className="lg:pr-4">
           <div className="lg:max-w-lg">
@@ -28,19 +28,19 @@ const MachineLearningShowcase = () => {
               </strong>
               {/* </em> */}
             </p>
-            <p className="mt-6 text-lg leading-7 text-gray-400">
+            <p className="mx-auto mt-3 max-w-xl text-base sm:text-lg md:text-xl text-gray-300 sm:mt-5 md:mt-5 drop-shadow-md">
               My partner and I aimed to assess the fairness of machine learning
               models in loan approvals. We utilized the Lending Club Loan
               dataset, comprising over{" "}
               <strong>890,000 applications and over 200 attributes.</strong>.
             </p>
-            <p className="mt-4 text-lg leading-7 text-gray-400">
+            <p className="mx-auto mt-3 max-w-xl text-base sm:text-lg md:text-xl text-gray-300 sm:mt-5 md:mt-5 drop-shadow-md">
               After preprocessing the data—removing irrelevant features,
               encoding categorical variables, and normalizing numerical
               values—we trained three models:{" "}
               <strong>KNN, Decision Tree, and Logistic Regression</strong>.
             </p>
-            <p className="mt-4 text-lg leading-7 text-gray-400">
+            <p className="mx-auto mt-3 max-w-xl text-base sm:text-lg md:text-xl text-gray-300 sm:mt-5 md:mt-5 drop-shadow-md">
               Our findings revealed that <strong>Decision Tree</strong> and{" "}
               <strong>Logistic Regression</strong> models performed
               exceptionally well, achieving high accuracy and F1 scores.

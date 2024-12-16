@@ -5,28 +5,15 @@ const HeroSection = ({ scrollToProjects }) => {
     <div className="relative isolate overflow-hidden px-6 py-20 sm:py-24 md:py-28 lg:overflow-visible lg:px-0">
       <div className="mx-auto mt-10 flex justify-center px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8">
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-200 sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl drop-shadow-md">
             <span className="block xl:inline">
               <span className="mb-1 block">Software Engineer and </span>
-              <span className="bg-gradient-to-r from-indigo-400 to-pink-600 bg-clip-text text-transparent ">
+              <span className="bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent">
                 Founder of Cure AI:
               </span>
             </span>
-            <div className="mt-2">
-              <span className="relative mt-3 text-lg sm:text-xl md:text-2xl whitespace-normal text-blue-600">
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 418 42"
-                  className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-[0.58em] w-full fill-pink-400/50"
-                  preserveAspectRatio="none"
-                >
-                  <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
-                </svg>
-                {/* <span className="relative">Medical ≤Research Engine</span> */}
-              </span>
-            </div>
           </h1>
-          <p className="mx-auto mt-3 max-w-xl text-base sm:text-lg md:text-xl text-slate-400 sm:mt-5 md:mt-5">
+          <p className="mx-auto mt-3 max-w-xl text-base sm:text-lg md:text-xl text-gray-300 sm:mt-5 md:mt-5 drop-shadow-md">
             I'm Jared Watson, a software engineer and founder of Cure AI.
             Explore my projects and skills in software development and design.
           </p>
@@ -34,21 +21,21 @@ const HeroSection = ({ scrollToProjects }) => {
             <div className="rounded-md shadow">
               <button
                 onClick={scrollToProjects}
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-indigo-400 to-pink-600 group-hover:from-indigo-400 group-hover:to-pink-600 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-indigo-800"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-blue-600 to-purple-500 group-hover:from-blue-700 group-hover:to-purple-600 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-800"
               >
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
                   View Projects
                 </span>
               </button>
             </div>
             <div className="rounded-md shadow">
               <a
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-gray-800 to-gray-600 group-hover:from-gray-700 group-hover:to-gray-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-gray-800"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-gray-700 to-gray-500 group-hover:from-gray-600 group-hover:to-gray-400 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-gray-800"
                 href="https://github.com/Jared-Watson1"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0 flex items-center">
                   <svg
                     className="w-5 h-5 mr-2"
                     aria-hidden="true"
@@ -64,12 +51,12 @@ const HeroSection = ({ scrollToProjects }) => {
             </div>
             <div className="rounded-md shadow">
               <a
-                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-blue-600 to-blue-400 group-hover:from-blue-500 group-hover:to-blue-300 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-800"
+                className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-blue-500 to-cyan-400 group-hover:from-blue-400 group-hover:to-cyan-300 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-blue-800"
                 href="https://www.linkedin.com/in/jared-watson-b7b5b6220/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0 flex items-center">
                   <svg
                     className="w-5 h-5 mr-2"
                     aria-hidden="true"

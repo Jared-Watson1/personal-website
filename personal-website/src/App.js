@@ -60,7 +60,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 min-h-screen">
+    <div className="min-h-screen">
       <Header
         scrollToProjects={scrollToProjects}
         scrollToWorkExperience={scrollToWorkExperience}

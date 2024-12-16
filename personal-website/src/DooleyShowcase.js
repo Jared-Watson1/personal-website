@@ -35,7 +35,7 @@ const DooleyShowcase = () => {
   }, []);
 
   return (
-    <div className="relative isolate overflow-hidden bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 px-6 py-8 sm:py-12 lg:overflow-visible lg:px-0">
+    <div className="relative isolate overflow-hidden  px-6 py-8 sm:py-12 lg:overflow-visible lg:px-0">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2 lg:gap-y-10 lg:items-center">
         <div className="lg:pr-4">
           <div className="lg:max-w-lg">
@@ -50,7 +50,7 @@ const DooleyShowcase = () => {
             <p className="mt-6 text-xl leading-8 text-gray-300">
               <strong>Connecting Emory students for peer support.</strong>
             </p>
-            <p className="mt-6 text-lg leading-7 text-gray-400">
+            <p className="mx-auto mt-3 max-w-xl text-base sm:text-lg md:text-xl text-gray-300 sm:mt-5 md:mt-5 drop-shadow-md">
               DooleyAFavor helps Emory students manage tasks and earn money by
               assisting peers. I led the project, overseeing system design,
               sprint planning, communication with teammates, and weekly progress
