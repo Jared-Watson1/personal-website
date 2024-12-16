@@ -11,22 +11,35 @@ html,
   margin: 0;
   padding: 0;
   height: 100%;
-  background: url("https://media.giphy.com/media/3q3SUqPnxZGQpMNcjc/giphy.gif")
-    no-repeat center center fixed;
+  /* Set a solid fallback color */
+  background-color: black;
+  /* Apply the GIF background image */
+  background-image: url("https://media.giphy.com/media/3q3SUqPnxZGQpMNcjc/giphy.gif");
+  background-repeat: no-repeat;
+  background-position: center center;
   background-size: cover;
+  /* Remove fixed to avoid mobile issues */
+  background-attachment: scroll;
   color: #e4e4e4;
   font-family: "Merriweather", serif;
 }
 
+/* Remove the media query that changes background-size to contain 
+   to ensure the GIF always covers the entire area. 
+   This maintains a full coverage approach across all screen sizes. */
+
+/* Root container styling (adjusting to ensure GIF is visible behind content) */
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #1e293b; /* Ensuring root also has the same background color */
+  /* Remove or comment out any background colors that would overlay the GIF */
+  /* background-color: #1e293b; */
 }
 
 .bg-custom-gradient {
-  background-color: #1e293b; /* Ensure other elements match this background color if needed */
+  /* Remove or adjust this if it causes overlay; otherwise leave as is if not affecting full coverage */
+  background-color: transparent; /* Changed to transparent to not overwrite the GIF background */
 }
 
 .text-custom-color {
@@ -35,24 +48,24 @@ html,
 
 /* Header styles */
 .fixed-header {
-  background-color: transparent; /* Transparent background */
+  background-color: transparent; /* Keep transparent so the GIF can show through */
   color: #e4e4e4;
 }
 
 .fixed-header button {
-  background-color: rgba(30, 41, 59, 0.8); /* Semi-transparent background */
+  background-color: rgba(30, 41, 59, 0.8); /* Semi-transparent */
   color: #e4e4e4;
-  border-color: #4a5568; /* Darker border color */
+  border-color: #4a5568;
 }
 
 .fixed-header button:hover {
-  background-color: rgba(30, 41, 59, 1); /* Slightly more opaque on hover */
-  color: #63b3ed; /* Hover text color matching indigo-400 */
+  background-color: rgba(30, 41, 59, 1);
+  color: #63b3ed;
 }
 
 .fixed-header button:focus {
-  ring-color: #5a67d8; /* Focus ring color matching indigo-800 */
-  text-color: #63b3ed; /* Focus text color matching indigo-400 */
+  ring-color: #5a67d8;
+  text-color: #63b3ed;
 }
 
 body {
@@ -60,14 +73,14 @@ body {
 }
 
 .header-container {
-  top: -80px; /* Ensure the header is fully off-screen when hidden */
+  top: -80px;
   width: 100%;
   background: transparent;
   transition: transform 0.5s ease-in-out;
 }
 
 body.scrolled .header-container {
-  transform: translateY(80px); /* Increased translation value for visibility */
+  transform: translateY(80px);
 }
 
 .header-container .hide {
@@ -79,7 +92,7 @@ body.scrolled .header-container {
 }
 
 .header-container:hover .header-content {
-  transform: scale(1.05); /* Enlarges the header on hover */
+  transform: scale(1.05);
 }
 
 @keyframes bounceIn {
@@ -92,21 +105,19 @@ body.scrolled .header-container {
     transform: translateY(-100%);
   }
   20% {
-    transform: translateY(10px); /* Adjusted to give a bounce effect */
+    transform: translateY(10px);
   }
   40% {
-    transform: translateY(-15px); /* Adjusted to give a bounce effect */
+    transform: translateY(-15px);
   }
   60% {
-    transform: translateY(5px); /* Adjusted to give a bounce effect */
+    transform: translateY(5px);
   }
   80% {
-    transform: translateY(-5px); /* Adjusted to give a bounce effect */
+    transform: translateY(-5px);
   }
   100% {
-    transform: translateY(
-      80px
-    ); /* Adjusted to place the header in view with padding */
+    transform: translateY(80px);
   }
 }
 
