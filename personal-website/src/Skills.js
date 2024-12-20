@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaPython,
   FaDatabase,
@@ -24,6 +24,44 @@ const skills = [
 ];
 
 const Skills = () => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const calculateForceClass = (index, hoveredIndex) => {
+    if (hoveredIndex === null || hoveredIndex === index) return "";
+
+    const columns = 3; // Number of columns in the grid
+    const rowHovered = Math.floor(hoveredIndex / columns);
+    const colHovered = hoveredIndex % columns;
+    const rowCurrent = Math.floor(index / columns);
+    const colCurrent = index % columns;
+
+    const rowDifference = rowCurrent - rowHovered;
+    const colDifference = colCurrent - colHovered;
+
+    // Determine the translation based on the direction
+    let forceClass = "";
+    if (rowDifference === 0) {
+      // Same row
+      forceClass = colDifference > 0 ? "translate-x-3" : "translate-x--3";
+    } else if (colDifference === 0) {
+      // Same column
+      forceClass = rowDifference > 0 ? "translate-y-3" : "translate-y--3";
+    } else {
+      // Diagonal
+      if (rowDifference > 0 && colDifference > 0) {
+        forceClass = "translate-x-2 translate-y-2";
+      } else if (rowDifference > 0 && colDifference < 0) {
+        forceClass = "translate-x--2 translate-y-2";
+      } else if (rowDifference < 0 && colDifference > 0) {
+        forceClass = "translate-x-2 translate-y--2";
+      } else {
+        forceClass = "translate-x--2 translate-y--2";
+      }
+    }
+
+    return forceClass;
+  };
+
   return (
     <div className="flex justify-center items-center py-8">
       <div className="mx-auto flex flex-col justify-center px-4 sm:px-6 lg:px-8">
@@ -41,15 +79,25 @@ const Skills = () => {
             system design.
           </p>
           <div className="mt-12 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
-            {skills.map((skill) => (
+            {skills.map((skill, index) => (
               <div
                 key={skill.name}
-                className="w-24 h-24 p-4 bg-gradient-to-br from-indigo-400 to-pink-600 rounded-lg shadow-md flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105"
+                className={`relative group w-24 h-24 p-4 bg-gradient-to-br from-indigo-400 to-pink-600 rounded-lg shadow-md flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105 ${calculateForceClass(
+                  index,
+                  hoveredIndex
+                )}`}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
-                <div className="text-white mb-2 text-xl">{skill.icon}</div>
-                <h3 className="text-sm font-bold text-white text-center">
-                  {skill.name}
-                </h3>
+                {/* Glowing Background on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {/* Skill Content */}
+                <div className="relative z-10 flex flex-col items-center justify-center">
+                  <div className="text-white mb-2 text-2xl">{skill.icon}</div>
+                  <h3 className="text-sm font-bold text-white text-center">
+                    {skill.name}
+                  </h3>
+                </div>
               </div>
             ))}
           </div>

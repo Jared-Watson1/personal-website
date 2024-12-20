@@ -10,6 +10,7 @@ import DooleyShowcase from "./DooleyShowcase";
 import DodgeShowcase from "./DodgeShowcase";
 import Footer from "./Footer";
 import Header from "./Header";
+import USWildfire from "./USWildfire";
 
 function App() {
   const projectRef = useRef(null);
@@ -17,6 +18,7 @@ function App() {
   const mlRef = useRef(null);
   const dodgeRef = useRef(null);
   const contactRef = useRef(null);
+  const fireRef = useRef(null);
 
   const scrollToProjects = () => {
     projectRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -45,6 +47,9 @@ function App() {
   const scrollToDodgeShowcase = () => {
     dodgeRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+  const scrollToFireShowcase = () => {
+    fireRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,11 +66,11 @@ function App() {
 
   return (
     <div className="min-h-screen">
-      <Header
+      {/* <Header
         scrollToProjects={scrollToProjects}
         scrollToWorkExperience={scrollToWorkExperience}
         scrollToContact={scrollToContact}
-      />
+      /> */}
       <HeroSection scrollToProjects={scrollToProjects} />
       <Divider />
       <Skills />
@@ -76,11 +81,16 @@ function App() {
           scrollToMLShowcase={scrollToMLShowcase}
           scrollToDooleyShowcase={scrollToDooleyShowcase}
           scrollToDodgeShowcase={scrollToDodgeShowcase}
+          scrollToFireShowcase={scrollToFireShowcase}
         />
       </div>
       <Divider />
       <div ref={cureRef}>
         <CureShowcase />
+      </div>
+      <Divider />
+      <div ref={fireRef}>
+        <USWildfire />
       </div>
       <Divider />
       <div ref={mlRef}>

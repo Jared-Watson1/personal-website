@@ -124,3 +124,31 @@ body.scrolled .header-container {
 .animate-bounceIn {
   animation: bounceIn 0.8s;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes glow-from-left {
+  0% {
+    background-size: 200% auto;
+    background-position: left center;
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 10px #8ea0f9, 0 0 20px #e14997, 0 0 30px #e14997;
+  }
+  100% {
+    background-position: right center;
+    text-shadow: 0 0 20px #8ea0f9, 0 0 30px #e14997, 0 0 40px #e14997;
+  }
+}
+
+.animate-glow-on-hover:hover {
+  animation: glow-from-left 2.5s ease forwards infinite alternate;
+}
+
+.group:hover .absolute {
+  opacity: 20%;
+  blur: lg;
+}
