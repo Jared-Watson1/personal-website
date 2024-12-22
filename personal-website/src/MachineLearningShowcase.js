@@ -65,11 +65,11 @@ const MachineLearningShowcase = () => {
             </a>
           </div>
         </div>
-        {/* Right Section */}
+        {/* Right Section with Animation */}
         <div className="relative flex items-center justify-center">
-          <div className="relative w-full max-w-lg rounded-xl bg-gray-900 shadow-lg ring-1 ring-gray-500/10 p-8 group hover:ring-4  transition-all duration-300">
+          <div className="relative w-full max-w-lg rounded-xl bg-gray-900 shadow-lg ring-1 ring-gray-500/10 p-8 group hover:ring-4  transition-all duration-300 hover:animate-glow">
             {/* Card Glow */}
-            <div className="absolute -inset-1 bg-gradient-to-br from-indigo-500 to-pink-500 blur-lg opacity-20 rounded-xl pointer-events-none group-hover:opacity-50 group-hover:blur-2xl"></div>
+            <div className="absolute -inset-1 bg-gradient-to-br from-indigo-500 to-pink-500 blur-lg opacity-20 rounded-xl pointer-events-none group-hover:opacity-50 group-hover:blur-[40px] transition-all duration-500"></div>
             <h3 className="text-2xl font-bold text-gray-100">
               Technologies and Skills
             </h3>

@@ -47,7 +47,7 @@ const CureShowcase = () => {
             <p className="text-base font-semibold leading-7 text-indigo-600">
               AI Driven Platform
             </p>
-            <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-100 sm:text-5xl">
+            <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-100 sm:text-5xl animate-glow-on-hover">
               <span className="bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent">
                 Cure AI
               </span>

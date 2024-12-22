@@ -102,7 +102,7 @@ const USWildfire = () => {
           <p className="text-base font-semibold leading-7 text-indigo-600">
             U.S. Wildfire Analysis
           </p>
-          <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-100 sm:text-5xl">
+          <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-100 sm:text-5xl animate-glow-on-hover">
             <span className="bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent">
               Trends & Modeling (1992–2015)
             </span>

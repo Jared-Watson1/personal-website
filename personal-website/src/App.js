@@ -11,6 +11,7 @@ import DodgeShowcase from "./DodgeShowcase";
 import Footer from "./Footer";
 import Header from "./Header";
 import USWildfire from "./USWildfire";
+// import Particles from "./Particles";
 
 function App() {
   const projectRef = useRef(null);
@@ -66,6 +67,8 @@ function App() {
 
   return (
     <div className="min-h-screen">
+      {/* <Particles /> */}
+
       {/* <Header
         scrollToProjects={scrollToProjects}
         scrollToWorkExperience={scrollToWorkExperience}
