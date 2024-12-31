@@ -1,10 +1,8 @@
 "use client";
 
-import React from "react";
 import { useTheme } from "next-themes";
 
 // Magic UI
-import { WarpBackground } from "./warp-background";
 import { VelocityScroll } from "./scroll-based-velocity";
 import { MagicCard } from "./magic-card";
 import WordFadeIn from "./word-fade-in";
@@ -39,17 +37,7 @@ export default function SkillsSection() {
   const { theme } = useTheme();
 
   return (
-    // Wrap everything in WarpBackground, at full screen width
-    <WarpBackground
-      gridColor="transparent"
-      beamsPerSide={3}
-      perspective={100}
-      beamSize={2}
-      beamDelayMax={4}
-      beamDelayMin={1}
-      beamDuration={3}
-      className="relative w-screen min-h-screen overflow-x-hidden bg-white/50"
-    >
+    <section className="relative w-screen min-h-screen overflow-x-hidden bg-white/50">
       {/* Semi-transparent white overlay: covers entire width/height */}
       <div className="absolute inset-0 z-10 " />
 
@@ -75,14 +63,8 @@ export default function SkillsSection() {
           </p>
         </div>
 
-        {/* Full-width marquee. Use w-screen so it spans entire left-to-right. */}
-
-        {/* Cards container: also full width, but we center the grid itself */}
+        {/* Cards container */}
         <div className="w-full flex justify-center px-4 pb-16">
-          {/* 
-            A grid up to 3 columns, but not restricted horizontally. 
-            We wrap it in a container so the cards aren’t fully left-justified. 
-          */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {skills.map((skill) => (
               <MagicCard
@@ -107,7 +89,6 @@ export default function SkillsSection() {
                   text-center
                 "
               >
-                {/* Icon on top, centered text below */}
                 <span className="text-5xl">{skill.icon}</span>
                 <span>{skill.name}</span>
               </MagicCard>
@@ -115,6 +96,6 @@ export default function SkillsSection() {
           </div>
         </div>
       </section>
-    </WarpBackground>
+    </section>
   );
 }

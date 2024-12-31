@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { BentoGrid, BentoCard } from "./bento-grid";
-import AnimatedGridPattern from "./animated-grid-pattern";
+// import AnimatedGridPattern from "./animated-grid-pattern";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ChartBarIcon,
@@ -124,7 +124,7 @@ export default function WildfireShowcase() {
       name: "Spatial Analysis",
       description:
         "Mapped wildfire distribution across the U.S. highlighting concentration zones and trends.",
-      href: "#",
+      href: "https://github.com/Jared-Watson1/CS470",
       cta: "Learn more",
       background: <div className="hidden" />,
       className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-2",
@@ -134,7 +134,7 @@ export default function WildfireShowcase() {
       name: "Temporal Patterns",
       description:
         "Analyzed seasonality, containment times, and peak wildfire discovery periods.",
-      href: "#",
+      href: "https://github.com/Jared-Watson1/CS470",
       cta: "Learn more",
       background: <div className="hidden" />,
       className: "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2",
@@ -144,7 +144,7 @@ export default function WildfireShowcase() {
       name: "Predictive Modeling",
       description:
         "Trained regression models to predict wildfire containment times using scikit-learn.",
-      href: "#",
+      href: "https://github.com/Jared-Watson1/CS470",
       cta: "Learn more",
       background: <div className="hidden" />,
       className: "lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-3",
@@ -154,7 +154,7 @@ export default function WildfireShowcase() {
       name: "Data Processing",
       description:
         "Cleaned, scaled, and encoded data for analysis using pandas and NumPy.",
-      href: "#",
+      href: "https://github.com/Jared-Watson1/CS470",
       cta: "Learn more",
       background: <div className="hidden" />,
       className: "lg:col-start-1 lg:col-end-2 lg:row-start-2 lg:row-end-3",
@@ -164,7 +164,7 @@ export default function WildfireShowcase() {
       name: "Model Evaluation",
       description:
         "Evaluated models using RMSE, MAE, and R² for performance analysis.",
-      href: "#",
+      href: "https://github.com/Jared-Watson1/CS470",
       cta: "Learn more",
       background: <div className="hidden" />,
       className: "lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-3",
@@ -174,7 +174,7 @@ export default function WildfireShowcase() {
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-white/50">
       {/* Animated Grid Pattern */}
-      <AnimatedGridPattern
+      {/* <AnimatedGridPattern
         className="absolute inset-0 z-0"
         numSquares={100}
         maxOpacity={0.2}
@@ -183,7 +183,7 @@ export default function WildfireShowcase() {
         width={60}
         height={60}
         strokeDasharray={2}
-      />
+      /> */}
 
       {/* Foreground Container */}
       <div className="relative z-20 max-w-7xl mx-auto px-4">

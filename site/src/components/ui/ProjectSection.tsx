@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import InteractiveHoverButton from "./interactive-hover-button";
 import TypingAnimation from "./typing-animation";
-import AnimatedGridPattern from "./animated-grid-pattern";
+// import AnimatedGridPattern from "./animated-grid-pattern";
 import AnimatedGradientText from "./animated-gradient-text";
 import { MagicCard } from "./magic-card";
 
@@ -112,7 +112,7 @@ function ProjectCard({
 // ===================== MAIN PROJECTS COMPONENT =====================
 export default function ProjectsSection() {
   const { resolvedTheme } = useTheme();
-  const [gridOpacity, setGridOpacity] = useState(0.15); // Dynamic opacity based on theme
+  const [, setGridOpacity] = useState(0.15); // Dynamic opacity based on theme
 
   useEffect(() => {
     setGridOpacity(resolvedTheme === "dark" ? 0.25 : 0.15); // Adjust opacity for light/dark modes
@@ -121,7 +121,7 @@ export default function ProjectsSection() {
   return (
     <section className="relative w-screen min-h-screen overflow-x-hidden">
       {/* Animated Grid Pattern Background */}
-      <AnimatedGridPattern
+      {/* <AnimatedGridPattern
         className="absolute inset-0 z-0"
         numSquares={100}
         maxOpacity={gridOpacity}
@@ -130,7 +130,7 @@ export default function ProjectsSection() {
         width={60}
         height={60}
         strokeDasharray={2}
-      />
+      /> */}
 
       {/* Optional translucent overlay */}
       <div className="absolute inset-0 bg-white/50 z-10" />

@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
 import { BentoGrid, BentoCard } from "./bento-grid";
 import HeroVideoDialog from "./hero-video-dialog";
-import AnimatedGridPattern from "./animated-grid-pattern";
+// import AnimatedGridPattern from "./animated-grid-pattern";
 import {
   ShieldCheckIcon,
   ChatBubbleBottomCenterTextIcon,
@@ -21,7 +20,7 @@ export default function CureAIShowcase() {
       name: "Patented Technology",
       description:
         "Ensures reliable, accurate AI responses for critical use cases.",
-      href: "#",
+      href: "https://www.askcureai.com/",
       cta: "Learn more",
       background: <div className="hidden" />,
       className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-2",
@@ -44,7 +43,7 @@ export default function CureAIShowcase() {
       name: "Advanced Search Parameters",
       description:
         "Specify journals, dates, and more for precise query results.",
-      href: "#",
+      href: "https://www.askcureai.com/",
       cta: "Learn more",
       background: <div className="hidden" />,
       className: "lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-3",
@@ -56,7 +55,7 @@ export default function CureAIShowcase() {
       name: "Natural Language Queries",
       description:
         "Transform complex searches into simple questions. Cure AI interprets your intent seamlessly.",
-      href: "#",
+      href: "https://www.askcureai.com/",
       cta: "Learn more",
       background: <div className="hidden" />,
       className: "lg:col-start-1 lg:col-end-2 lg:row-start-2 lg:row-end-3",
@@ -68,7 +67,7 @@ export default function CureAIShowcase() {
       name: "Seamless Literature Navigation",
       description:
         "Access curated studies with detailed info for smooth research.",
-      href: "#",
+      href: "https://www.askcureai.com/",
       cta: "Learn more",
       background: <div className="hidden" />,
       className: "lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-3",
@@ -81,7 +80,7 @@ export default function CureAIShowcase() {
       className="relative w-full min-h-screen py-6 px-4 overflow-x-hidden"
     >
       {/* Animated Grid Pattern Background */}
-      <AnimatedGridPattern
+      {/* <AnimatedGridPattern
         className="absolute inset-0 z-0"
         numSquares={100}
         maxOpacity={0.2}
@@ -90,10 +89,10 @@ export default function CureAIShowcase() {
         width={60}
         height={60}
         strokeDasharray={2}
-      />
+      /> */}
 
       {/* Optional translucent overlay */}
-      <div className="absolute inset-0 bg-white/50 z-10" />
+      <div className="absolute inset-0 z-10" />
 
       {/* Foreground Container */}
       <div className="relative z-20 max-w-7xl mx-auto">
