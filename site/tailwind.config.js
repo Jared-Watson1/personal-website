@@ -52,7 +52,8 @@ export default {
   			}
   		},
   		animation: {
-  			grid: 'grid 15s linear infinite'
+  			grid: 'grid 15s linear infinite',
+  			gradient: 'gradient 8s linear infinite'
   		},
   		keyframes: {
   			grid: {
@@ -61,6 +62,11 @@ export default {
   				},
   				'100%': {
   					transform: 'translateY(0)'
+  				}
+  			},
+  			gradient: {
+  				to: {
+  					backgroundPosition: 'var(--bg-size) 0'
   				}
   			}
   		}

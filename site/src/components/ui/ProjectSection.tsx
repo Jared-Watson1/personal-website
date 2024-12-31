@@ -1,24 +1,39 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import InteractiveHoverButton from "./interactive-hover-button";
 import TypingAnimation from "./typing-animation";
+import AnimatedGridPattern from "./animated-grid-pattern";
+import AnimatedGradientText from "./animated-gradient-text";
+import { MagicCard } from "./magic-card";
 
-interface ProjectCardProps {
-  badge: string;
-  title: string;
-  hoverTitle: string;
-  summary: string;
-  onClick?: () => void;
-}
-
+// ===================== SCROLL FUNCTIONS =====================
 function scrollToCure() {
   const target = document.getElementById("cure-showcase");
   if (target) {
     target.scrollIntoView({ behavior: "smooth" });
   }
 }
+
+function scrollToWildfire() {
+  const target = document.getElementById("wildfire-showcase");
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+// ===================== PROJECT CARD COMPONENT =====================
+interface ProjectCardProps {
+  badge: string;
+  title: string;
+  hoverTitle: string;
+  summary: string;
+  onClick: () => void; // Use onClick for scroll-to behavior
+}
+
+// Individual Project Card with Magic Card effect
 function ProjectCard({
   badge,
   title,
@@ -26,13 +41,17 @@ function ProjectCard({
   summary,
   onClick,
 }: ProjectCardProps) {
+  const { theme } = useTheme();
+
   return (
-    <div
-      className={cn(
-        "group relative rounded-xl border border-gray-200",
-        "bg-white text-black shadow-sm hover:shadow-md",
-        "transition-all duration-300 ease-in-out p-5"
-      )}
+    // Magic Card wrapper for project cards
+    <MagicCard
+      gradientSize={400} // Larger gradient
+      gradientColor={theme === "dark" ? "#262626" : "#D9D9D955"}
+      gradientOpacity={1} // Fully visible gradient
+      gradientFrom="#F6416C" // Brighter pink
+      gradientTo="#FFDE7D" // Bright yellow
+      className="cursor-pointer flex flex-col gap-3 p-6 shadow-2xl rounded-xl"
     >
       {/* Badge */}
       <div
@@ -46,7 +65,7 @@ function ProjectCard({
         {badge}
       </div>
 
-      {/* Title vs. Hover Title */}
+      {/* Title vs Hover Title */}
       <span
         className="
           block
@@ -81,43 +100,72 @@ function ProjectCard({
       {/* Summary */}
       <p className="text-sm text-gray-600 mb-4">{summary}</p>
 
-      {/* Button */}
+      {/* View Button */}
       <InteractiveHoverButton
         text="View"
-        onClick={onClick || (() => alert(`Placeholder for ${title} project!`))}
-        // onClick={() => alert(`Placeholder for ${title} project!`)}
+        onClick={onClick} // Use provided scroll-to function
       />
-    </div>
+    </MagicCard>
   );
 }
 
+// ===================== MAIN PROJECTS COMPONENT =====================
 export default function ProjectsSection() {
+  const { resolvedTheme } = useTheme();
+  const [gridOpacity, setGridOpacity] = useState(0.15); // Dynamic opacity based on theme
+
+  useEffect(() => {
+    setGridOpacity(resolvedTheme === "dark" ? 0.25 : 0.15); // Adjust opacity for light/dark modes
+  }, [resolvedTheme]);
+
   return (
     <section className="relative w-screen min-h-screen overflow-x-hidden">
-      {/* Optional translucent overlay, if desired */}
+      {/* Animated Grid Pattern Background */}
+      <AnimatedGridPattern
+        className="absolute inset-0 z-0"
+        numSquares={100}
+        maxOpacity={gridOpacity}
+        duration={3.5}
+        repeatDelay={0.8}
+        width={60}
+        height={60}
+        strokeDasharray={2}
+      />
+
+      {/* Optional translucent overlay */}
       <div className="absolute inset-0 bg-white/50 z-10" />
 
+      {/* Main Content */}
       <div className="relative z-20 flex flex-col items-center justify-start min-h-screen px-4 pt-10">
-        {/* Heading & subheading with different typing speeds */}
+        {/* Heading & Subheading */}
         <div className="mb-8 text-center">
-          {/* Heading: slower typing */}
-          <h2 className="mb-2 text-5xl font-extrabold text-black md:text-6xl">
+          {/* Heading */}
+          <h2 className="mb-4 text-5xl font-extrabold text-black md:text-6xl">
             <TypingAnimation
               duration={40}
-              className="mb-2 text-5xl font-extrabold text-black md:text-6xl"
+              className="mb-4 text-5xl font-extrabold text-black md:text-6xl"
             >
               Project Showcase
             </TypingAnimation>
           </h2>
 
-          {/* Subheading: a bit faster typing */}
-          <p className="text-xl text-gray-700 md:text-2xl">
-            Check out some of my projects showcasing various programming &amp;
-            design skills.
-          </p>
+          {/* Animated Gradient Subheading */}
+          <div className="z-10 flex items-center justify-center text-center">
+            <AnimatedGradientText>
+              💡 <hr className="mx-2 h-4 w-px shrink-0 bg-gray-300" />
+              <span
+                className={cn(
+                  `inline animate-gradient bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] 
+                   bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent text-3xl font-bold`
+                )}
+              >
+                Explore My Programming & Design Skills
+              </span>
+            </AnimatedGradientText>
+          </div>
         </div>
 
-        {/* Cards Grid */}
+        {/* Project Cards */}
         <div
           className="
             grid
@@ -146,30 +194,32 @@ export default function ProjectsSection() {
             title="U.S. Wildfire Analysis"
             hoverTitle="Spatial, temporal, & regressional analysis"
             summary="Analyzed 1.88M+ fire records, examining spatial and temporal trends, and predicting days to containment."
+            onClick={scrollToWildfire}
           />
 
-          {/* Loan Default Prediction */}
+          {/* Additional Projects */}
           <ProjectCard
             badge="ML Project"
             title="Loan Default Prediction"
             hoverTitle="Bias Evaluation"
             summary="Used KNN, Decision Trees, & Logistic Regression on Lending Club data to assess fairness."
+            onClick={() => alert("Demo Placeholder")}
           />
 
-          {/* DooleyAFavor */}
           <ProjectCard
             badge="DooleyAFavor"
             title="Student Task Platform"
             hoverTitle="Peer Assistance"
             summary="Connects Emory students for peer-based help & side jobs."
+            onClick={() => alert("Demo Placeholder")}
           />
 
-          {/* Dodge */}
           <ProjectCard
             badge="Dodge"
             title="Game Development"
             hoverTitle="Arcade Action"
             summary="A pygame demonstrating OOP, event handling, and basic physics."
+            onClick={() => alert("Demo Placeholder")}
           />
         </div>
       </div>

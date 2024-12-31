@@ -44,9 +44,9 @@ export default function SkillsSection() {
       gridColor="transparent"
       beamsPerSide={3}
       perspective={100}
-      beamSize={5}
-      beamDelayMax={3}
-      beamDelayMin={0}
+      beamSize={2}
+      beamDelayMax={4}
+      beamDelayMin={1}
       beamDuration={3}
       className="relative w-screen min-h-screen overflow-x-hidden bg-white/50"
     >

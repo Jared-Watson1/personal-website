@@ -4,6 +4,7 @@ import HeroSection from "./components/ui/HeroSection";
 import SkillsSection from "./components/ui/SkillsSection";
 import ProjectsSection from "./components/ui/ProjectSection";
 import CureAIShowcase from "./components/ui/CureAIShowcase";
+import WildfireShowcase from "./components/ui/WildfireShowcase";
 
 export default function App() {
   return (
@@ -20,7 +21,7 @@ export default function App() {
       <SkillsSection />
       <ProjectsSection />
       <CureAIShowcase />
-      {/* ...other sections... */}
+      <WildfireShowcase />
     </main>
   );
 }
