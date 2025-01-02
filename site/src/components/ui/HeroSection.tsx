@@ -1,6 +1,5 @@
 "use client";
 
-import RetroGrid from "./retro-grid";
 import SparklesText from "./sparkles-text";
 import ShinyButton from "./shiny-button";
 
@@ -8,47 +7,51 @@ export default function HeroSection() {
   return (
     <section
       className="
-        relative
-        flex
-        min-h-screen
-        w-full
-        flex-col
-        items-center
-        justify-center
-        overflow-hidden
-        bg-gradient-to-b
-        from-[#00B8A9] // Top gradient color (Teal)
-        via-[#F8F3D4] // Middle gradient color (Cream)
-        to-[#FFDE7D] // Bottom gradient color (Yellow)
-      "
+          relative
+          flex
+          min-h-screen
+          w-full
+          flex-col
+          items-center
+          justify-center
+          overflow-hidden
+        "
     >
-      {/* Retro Grid behind hero content */}
-      <RetroGrid
-        className=""
-        angle={65} // Or whichever angle you like
-        cellSize={60} // Size of each grid cell
-        opacity={0.5} // How faint or bold the lines
-        lightLineColor="#F8F3D4" // Light Cream
-        darkLineColor="#F6416C" // Pink
-      />
+      {/* Enhanced Retro Grid Background */}
+      {/* <RetroGrid
+        className="absolute inset-0 z-0" // No blur effect for sharpness
+        angle={60} // Maintains smooth diagonal look
+        cellSize={50} // Larger cells for prominence
+        opacity={0.6} // Increased visibility
+        lightLineColor="#8DD7BF" // Mint Green for light lines
+        darkLineColor="#00A5E3" // Blue for dark lines
+      /> */}
 
-      {/* Foreground hero content */}
+      {/* Foreground Content */}
       <div className="relative z-10 flex flex-col items-center px-4 text-center">
-        <SparklesText
-          text="Jared Watson: Software Engineer & Founder of Cure AI"
-          className="mb-6 text-6xl font-extrabold leading-tight text-[#F6416C] md:text-7xl"
-        />
-        <p className="mb-8 max-w-2xl text-lg text-[#333333] md:text-xl">
+        {/* Sparkles Text with Gradient */}
+        <div className="mb-6 text-6xl font-extrabold leading-tight md:text-7xl bg-gradient-to-r from-[#00A5E3] via-[#8DD7BF] to-[#FFBF65] bg-clip-text ">
+          <SparklesText
+            text="Jared Watson: Software Engineer & Founder of Cure AI"
+            sparklesCount={30}
+            colors={{ first: "#FF96C5", second: "#FF5768" }} // Sparkles colors
+          />
+        </div>
+
+        {/* Readable Paragraph */}
+        <p className="mb-8 max-w-2xl text-lg text-[#474853] md:text-xl">
           Welcome to my world of software development and innovation. Explore my
           projects and skills!
         </p>
+
+        {/* Buttons */}
         <div className="flex gap-4">
           <a
             href="https://github.com/Jared-Watson1"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <ShinyButton className="bg-[#F6416C] hover:bg-[#FFDE7D] text-white hover:text-black">
+            <ShinyButton className="bg-[#00A5E3] hover:bg-[#8DD7BF] text-white hover:text-black">
               GITHUB
             </ShinyButton>
           </a>
@@ -57,8 +60,13 @@ export default function HeroSection() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <ShinyButton className="bg-[#00B8A9] hover:bg-[#F8F3D4] text-white hover:text-black">
+            <ShinyButton className="bg-[#00A5E3] hover:bg-[#8DD7BF] text-white hover:text-black">
               LINKEDIN
+            </ShinyButton>
+          </a>
+          <a href="mailto:jared@askcure.ai">
+            <ShinyButton className="bg-[#00A5E3] hover:bg-[#8DD7BF] text-white hover:text-black">
+              CONTACT ME
             </ShinyButton>
           </a>
         </div>

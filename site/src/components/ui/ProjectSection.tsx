@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import InteractiveHoverButton from "./interactive-hover-button";
 import TypingAnimation from "./typing-animation";
 // import AnimatedGridPattern from "./animated-grid-pattern";
 import AnimatedGradientText from "./animated-gradient-text";
+// import Particles from "./particles";
 import { MagicCard } from "./magic-card";
 
 // ===================== SCROLL FUNCTIONS =====================
@@ -19,6 +20,27 @@ function scrollToCure() {
 
 function scrollToWildfire() {
   const target = document.getElementById("wildfire-showcase");
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+function scrollToDodge() {
+  const target = document.getElementById("dodge-showcase");
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+function scrollToDooley() {
+  const target = document.getElementById("dodge-showcase");
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+function scrollToML() {
+  const target = document.getElementById("loan-prediction-showcase");
   if (target) {
     target.scrollIntoView({ behavior: "smooth" });
   }
@@ -131,19 +153,52 @@ export default function ProjectsSection() {
         height={60}
         strokeDasharray={2}
       /> */}
+      {/* <Particles
+        className="absolute inset-0 z-0"
+        quantity={150} // Increased density
+        size={3.2}
+        ease={70}
+        color="#FF96C5" // Pink particles
+        refresh={true}
+        staticity={90}
+        vx={0.2}
+        vy={0.2}
+      />
+      <Particles
+        className="absolute inset-0 z-0"
+        quantity={100}
+        size={1.8}
+        ease={60}
+        color="#FF5768" // Red particles
+        refresh={true}
+        staticity={40}
+        vx={-0.1}
+        vy={0.1}
+      />
+      <Particles
+        className="absolute inset-0 z-0"
+        quantity={50}
+        size={1.0}
+        ease={50}
+        color="#00A5E3" // Blue particles
+        refresh={false}
+        staticity={20}
+        vx={0}
+        vy={0.3}
+      /> */}
 
       {/* Optional translucent overlay */}
-      <div className="absolute inset-0 bg-white/50 z-10" />
+      <div className="absolute inset-0 z-10" />
 
       {/* Main Content */}
       <div className="relative z-20 flex flex-col items-center justify-start min-h-screen px-4 pt-10">
         {/* Heading & Subheading */}
         <div className="mb-8 text-center">
           {/* Heading */}
-          <h2 className="mb-4 text-5xl font-extrabold text-black md:text-6xl">
+          <h2 className="mb-4 text-5xl font-extrabold text-[#474853] md:text-6xl">
             <TypingAnimation
               duration={40}
-              className="mb-4 text-5xl font-extrabold text-black md:text-6xl"
+              className="mb-4 text-5xl font-extrabold text-[#474853] md:text-6xl"
             >
               Project Showcase
             </TypingAnimation>
@@ -203,7 +258,7 @@ export default function ProjectsSection() {
             title="Loan Default Prediction"
             hoverTitle="Bias Evaluation"
             summary="Used KNN, Decision Trees, & Logistic Regression on Lending Club data to assess fairness."
-            onClick={() => alert("Demo Placeholder")}
+            onClick={scrollToML}
           />
 
           <ProjectCard
@@ -211,7 +266,7 @@ export default function ProjectsSection() {
             title="Student Task Platform"
             hoverTitle="Peer Assistance"
             summary="Connects Emory students for peer-based help & side jobs."
-            onClick={() => alert("Demo Placeholder")}
+            onClick={scrollToDooley}
           />
 
           <ProjectCard
@@ -219,7 +274,7 @@ export default function ProjectsSection() {
             title="Game Development"
             hoverTitle="Arcade Action"
             summary="A pygame demonstrating OOP, event handling, and basic physics."
-            onClick={() => alert("Demo Placeholder")}
+            onClick={scrollToDodge}
           />
         </div>
       </div>

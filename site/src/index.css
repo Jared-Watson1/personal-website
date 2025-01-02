@@ -2,8 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* Global Styles */
+body {
   font-family: "Montserrat", sans-serif;
+  background: linear-gradient(
+    135deg,
+    #844d36 0%,
+    #474853 25%,
+    #86b3d1 60%,
+    #aaa0a0 80%,
+    #8e8268 100%
+  );
+  color: #474853; /* Default text color */
+}
+
+/* Heading styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #844d36; /* Dark brown for headings */
+}
+
+/* Buttons */
+button {
+  background-color: #86b3d1; /* Primary button color */
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #474853; /* Dark hover */
+}
+
+/* Links */
+a {
+  color: #86b3d1;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #8e8268;
+}
+
+/* Cards */
+.card {
+  background-color: #aaa0a0; /* Neutral gray for cards */
+  border: 1px solid #8e8268;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Particle Animation Adjustments */
+.particle {
+  opacity: 0.8;
+}
+
+:root {
   line-height: 1.5;
   font-weight: 400;
 

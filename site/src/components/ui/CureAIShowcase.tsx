@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { BentoGrid, BentoCard } from "./bento-grid";
 import HeroVideoDialog from "./hero-video-dialog";
 // import AnimatedGridPattern from "./animated-grid-pattern";
@@ -98,7 +99,7 @@ export default function CureAIShowcase() {
       <div className="relative z-20 max-w-7xl mx-auto">
         {/* Heading & Subheading */}
         <div className="text-center mb-6">
-          <h2 className="mb-2 text-5xl font-extrabold text-black md:text-6xl">
+          <h2 className="mb-2 text-5xl font-extrabold text-[#474853] md:text-6xl">
             Cure AI
           </h2>
           <p className="text-xl text-gray-700 md:text-2xl">
@@ -114,7 +115,7 @@ export default function CureAIShowcase() {
               // Render Video Component
               <div
                 key={idx}
-                className={`relative group rounded-xl border border-gray-200 bg-white text-black shadow-sm hover:shadow-md p-4 ${item.className}`}
+                className={`relative group rounded-xl border border-gray-200 bg-white text-[#474853] shadow-sm hover:shadow-md p-4 ${item.className}`}
               >
                 <HeroVideoDialog
                   className=""

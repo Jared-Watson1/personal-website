@@ -172,7 +172,7 @@ export default function WildfireShowcase() {
   ];
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-white/50">
+    <section className="relative min-h-screen w-full overflow-hidden">
       {/* Animated Grid Pattern */}
       {/* <AnimatedGridPattern
         className="absolute inset-0 z-0"
@@ -188,7 +188,7 @@ export default function WildfireShowcase() {
       {/* Foreground Container */}
       <div className="relative z-20 max-w-7xl mx-auto px-4">
         <div className="text-center mb-6">
-          <h2 className="mb-2 text-5xl font-extrabold text-black md:text-6xl">
+          <h2 className="mb-2 text-5xl font-extrabold text-[#474853] md:text-6xl">
             U.S. Wildfire Analysis
           </h2>
           <p className="text-xl text-gray-700 md:text-2xl">
