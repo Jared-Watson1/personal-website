@@ -101,7 +101,7 @@ export default function SkillsSection() {
             {skills.map((skill) => (
               <MagicCard
                 key={skill.name}
-                gradientSize={350}
+                gradientSize={150}
                 gradientColor={theme === "dark" ? "#262626" : "#8DD7BF"}
                 gradientOpacity={1}
                 gradientFrom="#FF96C5"
