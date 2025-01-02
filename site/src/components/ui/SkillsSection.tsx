@@ -111,21 +111,21 @@ export default function SkillsSection() {
                   flex-col
                   items-center
                   justify-center
-                  gap-2
-                  cursor-pointer
-                  text-[#474853]
-                  p-6
-                  text-xl
-                  font-bold
-                  shadow-lg
                   text-center
+                  p-6
+                  cursor-pointer
+                  shadow-lg
                   hover:scale-105
                   transition-transform
                 "
               >
-                {/* Icon centered above text */}
-                <span className="text-5xl text-[#00A5E3]">{skill.icon}</span>
-                <span className="mt-2 text-[#474853]">{skill.name}</span>
+                {/* Icon and Text Wrapper */}
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <span className="text-5xl text-[#00A5E3]">{skill.icon}</span>
+                  <span className="text-xl font-bold text-[#474853]">
+                    {skill.name}
+                  </span>
+                </div>
               </MagicCard>
             ))}
           </div>
