@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { BentoGrid, BentoCard } from "./bento-grid";
 import HeroVideoDialog from "./hero-video-dialog";
 // import AnimatedGridPattern from "./animated-grid-pattern";
