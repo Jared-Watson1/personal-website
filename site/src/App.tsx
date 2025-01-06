@@ -9,6 +9,7 @@ import LoanPredictionShowcase from "./components/ui/LoanPredictionShowcase";
 import DooleyShowcase from "./components/ui/DooleyShowcase";
 import DodgeShowcase from "./components/ui/DodgeShowcase";
 import Footer from "./components/ui/Footer";
+import { Analytics } from "@vercel/analytics/react";
 // import Particles from "./components/ui/particles";
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
         <DooleyShowcase />
         <DodgeShowcase />
         <Footer />
+        <Analytics />
       </div>
     </main>
   );
