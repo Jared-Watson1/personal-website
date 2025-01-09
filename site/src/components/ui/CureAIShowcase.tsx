@@ -101,10 +101,23 @@ export default function CureAIShowcase() {
           <h2 className="mb-2 text-5xl font-extrabold text-[#474853] md:text-6xl">
             Cure AI
           </h2>
-          <p className="text-xl text-gray-700 md:text-2xl">
+          <p className="text-xl text-gray-700 md:text-2xl mb-5">
             Streamlining scientific research with AI-driven evidence-based
             insights.
           </p>
+          {/* Product Hunt Badge */}
+          <a
+            href="https://www.producthunt.com/posts/cure-ai-2?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-cure&#0045;ai&#0045;2"
+            target="_blank"
+          >
+            <img
+              src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=711304&theme=light&period=daily"
+              alt="Cure&#0032;AI - Your&#0032;companion&#0032;for&#0032;evidence&#0032;based&#0032;research | Product Hunt"
+              style={{ width: "250px", height: "54px" }}
+              width="250"
+              height="54"
+            />
+          </a>
         </div>
 
         {/* BentoGrid Layout */}
