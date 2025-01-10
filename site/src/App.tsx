@@ -11,6 +11,7 @@ import DodgeShowcase from "./components/ui/DodgeShowcase";
 import Footer from "./components/ui/Footer";
 import { Analytics } from "@vercel/analytics/react";
 // import Particles from "./components/ui/particles";
+import ScrollProgress from "./components/ui/scroll-progress";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
       "
     >
       {/* Particle effect */}
+      <ScrollProgress className="" />
 
       {/* Sections with extra spacing */}
 

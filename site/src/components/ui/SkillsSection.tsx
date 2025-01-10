@@ -1,13 +1,9 @@
 "use client";
 
 import { useTheme } from "next-themes";
-
-// Magic UI
-// import { VelocityScroll } from "./scroll-based-velocity";
 import { MagicCard } from "./magic-card";
 import WordFadeIn from "./word-fade-in";
-// import Particles from "./particles";
-// Icons
+// Icons (for cards below IconCloud)
 import {
   FaPython,
   FaDatabase,
@@ -20,7 +16,6 @@ import {
   FaRobot,
 } from "react-icons/fa";
 
-// const SCROLL_SPEED = 2;
 const skills = [
   { name: "Python", icon: <FaPython /> },
   { name: "SQL", icon: <FaDatabase /> },
@@ -31,6 +26,7 @@ const skills = [
   { name: "System Design", icon: <FaSitemap /> },
   { name: "Machine Learning", icon: <FaBrain /> },
   { name: "ChatBots", icon: <FaRobot /> },
+  // Add more skills if needed for the cards section
 ];
 
 export default function SkillsSection() {
@@ -39,51 +35,7 @@ export default function SkillsSection() {
   return (
     <section className="relative w-screen min-h-screen overflow-x-hidden">
       {/* Main content */}
-      {/* <Particles
-        className="absolute inset-0 z-0"
-        quantity={150} // Increased density
-        size={3.2}
-        ease={70}
-        color="#FF96C5" // Pink particles
-        refresh={true}
-        staticity={90}
-        vx={0.2}
-        vy={0.2}
-      />
-      <Particles
-        className="absolute inset-0 z-0"
-        quantity={100}
-        size={1.8}
-        ease={60}
-        color="#FF5768" // Red particles
-        refresh={true}
-        staticity={40}
-        vx={-0.1}
-        vy={0.1}
-      />
-      <Particles
-        className="absolute inset-0 z-0"
-        quantity={50}
-        size={1.0}
-        ease={50}
-        color="#00A5E3" // Blue particles
-        refresh={false}
-        staticity={20}
-        vx={0}
-        vy={0.3}
-      /> */}
       <section className="relative z-20 flex min-h-screen w-full flex-col items-center justify-start pt-10">
-        {/* Scrolling Skill Names */}
-        {/* <div className="w-screen overflow-hidden mb-10">
-          <VelocityScroll
-            defaultVelocity={SCROLL_SPEED}
-            numRows={1}
-            className="whitespace-nowrap text-3xl font-semibold text-[#8DD7BF]"
-          >
-            {skills.map((skill) => skill.name).join("  •  ")}
-          </VelocityScroll>
-        </div> */}
-
         {/* Heading */}
         <div className="text-center px-4 pt-10">
           <WordFadeIn
