@@ -4,58 +4,51 @@ import SparklesText from "./sparkles-text";
 import ShinyButton from "./shiny-button";
 // import { IconCloud } from "@/components/ui/icon-cloud";
 
-const iconCloudSkillNames = [
-  "Python",
-  "SQL",
-  "Java",
-  "React",
-  "AWS",
-  "Docker",
-  "System Design",
-  "Machine Learning",
-  "ChatBots",
-  "GitHub",
-  "C",
-  "HTML",
-  "CSS",
-  "NextJS",
-  "Firebase",
-  "JavaScript",
-  "TypeScript",
-  "Tailwind",
-  "Vercel",
-  // Additional skills...
-];
+// const iconCloudSkillNames = [
+//   "Python",
+//   "SQL",
+//   "Java",
+//   "React",
+//   "AWS",
+//   "Docker",
+//   "System Design",
+//   "Machine Learning",
+//   "ChatBots",
+//   "GitHub",
+//   "C",
+//   "HTML",
+//   "CSS",
+//   "NextJS",
+//   "Firebase",
+//   "JavaScript",
+//   "TypeScript",
+//   "Tailwind",
+//   "Vercel",
+//   // Additional skills...
+// ];
 
-const skillSlugs = {
-  Python: "python",
-  SQL: "postgresql",
-  Java: "java",
-  React: "react",
-  AWS: "amazonaws",
-  Docker: "docker",
-  "System Design": "server",
-  "Machine Learning": "tensorflow",
-  ChatBots: "chatbot",
-  GitHub: "github",
-  C: "c",
-  HTML: "html5",
-  CSS: "css3",
-  NextJS: "nextdotjs",
-  Firebase: "firebase",
-  JavaScript: "javascript",
-  TypeScript: "typescript",
-  Tailwind: "tailwindcss",
-  Vercel: "vercel",
-  // Add more mappings if needed
-};
-
-const skillImageURLs = iconCloudSkillNames
-  .map((name) => {
-    const slug = skillSlugs[name as keyof typeof skillSlugs];
-    return slug ? `https://cdn.simpleicons.org/${slug}` : "";
-  })
-  .filter((url) => url !== "");
+// const skillSlugs = {
+//   Python: "python",
+//   SQL: "postgresql",
+//   Java: "java",
+//   React: "react",
+//   AWS: "amazonaws",
+//   Docker: "docker",
+//   "System Design": "server",
+//   "Machine Learning": "tensorflow",
+//   ChatBots: "chatbot",
+//   GitHub: "github",
+//   C: "c",
+//   HTML: "html5",
+//   CSS: "css3",
+//   NextJS: "nextdotjs",
+//   Firebase: "firebase",
+//   JavaScript: "javascript",
+//   TypeScript: "typescript",
+//   Tailwind: "tailwindcss",
+//   Vercel: "vercel",
+//   // Add more mappings if needed
+// };
 
 export default function HeroSection() {
   return (
