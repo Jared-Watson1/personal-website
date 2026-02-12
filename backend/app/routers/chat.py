@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from app.config import settings
-from app.services import dynamo, llm
+from app.services import sessions, llm
 
 router = APIRouter()
 
@@ -36,7 +36,7 @@ async def chat(request: ChatRequest):
 
     session = None
     if request.session_id:
-        session = await dynamo.get_session(request.session_id)
+        session = await sessions.get_session(request.session_id)
 
     if session is None:
         now = int(time.time())
@@ -62,7 +62,7 @@ async def chat(request: ChatRequest):
     assistant_text = await llm.get_chat_response(session["messages"])
 
     session["messages"].append({"role": "assistant", "content": assistant_text})
-    await dynamo.put_session(session)
+    await sessions.put_session(session)
 
     return ChatResponse(
         session_id=session["session_id"],
