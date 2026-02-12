@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/projects";
 import { ProductHuntBadge } from "@/components/product-hunt-badge";
@@ -20,34 +19,28 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
       onClick={onClick}
       className="group w-full cursor-pointer overflow-hidden rounded-xl border border-border bg-white/80 text-left shadow-sm backdrop-blur-sm transition-colors hover:bg-white"
     >
-      <div className="relative aspect-video overflow-hidden">
-        {hasHeroImage && (
-          <Image
-            src={project.heroAsset!.src}
-            alt={project.heroAsset!.alt}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-          />
-        )}
-        {hasHeroVideo && (
-          <video
-            src={project.heroAsset!.src}
-            muted
-            loop
-            playsInline
-            autoPlay
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-          />
-        )}
-        {!project.heroAsset && (
-          <div className="flex h-full flex-col items-center justify-center gap-3 bg-muted">
-            <BarChart3 className="size-12 text-muted-foreground" />
-            <span className="text-sm font-medium text-muted-foreground">
-              {project.title}
-            </span>
-          </div>
-        )}
-      </div>
+      {project.heroAsset && (
+        <div className="relative aspect-video overflow-hidden">
+          {hasHeroImage && (
+            <Image
+              src={project.heroAsset!.src}
+              alt={project.heroAsset!.alt}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            />
+          )}
+          {hasHeroVideo && (
+            <video
+              src={project.heroAsset!.src}
+              muted
+              loop
+              playsInline
+              autoPlay
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            />
+          )}
+        </div>
+      )}
 
       <div className="space-y-1.5 px-5 py-4">
         <div className="flex items-center gap-2">

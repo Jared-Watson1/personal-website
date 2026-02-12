@@ -22,7 +22,12 @@ export function MessageList({ messages }: MessageListProps) {
   return (
     <div className="flex flex-col gap-4 py-4">
       {messages.map((msg, i) => (
-        <MessageBubble key={i} role={msg.role} content={msg.content} />
+        <MessageBubble
+          key={i}
+          role={msg.role}
+          content={msg.content}
+          isLast={i === messages.length - 1}
+        />
       ))}
       <div ref={bottomRef} />
     </div>

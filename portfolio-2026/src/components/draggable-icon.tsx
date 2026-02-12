@@ -1,19 +1,31 @@
 "use client";
 
 import { GalaxyIcon } from "@/components/icons/galaxy-icon";
+import { useParticleEffect } from "@/hooks/use-particle-effect";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface DraggableIconProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
 }
 
+const CANVAS_SIZE = 160;
+const CANVAS_CENTER = CANVAS_SIZE / 2;
+
 export function DraggableIcon({ containerRef }: DraggableIconProps) {
   const iconRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const currentX = useRef(0);
   const targetX = useRef(0);
   const animFrameRef = useRef<number | null>(null);
   const tracking = useRef(false);
   const [hovered, setHovered] = useState(false);
+
+  useParticleEffect({
+    canvasRef,
+    active: hovered,
+    originX: CANVAS_CENTER,
+    originY: CANVAS_CENTER,
+  });
 
   const getMaxOffset = useCallback(() => {
     if (!containerRef.current || !iconRef.current) return 0;
@@ -94,6 +106,16 @@ export function DraggableIcon({ containerRef }: DraggableIconProps) {
       className="absolute -top-14 left-2 select-none"
       style={{ perspective: "400px" }}
     >
+      <canvas
+        ref={canvasRef}
+        width={CANVAS_SIZE}
+        height={CANVAS_SIZE}
+        className="pointer-events-none absolute"
+        style={{
+          left: `calc(50% - ${CANVAS_CENTER}px)`,
+          top: `calc(50% - ${CANVAS_CENTER}px)`,
+        }}
+      />
       <div
         onMouseEnter={onIconMouseEnter}
         onMouseLeave={onIconMouseLeave}

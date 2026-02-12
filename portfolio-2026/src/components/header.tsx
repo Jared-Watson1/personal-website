@@ -1,19 +1,20 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
+import Link from "next/link";
 import { Github, Linkedin, FolderOpen, Mail, ChevronDown } from "lucide-react";
 import { LINKS, EMAIL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { label: "GitHub", icon: Github, href: LINKS.github, external: true },
-  { label: "LinkedIn", icon: Linkedin, href: LINKS.linkedin, external: true },
   {
     label: "Projects",
     icon: FolderOpen,
     href: LINKS.projects,
     external: false,
   },
+  { label: "GitHub", icon: Github, href: LINKS.github, external: true },
+  { label: "LinkedIn", icon: Linkedin, href: LINKS.linkedin, external: true },
   { label: "Contact", icon: Mail, href: `mailto:${EMAIL}`, external: true },
 ] as const;
 
@@ -48,8 +49,8 @@ export function Header() {
         onMouseLeave={handleLeave}
         className="relative"
       >
-        <button
-          onClick={() => setOpen((prev) => !prev)}
+        <Link
+          href="/"
           className="flex w-full items-center gap-2 rounded-xl bg-white/80 px-4 py-2.5 shadow-sm backdrop-blur-sm outline-none transition-colors hover:bg-white"
         >
           <span className="text-xl font-bold tracking-tight text-foreground">
@@ -65,7 +66,7 @@ export function Header() {
               open && "rotate-180",
             )}
           />
-        </button>
+        </Link>
 
         {open && (
           <div className="absolute top-full left-0 right-0 mt-1 rounded-xl border border-border bg-white p-1 shadow-md">

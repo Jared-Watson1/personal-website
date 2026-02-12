@@ -7,6 +7,14 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { ProductHuntBadge } from "@/components/product-hunt-badge";
 import type { Project, ProjectAsset } from "@/lib/projects";
 
@@ -16,29 +24,36 @@ interface ProjectModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
-function AssetRenderer({ asset }: { asset: ProjectAsset }) {
-  if (asset.type === "video") {
-    return (
-      <video
-        src={asset.src}
-        controls
-        playsInline
-        muted
-        className="w-full rounded-lg"
-      >
-        <track kind="captions" />
-      </video>
-    );
-  }
-
+function AssetSlide({ asset }: { asset: ProjectAsset }) {
   return (
-    <div className="relative aspect-video overflow-hidden rounded-lg">
-      <Image
-        src={asset.src}
-        alt={asset.alt}
-        fill
-        className="object-cover"
-      />
+    <div>
+      {asset.type === "video" ? (
+        <video
+          src={asset.src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls
+          className="aspect-video w-full object-cover"
+        >
+          <track kind="captions" />
+        </video>
+      ) : (
+        <div className="relative aspect-video w-full overflow-hidden">
+          <Image
+            src={asset.src}
+            alt={asset.alt}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
+      {asset.caption && (
+        <p className="px-6 pt-3 pb-1 text-xs leading-relaxed text-muted-foreground">
+          {asset.caption}
+        </p>
+      )}
     </div>
   );
 }
@@ -50,58 +65,61 @@ export function ProjectModal({
 }: ProjectModalProps) {
   if (!project) return null;
 
+  const allAssets: ProjectAsset[] = [
+    ...(project.heroAsset ? [project.heroAsset] : []),
+    ...project.assets,
+  ];
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto p-0 sm:max-w-3xl">
-        {project.heroAsset && (
-          <div className="relative aspect-video w-full overflow-hidden rounded-t-lg">
-            {project.heroAsset.type === "image" ? (
-              <Image
-                src={project.heroAsset.src}
-                alt={project.heroAsset.alt}
-                fill
-                className="object-cover"
-              />
+      <DialogContent className="max-h-[90vh] gap-0 overflow-y-auto p-0 sm:max-w-2xl">
+        {allAssets.length > 0 && (
+          <div className="w-full overflow-hidden rounded-t-lg bg-muted/30">
+            {allAssets.length === 1 ? (
+              <AssetSlide asset={allAssets[0]} />
             ) : (
-              <video
-                src={project.heroAsset.src}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="h-full w-full object-cover"
-              >
-                <track kind="captions" />
-              </video>
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {allAssets.map((asset) => (
+                    <CarouselItem key={asset.src}>
+                      <AssetSlide asset={asset} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="left-3" />
+                <CarouselNext className="right-3" />
+              </Carousel>
             )}
           </div>
         )}
 
-        <div className="space-y-6 px-6 pb-6 pt-4">
-          <div>
-            <p className="mb-2 text-xs text-muted-foreground">
-              {project.category}
-              <span className="mx-1.5 text-orange-500">/</span>
-              {project.year}
-            </p>
-            <DialogTitle className="text-xl">
-              {project.title}
-            </DialogTitle>
-            <DialogDescription className="sr-only">
-              {project.description}
-            </DialogDescription>
-          </div>
+        <div className="p-6">
+          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            {project.category} &middot; {project.year}
+          </p>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <DialogTitle className="text-2xl font-semibold tracking-tight">
+            {project.title}
+          </DialogTitle>
+
+          <DialogDescription className="sr-only">
+            {project.description}
+          </DialogDescription>
+
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            {project.overview}
+          </p>
+
+          <div className="mt-4 flex flex-wrap items-center gap-2">
             {project.websiteUrl && (
               <a
                 href={project.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+                className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3.5 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
               >
                 <ExternalLink className="size-3.5" />
-                Website
+                Visit Website
               </a>
             )}
             {project.githubUrl && (
@@ -109,39 +127,29 @@ export function ProjectModal({
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+                className="inline-flex items-center gap-1.5 rounded-md border border-border px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
               >
                 <Github className="size-3.5" />
-                GitHub
+                View on GitHub
               </a>
             )}
             {project.productHuntUrl && <ProductHuntBadge />}
           </div>
 
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {project.overview}
-          </p>
+          <Separator className="my-4" />
 
-          <div className="flex flex-wrap gap-1.5">
-            {project.tech.map((tech) => (
-              <Badge key={tech} variant="secondary">
-                {tech}
-              </Badge>
-            ))}
-          </div>
-
-          {project.assets.length > 0 && (
-            <div className="space-y-4">
-              <h4 className="text-sm font-medium text-foreground">
-                Gallery
-              </h4>
-              <div className="space-y-4">
-                {project.assets.map((asset) => (
-                  <AssetRenderer key={asset.src} asset={asset} />
-                ))}
-              </div>
+          <div>
+            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Skills
+            </h3>
+            <div className="flex flex-wrap gap-1.5">
+              {project.tech.map((tech) => (
+                <Badge key={tech} variant="outline">
+                  {tech}
+                </Badge>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>

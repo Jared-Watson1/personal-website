@@ -5,6 +5,14 @@ import { LINKS, EMAIL } from "@/lib/constants";
 
 const suggestions = [
   {
+    label: "Projects",
+    icon: FolderOpen,
+    href: LINKS.projects,
+    external: false,
+    iconColor: "text-emerald-500",
+    iconBg: "bg-emerald-50",
+  },
+  {
     label: "GitHub",
     icon: Github,
     href: LINKS.github,
@@ -21,14 +29,6 @@ const suggestions = [
     iconBg: "bg-blue-50",
   },
   {
-    label: "Projects",
-    icon: FolderOpen,
-    href: LINKS.projects,
-    external: false,
-    iconColor: "text-emerald-500",
-    iconBg: "bg-emerald-50",
-  },
-  {
     label: "Contact",
     icon: Mail,
     href: `mailto:${EMAIL}`,
@@ -38,22 +38,31 @@ const suggestions = [
   },
 ] as const;
 
-export function SuggestionButtons() {
+interface SuggestionButtonsProps {
+  onInteraction?: () => void;
+}
+
+export function SuggestionButtons({ onInteraction }: SuggestionButtonsProps) {
   return (
     <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-      {suggestions.map(({ label, icon: Icon, href, external, iconColor, iconBg }) => (
-        <a
-          key={label}
-          href={href}
-          {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-          className="flex items-center gap-2.5 rounded-xl border border-border bg-white px-3.5 py-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent"
-        >
-          <span className={`flex size-7 items-center justify-center rounded-lg ${iconBg}`}>
-            <Icon className={`size-4 ${iconColor}`} />
-          </span>
-          {label}
-        </a>
-      ))}
+      {suggestions.map(
+        ({ label, icon: Icon, href, external, iconColor, iconBg }) => (
+          <a
+            key={label}
+            href={href}
+            {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+            onClick={() => onInteraction?.()}
+            className="flex items-center gap-2.5 rounded-xl border border-border bg-white px-3.5 py-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent"
+          >
+            <span
+              className={`flex size-7 items-center justify-center rounded-lg ${iconBg}`}
+            >
+              <Icon className={`size-4 ${iconColor}`} />
+            </span>
+            {label}
+          </a>
+        ),
+      )}
     </div>
   );
 }

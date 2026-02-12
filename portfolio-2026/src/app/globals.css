@@ -9,7 +9,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-source-code-pro), var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -142,4 +142,38 @@
 
 .animate-spin-3d {
   animation: spin-3d 1.5s ease-in-out infinite;
+}
+
+@keyframes letter-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-letter-rise {
+  opacity: 0;
+  animation: letter-rise 400ms ease-out forwards;
+}
+
+.loading-fade-out {
+  transition: opacity 500ms ease-in;
+  opacity: 0;
+}
+
+.chat-link {
+  color: oklch(0.488 0.243 264.376);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: oklch(0.488 0.243 264.376 / 40%);
+  font-weight: 500;
+  transition: text-decoration-color 150ms ease;
+}
+
+.chat-link:hover {
+  text-decoration-color: oklch(0.488 0.243 264.376);
 }

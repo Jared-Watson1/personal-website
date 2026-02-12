@@ -48,6 +48,7 @@ function App() {
   const scrollToDodgeShowcase = () => {
     dodgeRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   const scrollToFireShowcase = () => {
     fireRef.current?.scrollIntoView({ behavior: "smooth" });
   };
