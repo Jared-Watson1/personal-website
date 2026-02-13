@@ -2,9 +2,10 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { Github, Linkedin, FolderOpen, Mail, ChevronDown } from "lucide-react";
+import { Github, Linkedin, FolderOpen, Mail, ChevronDown, Menu, X } from "lucide-react";
 import { LINKS, EMAIL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 const links = [
   {
@@ -20,6 +21,7 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -43,21 +45,54 @@ export function Header() {
 
   return (
     <div className="fixed top-0 left-0 z-20 p-3 sm:p-5">
+      {/* Mobile menu button */}
+      <div className="sm:hidden relative">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setMobileOpen((prev) => !prev)}
+          className="rounded-xl bg-white/80 backdrop-blur-sm shadow-sm hover:bg-white"
+        >
+          {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+        </Button>
+
+        {mobileOpen && (
+          <div className="absolute top-full left-0 mt-1 w-48 rounded-xl border border-border bg-white p-1 shadow-md">
+            {links.map(({ label, icon: Icon, href, external }) => (
+              <a
+                key={label}
+                href={href}
+                {...(external && {
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                })}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-accent"
+              >
+                <Icon className="size-4 text-muted-foreground" />
+                {label}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Desktop header */}
       <div
         ref={containerRef}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
-        className="relative"
+        className="relative hidden sm:block"
       >
         <Link
           href="/"
           className="flex w-full items-center gap-2 rounded-xl bg-white/80 px-4 py-2.5 shadow-sm backdrop-blur-sm outline-none transition-colors hover:bg-white"
         >
-          <span className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
+          <span className="text-xl font-bold tracking-tight text-foreground">
             Jared Watson
           </span>
           <span className="text-xl text-orange-500 font-semibold">/</span>
-          <span className="text-base sm:text-lg text-muted-foreground font-medium">
+          <span className="text-lg text-muted-foreground font-medium">
             software engineer
           </span>
           <ChevronDown
