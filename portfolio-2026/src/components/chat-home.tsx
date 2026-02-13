@@ -110,7 +110,7 @@ export function ChatHome() {
 
       <div className="relative z-10 flex h-dvh flex-col">
         {!hasMessages ? (
-          <div className="flex-1 flex flex-col items-center justify-center px-4">
+          <div className="flex-1 flex flex-col items-center justify-center px-4 pt-20 sm:pt-0 pb-24 sm:pb-28">
             {(phase === "idle" || phase === "dismissing") && (
               <HeroSection
                 visible={phase === "idle"}

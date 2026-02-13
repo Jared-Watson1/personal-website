@@ -42,7 +42,7 @@ export function Header() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 z-20 p-5">
+    <div className="fixed top-0 left-0 z-20 p-3 sm:p-5">
       <div
         ref={containerRef}
         onMouseEnter={handleEnter}
@@ -53,11 +53,11 @@ export function Header() {
           href="/"
           className="flex w-full items-center gap-2 rounded-xl bg-white/80 px-4 py-2.5 shadow-sm backdrop-blur-sm outline-none transition-colors hover:bg-white"
         >
-          <span className="text-xl font-bold tracking-tight text-foreground">
+          <span className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
             Jared Watson
           </span>
           <span className="text-xl text-orange-500 font-semibold">/</span>
-          <span className="text-lg text-muted-foreground font-medium">
+          <span className="text-base sm:text-lg text-muted-foreground font-medium">
             software engineer
           </span>
           <ChevronDown

@@ -28,7 +28,7 @@ export function HeroSection({ visible, dismissing }: HeroSectionProps) {
             : "opacity-0 -translate-y-4 pointer-events-none"
       }`}
     >
-      <h1 className="text-6xl sm:text-6xl font-bold tracking-tight text-foreground">
+      <h1 className="text-3xl sm:text-6xl font-bold tracking-tight text-foreground">
         Full stack software engineer <br className="hidden sm:block" />
         specializing in <span className="text-orange-500">AI applications</span>
         .
