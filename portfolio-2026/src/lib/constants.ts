@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://portfolio-backend-ashen-three.vercel.app/";
+export const API_BASE_URL = "https://portfolio-backend-sigma-ebon.vercel.app";
 
 export const LINKS = {
   github: "https://github.com/Jared-Watson1",
