@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, FolderOpen, Mail } from "lucide-react";
+import { Github, Linkedin, FolderOpen, Mail, BookOpen } from "lucide-react";
 import { LINKS, EMAIL } from "@/lib/constants";
 
 const suggestions = [
@@ -11,6 +11,14 @@ const suggestions = [
     external: false,
     iconColor: "text-emerald-500",
     iconBg: "bg-emerald-50",
+  },
+  {
+    label: "Blog",
+    icon: BookOpen,
+    href: LINKS.blog,
+    external: false,
+    iconColor: "text-amber-500",
+    iconBg: "bg-amber-50",
   },
   {
     label: "GitHub",
@@ -44,7 +52,7 @@ interface SuggestionButtonsProps {
 
 export function SuggestionButtons({ onInteraction }: SuggestionButtonsProps) {
   return (
-    <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+    <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-5">
       {suggestions.map(
         ({ label, icon: Icon, href, external, iconColor, iconBg }) => (
           <a

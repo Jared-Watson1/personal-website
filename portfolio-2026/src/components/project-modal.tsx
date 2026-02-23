@@ -1,5 +1,7 @@
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { ExternalLink, Github } from "lucide-react";
+import { cn } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
@@ -16,6 +18,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ProductHuntBadge } from "@/components/product-hunt-badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { Project, ProjectAsset } from "@/lib/projects";
 
 interface ProjectModalProps {
@@ -25,30 +28,53 @@ interface ProjectModalProps {
 }
 
 function AssetSlide({ asset }: { asset: ProjectAsset }) {
+  const [loaded, setLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.readyState >= 3) {
+      setLoaded(true);
+      return;
+    }
+    const handleReady = () => setLoaded(true);
+    video.addEventListener("canplay", handleReady);
+    return () => video.removeEventListener("canplay", handleReady);
+  }, []);
+
   return (
     <div>
-      {asset.type === "video" ? (
-        <video
-          src={asset.src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          controls
-          className="aspect-video w-full object-cover"
-        >
-          <track kind="captions" />
-        </video>
-      ) : (
-        <div className="relative aspect-video w-full overflow-hidden">
+      <div className="relative aspect-video w-full overflow-hidden">
+        {!loaded && (
+          <Skeleton className="absolute inset-0 z-10 h-full w-full rounded-none" />
+        )}
+        {asset.type === "video" ? (
+          <video
+            ref={videoRef}
+            src={asset.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
+            className={cn(
+              "aspect-video w-full object-cover",
+              !loaded && "opacity-0"
+            )}
+          >
+            <track kind="captions" />
+          </video>
+        ) : (
           <Image
             src={asset.src}
             alt={asset.alt}
             fill
-            className="object-cover"
+            className={cn("object-cover", !loaded && "opacity-0")}
+            onLoad={() => setLoaded(true)}
           />
-        </div>
-      )}
+        )}
+      </div>
       {asset.caption && (
         <p className="px-6 pt-3 pb-1 text-xs leading-relaxed text-muted-foreground">
           {asset.caption}

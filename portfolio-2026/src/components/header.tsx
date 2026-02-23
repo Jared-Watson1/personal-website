@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { Github, Linkedin, FolderOpen, Mail, ChevronDown, Menu, X } from "lucide-react";
+import { Github, Linkedin, FolderOpen, Mail, ChevronDown, Menu, X, BookOpen } from "lucide-react";
 import { LINKS, EMAIL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ const links = [
     href: LINKS.projects,
     external: false,
   },
+  { label: "Blog", icon: BookOpen, href: LINKS.blog, external: false },
   { label: "GitHub", icon: Github, href: LINKS.github, external: true },
   { label: "LinkedIn", icon: Linkedin, href: LINKS.linkedin, external: true },
   { label: "Contact", icon: Mail, href: `mailto:${EMAIL}`, external: true },
