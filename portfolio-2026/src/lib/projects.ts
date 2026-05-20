@@ -22,6 +22,36 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    slug: "pyx",
+    title: "Pyx",
+    category: "Desktop App / Fintech",
+    year: "2026",
+    description:
+      "A local-first desktop app, built in Rust, that turns a self-directed investor's brokerage accounts into a fast, private, GPU-accelerated portfolio dashboard with nothing leaving the machine.",
+    overview:
+      "Pyx is a local-first desktop app that gives self-directed investors a fast, private dashboard for their entire portfolio. It aggregates holdings and transactions across brokerage and retirement accounts, pulls live market data, and visualizes allocation, performance, and ad-hoc ticker comparisons without sending any user data off the machine. The app is built in Rust on a hexagonal architecture: a pure, I/O-free domain core for all portfolio and returns math, an adapter layer integrating Plaid, Yahoo Finance, and OFX/CSV imports, and a GPU-accelerated interface on Floem and wgpu that holds 60fps while scrolling years of daily price history. Every portfolio lives in an encrypted SQLite database with credentials held in the OS keychain, and a strict network allowlist keeps all outbound traffic auditable. Custom chart rendering, full-text symbol search via Tantivy, and a layered TOML configuration system bring power-user tooling to the desktop with no cloud dependency. It ships from a single codebase to macOS, Windows, and Linux, with a companion marketing site built separately in React and Tailwind.",
+    websiteUrl: "https://pyx.finance",
+    githubUrl: undefined,
+    tech: [
+      "Rust",
+      "Floem",
+      "wgpu",
+      "tokio",
+      "SQLite",
+      "sqlx",
+      "Plaid API",
+      "Tantivy",
+      "React",
+      "Tailwind CSS",
+    ],
+    heroAsset: {
+      src: "/projects/pyx-mockup.svg",
+      alt: "Pyx desktop app overview dashboard mockup",
+      type: "image",
+    },
+    assets: [],
+  },
+  {
     slug: "cure-ai",
     title: "Cure AI",
     category: "AI / Research",
