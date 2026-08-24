@@ -22,7 +22,8 @@ const sourceCodePro = localFont({
 
 export const metadata: Metadata = {
   title: "Jared Watson",
-  description: "Software Engineer",
+  description:
+    "Software engineer specializing in AI applications. Computer science graduate of Emory University, AI Engineer at SMART, and founder of Cure AI.",
 };
 
 export default function RootLayout({

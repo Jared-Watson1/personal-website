@@ -34,29 +34,29 @@ export function DraggableIcon({ containerRef }: DraggableIconProps) {
     return containerWidth - iconWidth - 16;
   }, [containerRef]);
 
-  const animate = useCallback(() => {
-    const lerp = 0.06;
-    const diff = targetX.current - currentX.current;
-
-    if (Math.abs(diff) < 0.3) {
-      currentX.current = targetX.current;
-    } else {
-      currentX.current += diff * lerp;
-    }
-
-    if (iconRef.current) {
-      iconRef.current.style.transform = `translateX(${currentX.current}px)`;
-    }
-
-    animFrameRef.current = requestAnimationFrame(animate);
-  }, []);
-
   useEffect(() => {
+    function animate() {
+      const lerp = 0.06;
+      const diff = targetX.current - currentX.current;
+
+      if (Math.abs(diff) < 0.3) {
+        currentX.current = targetX.current;
+      } else {
+        currentX.current += diff * lerp;
+      }
+
+      if (iconRef.current) {
+        iconRef.current.style.transform = `translateX(${currentX.current}px)`;
+      }
+
+      animFrameRef.current = requestAnimationFrame(animate);
+    }
+
     animFrameRef.current = requestAnimationFrame(animate);
     return () => {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
-  }, [animate]);
+  }, []);
 
   const onDocumentMouseMove = useCallback(
     (e: MouseEvent) => {

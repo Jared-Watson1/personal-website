@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useCallback, useState } from "react";
 import Image from "next/image";
 import { ExternalLink, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -8,7 +8,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
   Carousel,
@@ -20,6 +19,8 @@ import {
 import { ProductHuntBadge } from "@/components/product-hunt-badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Project, ProjectAsset } from "@/lib/projects";
+import { getSkill } from "@/lib/skills";
+import { SkillChip } from "@/components/skill-chip";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -29,19 +30,14 @@ interface ProjectModalProps {
 
 function AssetSlide({ asset }: { asset: ProjectAsset }) {
   const [loaded, setLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.readyState >= 3) {
-      setLoaded(true);
-      return;
-    }
-    const handleReady = () => setLoaded(true);
-    video.addEventListener("canplay", handleReady);
-    return () => video.removeEventListener("canplay", handleReady);
-  }, []);
+  const markLoaded = useCallback(() => setLoaded(true), []);
+  const videoRef = useCallback(
+    (video: HTMLVideoElement | null) => {
+      if (video && video.readyState >= 3) markLoaded();
+    },
+    [markLoaded],
+  );
 
   return (
     <div>
@@ -53,6 +49,7 @@ function AssetSlide({ asset }: { asset: ProjectAsset }) {
           <video
             ref={videoRef}
             src={asset.src}
+            onCanPlay={markLoaded}
             autoPlay
             muted
             loop
@@ -70,8 +67,9 @@ function AssetSlide({ asset }: { asset: ProjectAsset }) {
             src={asset.src}
             alt={asset.alt}
             fill
+            sizes="(min-width: 640px) 672px, 100vw"
             className={cn("object-cover", !loaded && "opacity-0")}
-            onLoad={() => setLoaded(true)}
+            onLoad={markLoaded}
           />
         )}
       </div>
@@ -169,10 +167,8 @@ export function ProjectModal({
               Skills
             </h3>
             <div className="flex flex-wrap gap-1.5">
-              {project.tech.map((tech) => (
-                <Badge key={tech} variant="outline">
-                  {tech}
-                </Badge>
+              {project.skills.map((id) => (
+                <SkillChip key={id} skill={getSkill(id)} />
               ))}
             </div>
           </div>

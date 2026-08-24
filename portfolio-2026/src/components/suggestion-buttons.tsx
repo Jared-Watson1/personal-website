@@ -1,5 +1,3 @@
-"use client";
-
 import { Github, Linkedin, FolderOpen, Mail, BookOpen } from "lucide-react";
 import { LINKS, EMAIL } from "@/lib/constants";
 
@@ -46,24 +44,19 @@ const suggestions = [
   },
 ] as const;
 
-interface SuggestionButtonsProps {
-  onInteraction?: () => void;
-}
-
-export function SuggestionButtons({ onInteraction }: SuggestionButtonsProps) {
+export function SuggestionButtons() {
   return (
-    <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-5">
+    <nav aria-label="Quick links" className="grid grid-cols-2 gap-2 md:grid-cols-5">
       {suggestions.map(
         ({ label, icon: Icon, href, external, iconColor, iconBg }) => (
           <a
             key={label}
             href={href}
             {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-            onClick={() => onInteraction?.()}
-            className="flex items-center gap-2.5 rounded-xl border border-border bg-white px-3.5 py-3 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-accent"
+            className="flex items-center gap-2.5 rounded-xl border border-border bg-white px-3.5 py-3 text-sm font-medium text-foreground shadow-sm transition-[background-color,transform] duration-150 ease-out last:col-span-2 hover:bg-accent active:scale-[.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 md:last:col-span-1"
           >
             <span
-              className={`flex size-7 items-center justify-center rounded-lg ${iconBg}`}
+              className={`flex size-7 shrink-0 items-center justify-center rounded-lg ${iconBg}`}
             >
               <Icon className={`size-4 ${iconColor}`} />
             </span>
@@ -71,6 +64,6 @@ export function SuggestionButtons({ onInteraction }: SuggestionButtonsProps) {
           </a>
         ),
       )}
-    </div>
+    </nav>
   );
 }
