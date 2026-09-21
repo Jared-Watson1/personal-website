@@ -1,3 +1,3 @@
 export function DottedBackground() {
-  return <div className="dotted-grid fixed inset-0 pointer-events-none z-0" />;
+  return <div aria-hidden="true" className="dotted-grid pointer-events-none fixed inset-0 -z-10" />;
 }

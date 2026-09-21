@@ -54,6 +54,27 @@ export function brandColor(skill: Skill): string {
   return icon ? `#${icon.hex}` : "#525252";
 }
 
+function luminance(hex: string): number {
+  const channels = [1, 3, 5].map((i) => {
+    const v = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+}
+
+/**
+ * Hover colors per theme. Brand hexes that would vanish into the ground
+ * (black marks in dark mode, pale marks in light mode) fall back to ink.
+ */
+export function hoverColors(skill: Skill): { light: string; dark: string } {
+  const hex = brandColor(skill);
+  const l = luminance(hex);
+  return {
+    light: l > 0.55 ? "var(--foreground)" : hex,
+    dark: l < 0.05 ? "var(--foreground)" : hex,
+  };
+}
+
 interface SkillLogoProps {
   skill: Skill;
   className?: string;

@@ -1,31 +1,38 @@
-import { DottedBackground } from "@/components/dotted-background";
-import { Header } from "@/components/header";
-import { BlogPostCard } from "@/components/blog-post-card";
+import type { Metadata } from "next";
+import { MarkdownView } from "@/components/markdown-view";
+import { PostList, PostRow } from "@/components/post-row";
+import { PageBody, PageHead, Sheet } from "@/components/sheet";
 import { getAllPosts } from "@/lib/blog";
+import { BLOG_PAGE } from "@/lib/copy";
+import { blogMarkdown } from "@/lib/markdown";
+
+export const metadata: Metadata = {
+  title: "Blog | Jared Watson",
+  alternates: { types: { "text/markdown": "/blog.md" } },
+};
 
 export default async function BlogPage() {
-  const posts = await getAllPosts();
+  const [posts, markdown] = await Promise.all([getAllPosts(), blogMarkdown()]);
 
   return (
-    <>
-      <DottedBackground />
-      <Header />
-      <main className="mx-auto max-w-2xl px-4 pt-24 pb-16">
-        <div className="mb-10">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            Blog
-            <span className="mx-2 text-orange-500">/</span>
-            <span className="text-lg font-medium text-muted-foreground">
-              thoughts &amp; notes
-            </span>
-          </h1>
-        </div>
-        <div className="space-y-6">
-          {posts.map((post) => (
-            <BlogPostCard key={post.slug} post={post} />
-          ))}
-        </div>
-      </main>
-    </>
+    <Sheet>
+      <div className="md-hide">
+        <PageHead title={BLOG_PAGE.title} subtitle={BLOG_PAGE.subtitle}>
+          <p className="mt-2 max-w-[56ch] text-muted-foreground">{BLOG_PAGE.sentence}</p>
+        </PageHead>
+        <PageBody rail="blog">
+          {posts.length > 0 ? (
+            <PostList>
+              {posts.map((post) => (
+                <PostRow key={post.slug} post={post} />
+              ))}
+            </PostList>
+          ) : (
+            <p className="text-muted-foreground">{BLOG_PAGE.empty}</p>
+          )}
+        </PageBody>
+      </div>
+      <MarkdownView source={markdown} rail="blog.md" />
+    </Sheet>
   );
 }

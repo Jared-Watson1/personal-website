@@ -103,7 +103,7 @@ export function DraggableIcon({ containerRef }: DraggableIconProps) {
   return (
     <div
       ref={iconRef}
-      className="absolute -top-14 left-2 select-none"
+      className="absolute -top-[50px] -left-1 select-none"
       style={{ perspective: "400px" }}
     >
       <canvas
@@ -125,7 +125,7 @@ export function DraggableIcon({ containerRef }: DraggableIconProps) {
           className={hovered ? "animate-spin-3d" : ""}
           style={{ transformStyle: "preserve-3d" }}
         >
-          <GalaxyIcon className="size-12 text-orange-500 drop-shadow-md" />
+          <GalaxyIcon className="size-9 text-brand" />
         </div>
       </div>
     </div>

@@ -20,17 +20,10 @@ interface ProjectCardProps {
   priority?: boolean;
 }
 
-export function ProjectCard({
-  project,
-  activeSkill,
-  dimmed,
-  onToggleSkill,
-  onOpen,
-  priority = false,
-}: ProjectCardProps) {
-  const [loaded, setLoaded] = useState(false);
-  const hero = project.heroAsset;
+const SIZES = "(min-width: 760px) 280px, 100vw";
 
+function ProjectMedia({ project, priority }: { project: Project; priority: boolean }) {
+  const [loaded, setLoaded] = useState(false);
   const markLoaded = useCallback(() => setLoaded(true), []);
   const videoRef = useCallback(
     (video: HTMLVideoElement | null) => {
@@ -39,6 +32,80 @@ export function ProjectCard({
     [markLoaded],
   );
 
+  const { thumb, heroAsset: hero } = project;
+  const media = "absolute inset-0 h-full w-full object-cover object-left-top";
+
+  if (thumb) {
+    return (
+      <>
+        <Image
+          src={thumb.src}
+          alt={thumb.alt}
+          fill
+          sizes={SIZES}
+          priority={priority}
+          className={cn(media, thumb.srcDark && "dark:hidden")}
+        />
+        {thumb.srcDark && (
+          <Image
+            src={thumb.srcDark}
+            alt={thumb.alt}
+            fill
+            sizes={SIZES}
+            priority={priority}
+            className={cn(media, "hidden dark:block")}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (!hero) {
+    return (
+      <div className="dotted-grid absolute inset-0 flex items-center justify-center">
+        <span className="label">No preview</span>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {!loaded && <Skeleton className="absolute inset-0 z-10 h-full w-full" />}
+      {hero.type === "image" ? (
+        <Image
+          src={hero.src}
+          alt={hero.alt}
+          fill
+          sizes={SIZES}
+          priority={priority}
+          className={cn(media, !loaded && "opacity-0")}
+          onLoad={markLoaded}
+        />
+      ) : (
+        <video
+          ref={videoRef}
+          src={hero.src}
+          onCanPlay={markLoaded}
+          muted
+          loop
+          playsInline
+          autoPlay
+          aria-label={hero.alt}
+          className={cn(media, !loaded && "opacity-0")}
+        />
+      )}
+    </>
+  );
+}
+
+export function ProjectCard({
+  project,
+  activeSkill,
+  dimmed,
+  onToggleSkill,
+  onOpen,
+  priority = false,
+}: ProjectCardProps) {
   const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.target !== event.currentTarget) return;
     if (event.key === "Enter" || event.key === " ") {
@@ -55,74 +122,28 @@ export function ProjectCard({
       onClick={onOpen}
       onKeyDown={handleKeyDown}
       className={cn(
-        "group grid cursor-pointer overflow-hidden rounded-[14px] border border-border bg-white/80 text-left shadow-sm backdrop-blur-sm transition-[opacity,background-color] duration-[220ms] ease-out hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]",
+        "group grid cursor-pointer gap-x-7 gap-y-4 border-b border-border py-6 text-left transition-opacity duration-[220ms] ease-out min-[760px]:grid-cols-[280px_minmax(0,1fr)]",
         dimmed && "opacity-35",
       )}
     >
-      <div className="relative aspect-video overflow-hidden border-b border-border bg-neutral-100 md:aspect-auto md:min-h-[236px] md:border-b-0 md:border-r">
-        {hero ? (
-          <>
-            {!loaded && (
-              <Skeleton className="absolute inset-0 z-10 h-full w-full rounded-none" />
-            )}
-            {hero.type === "image" ? (
-              <Image
-                src={hero.src}
-                alt={hero.alt}
-                fill
-                sizes="(min-width: 768px) 420px, 100vw"
-                priority={priority}
-                className={cn(
-                  "object-cover object-left-top transition-transform duration-300 ease-out-strong group-hover:scale-[1.02]",
-                  !loaded && "opacity-0",
-                )}
-                onLoad={markLoaded}
-              />
-            ) : (
-              <video
-                ref={videoRef}
-                src={hero.src}
-                onCanPlay={markLoaded}
-                muted
-                loop
-                playsInline
-                autoPlay
-                aria-label={hero.alt}
-                className={cn(
-                  "absolute inset-0 h-full w-full object-cover object-left-top transition-transform duration-300 ease-out-strong group-hover:scale-[1.02]",
-                  !loaded && "opacity-0",
-                )}
-              />
-            )}
-          </>
-        ) : (
-          <div className="dotted-grid absolute inset-0 flex items-center justify-center font-mono text-xs text-muted-foreground">
-            No preview
-          </div>
-        )}
+      <div className="plate relative aspect-[16/10] self-start overflow-hidden">
+        <ProjectMedia project={project} priority={priority} />
       </div>
 
-      <div className="flex flex-col gap-2.5 px-4 py-4 sm:px-6 sm:py-5">
-        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-          <span>
-            {project.category}
-            <span aria-hidden="true" className="mx-1.5 text-orange-500">
-              /
-            </span>
-            {project.year}
-          </span>
+      <div className="flex min-w-0 flex-col">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <h3 className="text-[17px] font-semibold tracking-[-0.012em] transition-colors duration-150 group-hover:text-brand-ink">
+            {project.title}
+          </h3>
           {project.productHuntUrl && <ProductHuntBadge compact />}
         </div>
-
-        <h3 className="text-[19px] font-semibold tracking-[-0.015em] text-foreground">
-          {project.title}
-        </h3>
-
-        <p className="text-[14.5px] leading-[1.55] text-neutral-700">
-          {project.description}
+        <p className="label mt-0.5 text-[10.5px]">
+          {project.category.replace(" / ", ", ")}, {project.year}
         </p>
 
-        <ul className="mt-auto flex flex-wrap gap-1.5 pt-1.5" aria-label="Skills">
+        <p className="mt-2 max-w-[62ch] text-sm text-secondary-foreground">{project.description}</p>
+
+        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Skills">
           {project.skills.map((id) => (
             <li key={id}>
               <SkillChip
@@ -135,14 +156,14 @@ export function ProjectCard({
         </ul>
 
         {(project.websiteUrl || project.githubUrl) && (
-          <div className="flex gap-3.5 text-[12.5px] text-muted-foreground">
+          <div className="mt-3 flex gap-3.5 text-[12.5px] text-muted-foreground">
             {project.websiteUrl && (
               <a
                 href={project.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(event) => event.stopPropagation()}
-                className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
+                className="inline-flex items-center gap-1 transition-colors hover:text-brand-ink"
               >
                 Website
                 <ArrowUpRight className="size-3" aria-hidden="true" />
@@ -154,7 +175,7 @@ export function ProjectCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(event) => event.stopPropagation()}
-                className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
+                className="inline-flex items-center gap-1 transition-colors hover:text-brand-ink"
               >
                 <Github className="size-3" aria-hidden="true" />
                 GitHub

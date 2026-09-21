@@ -41,10 +41,10 @@ export function Landing({ children }: LandingProps) {
         <LoadingScreen onComplete={handleLoadingComplete} />
       )}
 
-      <main data-ready={phase === "idle"} className="relative z-10">
+      <div data-ready={phase === "idle"}>
         <HeroSection />
         {children}
-      </main>
+      </div>
     </>
   );
 }

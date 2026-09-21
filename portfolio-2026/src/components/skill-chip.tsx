@@ -14,20 +14,22 @@ interface SkillChipProps {
 }
 
 const base =
-  "inline-flex h-6 items-center gap-1.5 rounded-md border border-border bg-white px-2 text-[11.5px] font-medium text-neutral-700 whitespace-nowrap";
+  "inline-flex h-[22px] items-center gap-1.5 border px-2 text-[11.5px] whitespace-nowrap";
 
 export function SkillChip({ skill, active, onToggle, className }: SkillChipProps) {
-  const activeClass = active && "border-orange-500 bg-orange-50 text-orange-900";
+  const stateClass = active
+    ? "border-foreground bg-foreground text-background"
+    : "border-border bg-background text-secondary-foreground";
   const logo = (
     <SkillLogo
       skill={skill}
-      className={cn("size-[11px] shrink-0", active ? "text-orange-500" : "text-neutral-500")}
+      className={cn("size-[11px] shrink-0", active ? "text-background" : "text-muted-foreground")}
     />
   );
 
   if (!onToggle) {
     return (
-      <span className={cn(base, activeClass, className)}>
+      <span className={cn(base, stateClass, className)}>
         {logo}
         {skill.name}
       </span>
@@ -46,8 +48,9 @@ export function SkillChip({ skill, active, onToggle, className }: SkillChipProps
       onClick={handleClick}
       className={cn(
         base,
-        "cursor-pointer transition-[background-color,border-color,color,transform] duration-150 ease-out hover:bg-neutral-50 active:scale-[.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500",
-        activeClass,
+        "cursor-pointer transition-[background-color,border-color,color,transform] duration-150 ease-out active:scale-[.97]",
+        !active && "hover:border-line-strong",
+        stateClass,
         className,
       )}
     >

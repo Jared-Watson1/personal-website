@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import Image from "next/image";
-import { ExternalLink, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -43,7 +43,7 @@ function AssetSlide({ asset }: { asset: ProjectAsset }) {
     <div>
       <div className="relative aspect-video w-full overflow-hidden">
         {!loaded && (
-          <Skeleton className="absolute inset-0 z-10 h-full w-full rounded-none" />
+          <Skeleton className="absolute inset-0 z-10 h-full w-full" />
         )}
         {asset.type === "video" ? (
           <video
@@ -98,7 +98,7 @@ export function ProjectModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] gap-0 overflow-y-auto p-0 sm:max-w-2xl">
         {allAssets.length > 0 && (
-          <div className="w-full overflow-hidden rounded-t-lg bg-muted/30">
+          <div className="w-full overflow-hidden border-b border-border bg-background">
             {allAssets.length === 1 ? (
               <AssetSlide asset={allAssets[0]} />
             ) : (
@@ -110,19 +110,19 @@ export function ProjectModal({
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-3" />
-                <CarouselNext className="right-3" />
+                <CarouselPrevious className="left-3 rounded-none bg-raised" />
+                <CarouselNext className="right-3 rounded-none bg-raised" />
               </Carousel>
             )}
           </div>
         )}
 
         <div className="p-6">
-          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            {project.category} &middot; {project.year}
+          <p className="label mb-1.5">
+            {project.category.replace(" / ", ", ")}, {project.year}
           </p>
 
-          <DialogTitle className="text-2xl font-semibold tracking-tight">
+          <DialogTitle className="text-2xl font-semibold tracking-[-0.025em]">
             {project.title}
           </DialogTitle>
 
@@ -130,7 +130,7 @@ export function ProjectModal({
             {project.description}
           </DialogDescription>
 
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-sm leading-relaxed text-secondary-foreground">
             {project.overview}
           </p>
 
@@ -140,10 +140,12 @@ export function ProjectModal({
                 href={project.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3.5 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
+                className="btn btn-ink"
               >
-                <ExternalLink className="size-3.5" />
-                Visit Website
+                Visit website{" "}
+                <span aria-hidden="true" className="btn-slash">
+                  /
+                </span>
               </a>
             )}
             {project.githubUrl && (
@@ -151,7 +153,7 @@ export function ProjectModal({
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-md border border-border px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+                className="btn"
               >
                 <Github className="size-3.5" />
                 View on GitHub
@@ -163,7 +165,7 @@ export function ProjectModal({
           <Separator className="my-4" />
 
           <div>
-            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <h3 className="label mb-2">
               Skills
             </h3>
             <div className="flex flex-wrap gap-1.5">

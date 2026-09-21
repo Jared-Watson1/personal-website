@@ -32,7 +32,7 @@ export const SKILLS: Skill[] = [
   { id: "floem", name: "Floem" },
   { id: "wgpu", name: "wgpu", icon: "webgpu" },
   { id: "tokio", name: "tokio", icon: "tokio" },
-  { id: "plaid", name: "Plaid API" },
+  { id: "snaptrade", name: "SnapTrade" },
   { id: "tantivy", name: "Tantivy" },
   { id: "neon", name: "Neon", icon: "neon" },
   { id: "heroku", name: "Heroku" },

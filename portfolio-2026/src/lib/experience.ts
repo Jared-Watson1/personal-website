@@ -29,7 +29,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     title: "Software Engineer Intern",
     dates: "Jun 2023 – Aug 2023",
     summary:
-      "Built a full stack AI chatbot platform on the OpenAI API and a vector database that lets users ask questions about large sets of regulatory documents and receive answers grounded in the source text.",
+      "Built a full stack AI chatbot platform on the OpenAI API and a vector database that lets users ask questions about large sets of regulatory documents and get answers grounded in the source text.",
   },
   {
     company: "Synapse Florida",

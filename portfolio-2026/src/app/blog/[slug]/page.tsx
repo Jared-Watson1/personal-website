@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import { notFound, redirect } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { Badge } from "@/components/ui/badge";
-import { DottedBackground } from "@/components/dotted-background";
-import { Header } from "@/components/header";
-import { getAllPosts, getPost } from "@/lib/blog";
 import type { Metadata } from "next";
+import { MarkdownView } from "@/components/markdown-view";
+import { PageBody, PageHead, Sheet } from "@/components/sheet";
+import { formatPostDate, getAllPosts, getPost } from "@/lib/blog";
+import { postMarkdown } from "@/lib/markdown";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -13,14 +14,17 @@ interface Props {
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return posts
+    .filter((post) => !post.frontmatter.externalUrl)
+    .map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
+  if (!post) return {};
   return {
-    title: post.frontmatter.title,
+    title: `${post.frontmatter.title} | Jared Watson`,
     description: post.frontmatter.description,
   };
 }
@@ -28,56 +32,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPost(slug);
+  if (!post) notFound();
   const { frontmatter, content } = post;
-
-  const formattedDate = new Date(frontmatter.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  if (frontmatter.externalUrl) redirect(frontmatter.externalUrl);
 
   return (
-    <>
-      <DottedBackground />
-      <Header />
-      <main className="mx-auto max-w-2xl px-4 pt-24 pb-16">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          ← Blog
-        </Link>
-
-        <header className="mb-8 space-y-3">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
-            {frontmatter.title}
-          </h1>
-          <div className="text-sm text-muted-foreground">{formattedDate}</div>
-          {frontmatter.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {frontmatter.tags.map((tag) => (
-                <Badge key={tag} variant="secondary">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          )}
+    <Sheet>
+      <div className="md-hide">
+        <PageHead title={frontmatter.title}>
+          <p className="label mt-3">
+            <Link href="/blog" className="transition-colors duration-150 hover:text-brand-ink">
+              ← Blog
+            </Link>
+            <span aria-hidden="true" className="mx-2 text-brand">
+              /
+            </span>
+            <time dateTime={frontmatter.date}>{formatPostDate(frontmatter.date)}</time>
+          </p>
+        </PageHead>
+        <PageBody rail={slug}>
           {frontmatter.coverImage && (
-            <div className="relative mt-4 aspect-video overflow-hidden rounded-xl">
-              <Image
-                src={frontmatter.coverImage}
-                alt={frontmatter.title}
-                fill
-                className="object-cover"
-              />
+            <div className="plate relative mb-8 aspect-video overflow-hidden">
+              <Image src={frontmatter.coverImage} alt={frontmatter.title} fill className="object-cover" />
             </div>
           )}
-        </header>
-
-        <article className="prose prose-neutral max-w-none">
-          <MDXRemote source={content} />
-        </article>
-      </main>
-    </>
+          <article className="prose prose-neutral max-w-[68ch] dark:prose-invert">
+            <MDXRemote source={content} />
+          </article>
+        </PageBody>
+      </div>
+      <MarkdownView
+        source={postMarkdown({ slug, title: frontmatter.title, date: frontmatter.date, content })}
+        rail={`${slug}.md`}
+      />
+    </Sheet>
   );
 }

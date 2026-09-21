@@ -1,0 +1,1055 @@
+<title>Jared Watson Redesign</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Source+Code+Pro:wght@400;500&display=swap">
+<style>
+  :root {
+    --field: #f7f6f3;
+    --raised: #fcfbf9;
+    --ink: #1c1917;
+    --ink-2: #44403c;
+    --muted: #716b64;
+    --line: rgba(28, 25, 23, 0.12);
+    --line-strong: rgba(28, 25, 23, 0.4);
+    --dot: rgba(28, 25, 23, 0.13);
+    --veil: rgba(247, 246, 243, 0.74);
+    --accent: #f97316;
+    --accent-ink: #d9520b;
+    --accent-soft: rgba(249, 115, 22, 0.11);
+    --plate-shadow: 0 1px 2px rgba(28, 25, 23, 0.05), 0 8px 24px -14px rgba(28, 25, 23, 0.2);
+    --plate-shadow-lift: 0 2px 4px rgba(28, 25, 23, 0.06), 0 18px 40px -14px rgba(28, 25, 23, 0.3);
+    --shot-light: block;
+    --shot-dark: none;
+    --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+    --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "Source Code Pro", ui-monospace, "SF Mono", Menlo, monospace;
+    --pad: 48px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --field: #0f0e0d;
+      --raised: #171614;
+      --ink: #efede8;
+      --ink-2: #d0ccc5;
+      --muted: #99938b;
+      --line: rgba(239, 237, 232, 0.11);
+      --line-strong: rgba(239, 237, 232, 0.4);
+      --dot: rgba(239, 237, 232, 0.1);
+      --veil: rgba(15, 14, 13, 0.74);
+      --accent: #f97316;
+      --accent-ink: #fb8f3f;
+      --accent-soft: rgba(249, 115, 22, 0.14);
+      --plate-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 28px -14px rgba(0, 0, 0, 0.65);
+      --plate-shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 22px 48px -14px rgba(0, 0, 0, 0.8);
+      --shot-light: none;
+      --shot-dark: block;
+    }
+  }
+  :root[data-theme="dark"] {
+    --field: #0f0e0d;
+    --raised: #171614;
+    --ink: #efede8;
+    --ink-2: #d0ccc5;
+    --muted: #99938b;
+    --line: rgba(239, 237, 232, 0.11);
+    --line-strong: rgba(239, 237, 232, 0.4);
+    --dot: rgba(239, 237, 232, 0.1);
+    --veil: rgba(15, 14, 13, 0.74);
+    --accent: #f97316;
+    --accent-ink: #fb8f3f;
+    --accent-soft: rgba(249, 115, 22, 0.14);
+    --plate-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 28px -14px rgba(0, 0, 0, 0.65);
+    --plate-shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.45), 0 22px 48px -14px rgba(0, 0, 0, 0.8);
+    --shot-light: none;
+    --shot-dark: block;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--field);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(circle, var(--dot) 1px, transparent 1.3px);
+    background-size: 24px 24px;
+  }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3, p, ul, ol, dl, dd { margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  img { display: block; max-width: 100%; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .slash { color: var(--accent); }
+  .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .link {
+    color: var(--ink);
+    font-weight: 500;
+    background: linear-gradient(var(--line-strong), var(--line-strong)) 0 100% / 100% 1px no-repeat;
+    padding-bottom: 1px;
+    transition: color 150ms;
+  }
+  .link:hover { color: var(--accent-ink); background-image: linear-gradient(currentColor, currentColor); }
+
+  /* ---------- scroll rail ---------- */
+  .rail { position: fixed; left: 0; top: 0; bottom: 0; width: 18px; z-index: 45; pointer-events: none; display: none; }
+  @media (min-width: 640px) { .rail { display: block; } }
+  .rail-ticks {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 9px;
+    background:
+      repeating-linear-gradient(to bottom, var(--line-strong) 0 1px, transparent 1px 72px) 0 0 / 9px 100% no-repeat,
+      repeating-linear-gradient(to bottom, var(--line-strong) 0 1px, transparent 1px 12px) 0 0 / 4px 100% no-repeat;
+    opacity: 0.5;
+  }
+  .rail-cursor { position: absolute; left: 0; top: 0; width: 11px; height: 1px; background: var(--line-strong); opacity: 0; transition: opacity 200ms; will-change: transform; }
+  .rail-marker { position: absolute; left: 0; top: 0; width: 14px; height: 2px; background: var(--accent); will-change: transform; }
+  .rail-label {
+    position: absolute;
+    left: 20px;
+    top: -8px;
+    padding: 0 5px;
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--muted);
+    background: var(--field);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 220ms, transform 220ms var(--ease-out-strong);
+  }
+  .rail[data-active="true"] .rail-label { opacity: 1; transform: none; }
+  @media (max-width: 1240px) { .rail-label { display: none; } }
+
+  /* ---------- header ---------- */
+  .site-header {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 40;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--field) 88%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+  .header-inner {
+    max-width: 1080px;
+    margin-inline: auto;
+    padding-inline: var(--pad);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand { display: inline-flex; align-items: center; position: relative; padding-block: 6px; }
+  .jw { display: block; height: 19px; width: auto; overflow: visible; }
+  .jw path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+  .jw .jw-ink { stroke: var(--ink); }
+  .jw .jw-slash { stroke: var(--accent); }
+  .brand:hover .jw-slash,
+  .brand:focus-visible .jw-slash { animation: slash-shoot 640ms var(--ease-out-strong); }
+  @keyframes slash-shoot {
+    0% { stroke-dashoffset: 0; }
+    38% { stroke-dashoffset: -1; }
+    38.01% { stroke-dashoffset: 1; }
+    100% { stroke-dashoffset: 0; }
+  }
+
+  .header-right { display: flex; align-items: center; gap: 26px; }
+  .nav { display: none; align-items: center; gap: 24px; }
+  @media (min-width: 820px) { .nav { display: flex; } }
+  .nav a {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--muted);
+    padding-block: 3px;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0% 1px no-repeat;
+    transition: color 150ms, background-size 350ms var(--ease-out-strong);
+  }
+  .nav a:hover, .nav a[aria-current="page"] { color: var(--ink); background-size: 100% 1px; }
+  .ext { font-size: 0.8em; color: var(--muted); margin-left: 2px; }
+
+  .mode { display: inline-flex; border: 1px solid var(--line); position: relative; }
+  .mode button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 30px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    border-left: 1px solid var(--line);
+    transition: color 150ms, background-color 150ms;
+  }
+  .mode button:first-child { border-left: 0; }
+  .mode button:hover { color: var(--ink); }
+  .mode button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-ink); }
+  .mode svg { width: 14px; height: 14px; }
+
+  .menu-btn { display: inline-flex; align-items: center; height: 32px; padding-inline: 11px; border: 1px solid var(--line); }
+  @media (min-width: 820px) { .menu-btn { display: none; } }
+  .menu-panel { border-top: 1px solid var(--line); background: var(--field); padding: 4px var(--pad) 12px; }
+  .menu-panel a { display: block; padding: 10px 0; font-size: 14px; font-weight: 500; border-top: 1px solid var(--line); }
+  .menu-panel a:first-child { border-top: 0; }
+  @media (min-width: 820px) { .menu-panel { display: none; } }
+
+  /* ---------- sheet ---------- */
+  .sheet { max-width: 1080px; margin-inline: auto; border-inline: 1px solid var(--line); }
+  @media (max-width: 1081px) { .sheet { border-inline: 0; } }
+
+  .band { position: relative; padding: 56px var(--pad); border-top: 1px solid var(--line); background: var(--veil); }
+  .band-head { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .band-head h2 { font: inherit; color: var(--ink); white-space: nowrap; }
+  .band-head .rule { flex: 1; height: 1px; background: var(--line); }
+  .band-head .more { white-space: nowrap; transition: color 150ms; }
+  .band-head .more:hover { color: var(--accent-ink); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    display: grid;
+    gap: 48px 56px;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: end;
+    padding: 72px var(--pad) 64px;
+    background: var(--field);
+  }
+  @media (min-width: 1000px) { .hero { grid-template-columns: minmax(0, 1fr) 296px; } }
+  .hero-text { position: relative; }
+  .hero h1 {
+    margin-top: 18px;
+    font-size: clamp(34px, 4.7vw, 54px);
+    line-height: 1.07;
+    font-weight: 600;
+    letter-spacing: -0.032em;
+    text-wrap: balance;
+    max-width: 13em;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent-ink); }
+  .lede { margin-top: 22px; max-width: 54ch; font-size: 17px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
+  .cta { position: relative; margin-top: 64px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 38px;
+    padding-inline: 16px;
+    border: 1px solid var(--line-strong);
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: background-color 150ms, border-color 150ms, color 150ms, transform 150ms var(--ease-out-strong);
+  }
+  .btn:hover { border-color: var(--ink); }
+  .btn:active { transform: scale(0.97); }
+  .btn-ink { background: var(--ink); color: var(--field); border-color: var(--ink); }
+  .btn-ink .slash { display: inline-block; font-weight: 600; transition: transform 250ms var(--ease-out-strong); }
+  .btn-ink:hover .slash { transform: translateX(3px); }
+  .galaxy { position: absolute; top: -46px; left: 0; width: 36px; height: 36px; color: var(--accent); will-change: transform; cursor: grab; }
+  .galaxy svg { width: 100%; height: 100%; display: block; }
+
+  .stack { position: relative; }
+  .stack-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .stack-head h2 { font: inherit; color: var(--ink); }
+  .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  @media (min-width: 640px) and (max-width: 999px) { .tiles { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+  .tile {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--field);
+    color: var(--muted);
+    transition: color 150ms, background-color 150ms;
+  }
+  .tile svg { width: 22px; height: 22px; transition: transform 200ms var(--ease-out-strong); }
+  .tile span { font-family: var(--mono); font-size: 10px; font-weight: 500; }
+  .tile:hover, .tile:focus-visible { color: var(--brand); background: var(--raised); }
+  .tile:hover svg { transform: translateY(-1px); }
+  .stack-foot { margin-top: 10px; min-height: 17px; text-transform: none; letter-spacing: 0.02em; }
+  .stack-foot b { color: var(--ink); font-weight: 500; }
+
+  /* ---------- currently building ---------- */
+  .build-top { display: grid; gap: 20px 56px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+  @media (min-width: 860px) { .build-top { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); } }
+  .build-name { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .build-name h3 { font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em; }
+  .status { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding-inline: 8px; border: 1px solid var(--line); color: var(--ink-2); }
+  .status i { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+  .build-tag { margin-top: 8px; font-size: 15px; color: var(--muted); }
+  .build-copy { font-size: 15.5px; color: var(--ink-2); max-width: 60ch; text-wrap: pretty; }
+  .build-links { margin-top: 16px; }
+  .shot {
+    display: block;
+    margin-top: 32px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    background: var(--raised);
+    box-shadow: var(--plate-shadow);
+    transition: transform 450ms var(--ease-out-strong), box-shadow 450ms var(--ease-out-strong);
+  }
+  .shot:hover { transform: translateY(-3px); box-shadow: var(--plate-shadow-lift); }
+  .shot img { width: 100%; height: auto; aspect-ratio: 1680 / 859; object-fit: cover; object-position: top; }
+  .shot .for-light { display: var(--shot-light); }
+  .shot .for-dark { display: var(--shot-dark); }
+  .facts { margin-top: 28px; display: grid; gap: 18px 40px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .facts dt { font-size: 13.5px; font-weight: 600; }
+  .facts dd { margin-top: 3px; font-size: 13.5px; line-height: 1.55; color: var(--muted); max-width: 40ch; }
+
+  /* ---------- selected work ---------- */
+  .work-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .plate {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    background: var(--raised);
+    box-shadow: var(--plate-shadow);
+    transition: transform 450ms var(--ease-out-strong), box-shadow 450ms var(--ease-out-strong);
+  }
+  .plate:hover { transform: translateY(-3px); box-shadow: var(--plate-shadow-lift); }
+  .plate img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: top left; border-bottom: 1px solid var(--line); }
+  .plate-body { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px 11px; }
+  .plate-body h3 { font-size: 13.5px; font-weight: 500; line-height: 1.35; }
+  .plate-body .label { display: block; font-size: 10px; margin-top: 1px; }
+
+  /* ---------- writing ---------- */
+  .posts { border-top: 1px solid var(--line); margin-inline: -16px; }
+  .post {
+    display: grid;
+    gap: 4px 28px;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: baseline;
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--line);
+    transition: background-color 150ms;
+  }
+  @media (min-width: 760px) { .post { grid-template-columns: 96px minmax(0, 1fr) auto; } }
+  .post:hover { background: var(--raised); }
+  .post h3 { font-size: 15px; line-height: 1.4; font-weight: 600; letter-spacing: -0.005em; text-wrap: balance; }
+  .post p { margin-top: 3px; font-size: 13.5px; line-height: 1.55; color: var(--muted); max-width: 70ch; }
+  .post .src { white-space: nowrap; transition: color 150ms; }
+  .post:hover .src { color: var(--accent-ink); }
+  .posts-note { margin-top: 14px; font-size: 13.5px; color: var(--muted); }
+
+  /* ---------- about + experience ---------- */
+  .two { display: grid; gap: 28px 56px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 860px) { .two { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); } }
+  .two-lead { font-size: 20px; line-height: 1.3; font-weight: 500; letter-spacing: -0.018em; text-wrap: balance; }
+  .about-facts { margin-top: 24px; display: grid; gap: 8px; font-size: 13.5px; color: var(--ink-2); }
+  .about-facts div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+  .about-facts dt { font-size: 10px; }
+  .prose { display: grid; gap: 16px; font-size: 15.5px; line-height: 1.7; color: var(--ink-2); max-width: 62ch; }
+  .roles li { display: grid; align-items: baseline; gap: 4px 24px; grid-template-columns: minmax(0, 1fr); padding-block: 18px; border-top: 1px solid var(--line); }
+  .roles li:first-child { border-top: 0; padding-top: 0; }
+  @media (min-width: 640px) { .roles li { grid-template-columns: 150px minmax(0, 1fr); } }
+  .roles .when { display: flex; align-items: center; gap: 7px; font-size: 10.5px; }
+  .roles .when i { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+  .roles h3 { font-size: 15px; font-weight: 600; }
+  .roles h3 span { font-weight: 400; color: var(--muted); }
+  .roles p { margin-top: 3px; font-size: 14px; line-height: 1.6; color: var(--ink-2); max-width: 60ch; }
+
+  /* ---------- sub pages ---------- */
+  .page-head { padding: 64px var(--pad) 36px; background: var(--field); border-bottom: 1px solid var(--line); }
+  .page-head h1 { font-size: 26px; font-weight: 600; letter-spacing: -0.025em; }
+  .page-head h1 small { font-size: 17px; font-weight: 500; color: var(--muted); letter-spacing: -0.01em; }
+  .page-head p { margin-top: 8px; color: var(--muted); max-width: 56ch; }
+  .page-body { padding: 36px var(--pad) 72px; background: var(--veil); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .chip { height: 26px; padding-inline: 10px; display: inline-flex; align-items: center; border: 1px solid var(--line); font-size: 12.5px; color: var(--ink-2); background: var(--field); }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--field); border-color: var(--ink); }
+  .rows li { display: grid; gap: 16px 28px; grid-template-columns: minmax(0, 1fr); padding-block: 24px; border-bottom: 1px solid var(--line); }
+  @media (min-width: 760px) { .rows li { grid-template-columns: 280px minmax(0, 1fr); } }
+  .rows img { border: 1px solid var(--line); aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; width: 100%; height: auto; box-shadow: var(--plate-shadow); }
+  .rows h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.012em; }
+  .rows .meta { margin-top: 2px; font-size: 10.5px; }
+  .rows p { margin-top: 8px; font-size: 14px; color: var(--ink-2); max-width: 62ch; }
+  .rows .chips { margin: 12px 0 0; }
+  .rows .chip { height: 22px; font-size: 11.5px; padding-inline: 8px; }
+
+  /* ---------- footer ---------- */
+  .site-footer { border-top: 1px solid var(--line); background: var(--field); }
+  .footer-inner {
+    max-width: 1080px;
+    margin-inline: auto;
+    padding: 0 var(--pad);
+    min-height: 52px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px 20px;
+  }
+  .footer-inner nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+  .footer-inner a { transition: color 150ms; }
+  .footer-inner a:hover { color: var(--accent-ink); }
+  @media (max-width: 720px) { .footer-inner { padding-block: 14px; } }
+
+  /* ---------- .md mode ---------- */
+  .md {
+    padding: 48px var(--pad) 72px;
+    background: var(--field);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--ink-2);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .md .h { color: var(--ink); font-weight: 500; }
+  .md .c { color: var(--muted); }
+  .md a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+  .md a:hover { color: var(--accent-ink); }
+  :root[data-mode="md"] .nav a { font-family: var(--mono); font-size: 12.5px; }
+
+  /* ---------- intro ---------- */
+  .intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    background: var(--field);
+    transition: opacity 420ms ease-in;
+  }
+  .intro[data-state="out"] { opacity: 0; }
+  .intro .jw { height: 34px; }
+  .intro .jw-j { animation: jw-draw 420ms var(--ease-out-strong) both; }
+  .intro .jw-w { animation: jw-draw 620ms 180ms var(--ease-out-strong) both; }
+  .intro .jw-slash { animation: jw-draw 300ms 760ms var(--ease-out-strong) both; }
+  @keyframes jw-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  .intro-name { display: flex; font-size: 26px; font-weight: 600; letter-spacing: -0.025em; }
+  .intro-name span { opacity: 0; animation: letter-rise 400ms ease-out forwards; }
+  .intro-name span.sp { width: 0.28em; }
+  @keyframes letter-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 520px) { .intro-name { font-size: 21px; } .intro .jw { height: 28px; } }
+
+  /* ---------- mockup-only chrome ---------- */
+  .mock-gap { height: 60px; }
+  .mockbar {
+    position: fixed;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    background: var(--ink);
+    color: var(--field);
+    font-size: 12px;
+    font-weight: 500;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  }
+  .mockbar span { padding-inline: 8px 4px; opacity: 0.55; }
+  .mockbar button { height: 26px; padding-inline: 9px; }
+  .mockbar button:hover { background: color-mix(in srgb, var(--field) 16%, transparent); }
+  .mockbar button[aria-pressed="true"] { background: var(--accent); color: #1c1917; }
+  .pin {
+    position: absolute;
+    z-index: 30;
+    display: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: #1c1917;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  :root[data-notes="on"] .pin { display: inline-flex; }
+
+  @media (max-width: 720px) {
+    :root { --pad: 20px; }
+    .band { padding-block: 44px; }
+    .hero { padding-block: 52px 44px; }
+    .lede { font-size: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="jw-cut"><rect y="4" width="46" height="20"></rect></clipPath>
+    <symbol id="i-galaxy" viewBox="0 0 512 450"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M240.175,412.958C241.854,412.106 242.912,410.382 242.912,408.499C242.911,406.616 241.853,404.892 240.173,404.041L222.816,395.238C222.816,395.238 213.432,377.273 213.432,377.273C212.57,375.624 210.863,374.589 209.002,374.588C207.141,374.588 205.433,375.621 204.57,377.27L195.166,395.238C195.166,395.238 177.825,404.042 177.825,404.042C176.146,404.894 175.088,406.617 175.088,408.5C175.088,410.383 176.146,412.106 177.825,412.958L195.166,421.762C195.166,421.762 204.57,439.73 204.57,439.73C205.433,441.379 207.139,442.412 209,442.412C210.861,442.412 212.567,441.379 213.43,439.73L222.834,421.762C222.834,421.762 240.175,412.958 240.175,412.958ZM226.862,408.502L216.882,413.569C215.955,414.039 215.197,414.787 214.715,415.709L209,426.629C209,426.629 203.285,415.709 203.285,415.709C202.803,414.787 202.045,414.039 201.118,413.569L191.134,408.5C191.134,408.5 201.118,403.431 201.118,403.431C202.045,402.961 202.803,402.213 203.285,401.291L208.996,390.38C208.996,390.38 214.694,401.288 214.694,401.288C215.176,402.211 215.935,402.961 216.864,403.432L226.862,408.502ZM451.798,384.047C453.477,383.194 454.535,381.47 454.534,379.587C454.534,377.704 453.475,375.981 451.796,375.129L434.438,366.326C434.438,366.326 425.054,348.362 425.054,348.362C424.193,346.712 422.486,345.677 420.625,345.677C418.763,345.676 417.056,346.709 416.193,348.358L406.789,366.326C406.789,366.326 389.447,375.13 389.447,375.13C387.769,375.982 386.711,377.705 386.711,379.588C386.711,381.471 387.769,383.194 389.447,384.047L406.789,392.85C406.789,392.85 416.193,410.818 416.193,410.818C417.055,412.467 418.762,413.5 420.623,413.5C422.483,413.5 424.19,412.467 425.052,410.818L434.456,392.85C434.456,392.85 451.798,384.047 451.798,384.047ZM438.484,379.591L428.504,384.657C427.577,385.128 426.82,385.876 426.338,386.797L420.623,397.717C420.623,397.717 414.907,386.797 414.907,386.797C414.425,385.876 413.668,385.128 412.741,384.657L402.756,379.588C402.756,379.588 412.741,374.52 412.741,374.52C413.668,374.049 414.425,373.301 414.907,372.38L420.618,361.468C420.618,361.468 426.316,372.376 426.316,372.376C426.798,373.3 427.557,374.049 428.486,374.521L438.484,379.591ZM408.003,107.116C406.939,106.731 405.85,106.389 404.738,106.09L404.738,106.09C383.624,100.433 361.89,112.982 356.232,134.095C355.812,135.665 355.492,137.238 355.269,138.807C355.191,138.865 355.115,138.926 355.04,138.989C347.147,145.623 341.126,152.109 337.492,157.718C324.378,160.449 310.772,163.653 296.796,167.321C284.423,160.863 270.361,157.211 255.453,157.211C219.714,157.211 188.838,178.195 174.483,208.504C101.807,238.594 45.701,273.213 21.958,301.456C10.438,315.16 6.397,327.815 9.847,337.988C11.593,343.135 15.135,347.582 20.44,351.211C27.41,355.979 37.658,359.383 50.695,361.227C98.25,367.955 184.837,354.402 279.046,322.449C279.619,322.254 280.191,322.06 280.762,321.865C284.679,334.498 296.464,343.684 310.377,343.684C327.487,343.684 341.377,329.793 341.377,312.684C341.377,308.172 340.412,303.884 338.675,300.015C410.483,270.162 465.963,235.925 489.741,207.899C501.486,194.057 505.632,181.27 502.153,171.012C499.694,163.763 493.61,157.856 484.05,153.699C472.448,148.654 455.347,146.075 434.061,146.071C434.102,145.153 434.11,144.237 434.086,143.326C443.81,135.44 451.052,127.725 454.804,121.345C458.71,114.704 459.023,108.958 456.738,105C454.916,101.845 451.455,99.572 446.324,98.804C438.067,97.57 424.256,100.392 408.332,106.967C408.22,107.013 408.11,107.063 408.003,107.116ZM333.03,291.53C393.735,266.456 442.784,238.317 470.347,213.412C479.273,205.347 485.893,197.682 489.757,190.579C493.046,184.532 494.318,179.046 492.683,174.224C491.016,169.311 486.542,165.687 480.062,162.87C469.068,158.089 452.696,155.931 432.315,156.076C426.06,176.292 404.852,188.124 384.237,182.601C379.988,181.462 376.087,179.673 372.612,177.369C363.649,180.335 355.782,181.917 349.806,181.966C342.102,182.028 336.97,179.426 334.684,175.467C333.609,173.604 333.095,171.371 333.255,168.844C325.176,170.599 316.919,172.531 308.511,174.639C316.459,180.499 323.404,187.641 329.04,195.755C364.961,187.688 393.738,184.632 409.218,187.202C418.318,188.713 423.484,192.573 425.042,197.166C426.099,200.285 425.768,203.948 423.575,207.981C421.26,212.241 416.576,217.249 409.684,222.639C385.314,241.698 331.887,267.304 267.724,289.066C207.008,309.659 151.837,321.682 119.902,322.65C115.172,333.728 104.175,341.5 91.377,341.5C74.268,341.5 60.377,327.609 60.377,310.5C60.377,293.391 74.268,279.5 91.377,279.5C96.799,279.5 101.898,280.895 106.335,283.346C119.972,273.5 140.612,262.152 165.997,250.613C165.942,249.332 165.915,248.044 165.915,246.749C165.915,237.953 167.186,229.451 169.553,221.424C112.824,245.637 67.178,272.333 41.144,296.05C32.397,304.018 25.915,311.59 22.141,318.609C18.929,324.582 17.699,330.005 19.317,334.776C20.722,338.918 24.16,342.148 29.097,344.767C34.914,347.853 42.686,349.995 52.096,351.326C98.703,357.919 183.504,344.294 275.834,312.978C277.023,312.575 278.208,312.171 279.391,311.765C279.879,295.079 293.576,281.684 310.377,281.684C319.314,281.684 327.372,285.473 333.03,291.53ZM310.377,291.684C321.968,291.684 331.377,301.094 331.377,312.684C331.377,324.274 321.968,333.684 310.377,333.684C298.787,333.684 289.377,324.274 289.377,312.684C289.377,301.094 298.787,291.684 310.377,291.684ZM91.377,289.5C102.968,289.5 112.377,298.91 112.377,310.5C112.377,322.09 102.968,331.5 91.377,331.5C79.787,331.5 70.377,322.09 70.377,310.5C70.377,298.91 79.787,289.5 91.377,289.5ZM122.311,312.548C153.946,311.037 206.645,299.223 264.512,279.596C327.305,258.298 379.673,233.414 403.523,214.762C408.209,211.097 411.734,207.737 413.859,204.694C415.056,202.981 415.999,201.639 415.571,200.378C415.215,199.328 413.975,198.86 412.434,198.285C409.536,197.203 405.58,196.614 400.718,196.387C385.577,195.678 362.441,198.667 334.548,204.776C336.639,208.705 338.445,212.806 339.94,217.052L357.014,210.637C359.597,209.666 362.482,210.975 363.453,213.558C364.424,216.142 363.114,219.027 360.531,219.998L338.579,228.246C338.55,228.257 338.521,228.268 338.492,228.279L180.806,287.532C180.777,287.543 180.748,287.554 180.718,287.565L159.766,295.437L159.523,295.522L159.279,295.593L159.033,295.651L158.787,295.697L158.541,295.73L158.295,295.75L158.05,295.758L157.806,295.754L157.564,295.738L157.323,295.711L157.085,295.672L156.849,295.621L156.617,295.56L156.387,295.487L156.162,295.404L155.942,295.31L155.726,295.206L155.515,295.091L155.309,294.967L155.11,294.832L154.917,294.688L154.73,294.534L154.551,294.371L154.379,294.199L154.216,294.018L154.061,293.828L153.914,293.63L153.777,293.423L153.649,293.208L153.531,292.985L153.424,292.754L153.327,292.516L153.243,292.273L153.171,292.028L153.113,291.783L153.068,291.537L153.035,291.291L153.015,291.045L153.006,290.8L153.01,290.556L153.026,290.313L153.054,290.072L153.093,289.834L153.143,289.598L153.205,289.366L153.277,289.137L153.36,288.912L153.454,288.691L153.559,288.475L153.673,288.264L153.798,288.059L153.932,287.859L154.076,287.666L154.23,287.48L154.393,287.3L154.565,287.129L154.746,286.965L154.936,286.81L155.134,286.663L155.341,286.526L155.556,286.398L155.779,286.28L156.01,286.173L156.249,286.076L172.318,280.038C169.906,274.027 168.127,267.694 167.065,261.122C145.176,271.21 127.098,281.071 114.476,289.834C119.388,295.319 122.377,302.563 122.377,310.5C122.377,311.188 122.355,311.87 122.311,312.548ZM330.576,220.571C319.742,189.516 290.181,167.211 255.453,167.211C211.555,167.211 175.915,202.851 175.915,246.749C175.915,257.273 177.962,267.322 181.681,276.52L330.576,220.571ZM269.859,190.05C283.254,193.453 294.853,201.376 302.94,212.093C304.602,214.296 307.74,214.734 309.943,213.072C312.146,211.41 312.585,208.272 310.923,206.069C301.487,193.565 287.95,184.328 272.321,180.358C269.647,179.678 266.924,181.298 266.244,183.973C265.565,186.647 267.185,189.37 269.859,190.05ZM241.14,189.843C245.613,188.776 250.281,188.211 255.079,188.211C257.839,188.211 260.079,185.971 260.079,183.211C260.079,180.452 257.839,178.211 255.079,178.211C249.482,178.211 244.038,178.871 238.819,180.116C236.135,180.756 234.476,183.456 235.116,186.14C235.756,188.824 238.456,190.483 241.14,189.843ZM110.295,144.958C111.974,144.106 113.032,142.382 113.032,140.499C113.031,138.616 111.973,136.892 110.293,136.041L92.935,127.238C92.935,127.238 83.552,109.273 83.552,109.273C82.69,107.624 80.983,106.589 79.122,106.588C77.261,106.588 75.553,107.621 74.69,109.27L65.286,127.238C65.286,127.238 47.945,136.042 47.945,136.042C46.266,136.894 45.208,138.617 45.208,140.5C45.208,142.383 46.266,144.106 47.945,144.958L65.286,153.762C65.286,153.762 74.69,171.73 74.69,171.73C75.553,173.379 77.259,174.412 79.12,174.412C80.98,174.412 82.687,173.379 83.55,171.73L92.954,153.762C92.954,153.762 110.295,144.958 110.295,144.958ZM423.221,151.472C418.446,154.793 413.291,158.073 407.831,161.226C400.157,165.656 392.566,169.439 385.372,172.513C385.85,172.667 386.334,172.81 386.825,172.941C402.608,177.17 418.854,167.79 423.083,152.008C423.131,151.829 423.177,151.651 423.221,151.472ZM355.603,151.878C350.379,156.851 346.522,161.526 344.484,165.566C343.919,166.688 343.509,167.734 343.31,168.706C343.172,169.382 343.065,169.984 343.344,170.467C343.781,171.224 344.771,171.425 345.935,171.66C348.317,172.141 351.366,172.047 354.93,171.536C357.697,171.14 360.732,170.488 363.983,169.597C359.779,164.507 356.876,158.41 355.603,151.878ZM423.589,138.896C421.548,128.059 413.507,118.793 402.15,115.75L402.149,115.75C386.367,111.521 370.12,120.901 365.891,136.683C365.296,138.907 364.969,141.14 364.893,143.348C364.594,152.074 368.203,160.399 374.473,166.163C383.245,162.872 392.952,158.269 402.831,152.566C410.455,148.164 417.46,143.523 423.589,138.896ZM96.981,140.502L87.002,145.569C86.074,146.039 85.317,146.787 84.835,147.709L79.12,158.629C79.12,158.629 73.405,147.709 73.405,147.709C72.923,146.787 72.165,146.039 71.238,145.569L61.254,140.5C61.254,140.5 71.238,135.431 71.238,135.431C72.165,134.961 72.923,134.213 73.405,133.291L79.115,122.38C79.115,122.38 84.813,133.288 84.813,133.288C85.296,134.211 86.054,134.961 86.984,135.432L96.981,140.502ZM334.416,107.958C336.095,107.106 337.153,105.382 337.152,103.499C337.152,101.616 336.093,99.892 334.414,99.041L317.056,90.238C317.056,90.238 307.673,72.273 307.673,72.273C306.811,70.624 305.104,69.589 303.243,69.588C301.381,69.588 299.674,70.621 298.811,72.27L289.407,90.238C289.407,90.238 272.066,99.042 272.066,99.042C270.387,99.894 269.329,101.617 269.329,103.5C269.329,105.383 270.387,107.106 272.066,107.958L289.407,116.762C289.407,116.762 298.811,134.73 298.811,134.73C299.673,136.379 301.38,137.412 303.241,137.412C305.101,137.412 306.808,136.379 307.671,134.73L317.075,116.762C317.075,116.762 334.416,107.958 334.416,107.958ZM432.111,131.983C436.638,128.012 440.396,124.15 443.211,120.568C445.435,117.737 447.04,115.143 447.815,112.84C448.194,111.714 448.514,110.756 448.077,110C447.734,109.404 446.993,109.192 446.138,108.96C444.955,108.639 443.556,108.503 441.973,108.5C436.141,108.488 428.278,110.25 419.285,113.458C425.279,118.28 429.723,124.746 432.111,131.983ZM321.102,103.502L311.122,108.569C310.195,109.039 309.438,109.787 308.956,110.709L303.241,121.629C303.241,121.629 297.526,110.709 297.526,110.709C297.043,109.787 296.286,109.039 295.359,108.569L285.375,103.5C285.375,103.5 295.359,98.431 295.359,98.431C296.286,97.961 297.043,97.213 297.526,96.291L303.236,85.38C303.236,85.38 308.934,96.288 308.934,96.288C309.417,97.211 310.175,97.961 311.105,98.432L321.102,103.502Z"></path></symbol>
+  </defs>
+</svg>
+
+<div class="rail" id="rail" aria-hidden="true">
+  <div class="rail-ticks"></div>
+  <div class="rail-cursor" id="railCursor"></div>
+  <div class="rail-marker" id="railMarker"><span class="rail-label" id="railLabel">intro</span></div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#/" aria-label="Jared Watson, home">
+      <svg class="jw" viewBox="0 4 41 20" fill="none" stroke-width="2.8" stroke-miterlimit="8" aria-hidden="true">
+        <g clip-path="url(#jw-cut)">
+          <path class="jw-ink jw-j" pathLength="1" d="M13.6 0 8.4 19.6a4.2 4.2 0 0 1-4.1 3.1H2.2"></path>
+          <path class="jw-ink jw-w" pathLength="1" d="M16.2 0 21.6 24l5.6-20 5 20"></path>
+          <path class="jw-slash" pathLength="1" d="M31.2 28 38.6 0"></path>
+        </g>
+      </svg>
+      <span class="pin" style="left:-12px;top:-10px">1</span>
+    </a>
+    <div class="header-right">
+      <nav class="nav" aria-label="Primary">
+        <a href="#/projects" data-nav="projects">Projects</a>
+        <a href="#/blog" data-nav="blog">Blog</a>
+        <a href="https://github.com/Jared-Watson1" target="_blank" rel="noopener noreferrer">GitHub<span class="ext" aria-hidden="true">↗</span></a>
+        <a href="https://www.linkedin.com/in/jared-watson-b7b5b6220/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="ext" aria-hidden="true">↗</span></a>
+        <a href="mailto:jaredswatson55@gmail.com">Contact</a>
+      </nav>
+      <div class="mode" role="group" aria-label="Display mode">
+        <button type="button" id="modeLight" data-mode-btn="light" aria-pressed="false" aria-label="Light">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </button>
+        <button type="button" id="modeDark" data-mode-btn="dark" aria-pressed="false" aria-label="Dark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"></path></svg>
+        </button>
+        <button type="button" id="modeMd" data-mode-btn="md" aria-pressed="false" aria-label="Markdown">.md</button>
+        <span class="pin" style="right:-12px;top:-12px">2</span>
+      </div>
+      <button type="button" class="menu-btn label" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">Menu</button>
+    </div>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden>
+    <a href="#/projects">Projects</a>
+    <a href="#/blog">Blog</a>
+    <a href="https://github.com/Jared-Watson1" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    <a href="https://www.linkedin.com/in/jared-watson-b7b5b6220/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+    <a href="mailto:jaredswatson55@gmail.com">Contact</a>
+  </div>
+</header>
+
+<div class="sheet">
+
+  <!-- =============== HOME =============== -->
+  <main id="view-home" data-view="home">
+    <section class="hero" data-rail="intro">
+      <div class="hero-text">
+        <span class="pin" style="left:-30px;top:-4px">4</span>
+        <p class="label">Hi, I’m Jared Watson</p>
+        <h1>Software engineer building <em>AI applications</em>.</h1>
+        <p class="lede">
+          Currently an AI engineer at <a class="link" href="#experience">SMART</a>. Before that I founded
+          <a class="link" href="#/projects">Cure AI</a>, a research assistant with a patented retrieval method.
+          On the side I’m building <a class="link" href="https://pyx.finance" target="_blank" rel="noopener noreferrer">Pyx</a>,
+          a local-first portfolio tracker.
+        </p>
+        <div class="cta" id="cta">
+          <div class="galaxy" id="galaxy" aria-hidden="true"><svg><use href="#i-galaxy"></use></svg></div>
+          <span class="pin" style="left:42px;top:-52px">5</span>
+          <a class="btn btn-ink" href="#/projects">View projects <span class="slash" aria-hidden="true">/</span></a>
+          <a class="btn" href="mailto:jaredswatson55@gmail.com">Get in touch</a>
+        </div>
+      </div>
+      <aside class="stack" aria-labelledby="stack-title">
+        <span class="pin" style="left:-28px;top:-4px">6</span>
+        <div class="stack-head label">
+          <h2 id="stack-title">Stack</h2>
+          <span>16 tools</span>
+        </div>
+        <ul class="tiles" id="tiles"><li><a class="tile" href="#/projects" aria-label="Python" data-name="Python" data-count="5" style="--brand:#3776AB"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="Rust" data-name="Rust" data-count="1" style="--brand:var(--ink)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.8346 11.7033l-1.0073-.6236a13.7268 13.7268 0 00-.0283-.2936l.8656-.8069a.3483.3483 0 00-.1154-.578l-1.1066-.414a8.4958 8.4958 0 00-.087-.2856l.6904-.9587a.3462.3462 0 00-.2257-.5446l-1.1663-.1894a9.3574 9.3574 0 00-.1407-.2622l.49-1.0761a.3437.3437 0 00-.0274-.3361.3486.3486 0 00-.3006-.154l-1.1845.0416a6.7444 6.7444 0 00-.1873-.2268l.2723-1.153a.3472.3472 0 00-.417-.4172l-1.1532.2724a14.0183 14.0183 0 00-.2278-.1873l.0415-1.1845a.3442.3442 0 00-.49-.328l-1.076.491c-.0872-.0476-.1742-.0952-.2623-.1407l-.1903-1.1673A.3483.3483 0 0016.256.955l-.9597.6905a8.4867 8.4867 0 00-.2855-.086l-.414-1.1066a.3483.3483 0 00-.5781-.1154l-.8069.8666a9.2936 9.2936 0 00-.2936-.0284L12.2946.1683a.3462.3462 0 00-.5892 0l-.6236 1.0073a13.7383 13.7383 0 00-.2936.0284L9.9803.3374a.3462.3462 0 00-.578.1154l-.4141 1.1065c-.0962.0274-.1903.0567-.2855.086L7.744.955a.3483.3483 0 00-.5447.2258L7.009 2.348a9.3574 9.3574 0 00-.2622.1407l-1.0762-.491a.3462.3462 0 00-.49.328l.0416 1.1845a7.9826 7.9826 0 00-.2278.1873L3.8413 3.425a.3472.3472 0 00-.4171.4171l.2713 1.1531c-.0628.075-.1255.1509-.1863.2268l-1.1845-.0415a.3462.3462 0 00-.328.49l.491 1.0761a9.167 9.167 0 00-.1407.2622l-1.1662.1894a.3483.3483 0 00-.2258.5446l.6904.9587a13.303 13.303 0 00-.087.2855l-1.1065.414a.3483.3483 0 00-.1155.5781l.8656.807a9.2936 9.2936 0 00-.0283.2935l-1.0073.6236a.3442.3442 0 000 .5892l1.0073.6236c.008.0982.0182.1964.0283.2936l-.8656.8079a.3462.3462 0 00.1155.578l1.1065.4141c.0273.0962.0567.1914.087.2855l-.6904.9587a.3452.3452 0 00.2268.5447l1.1662.1893c.0456.088.0922.1751.1408.2622l-.491 1.0762a.3462.3462 0 00.328.49l1.1834-.0415c.0618.0769.1235.1528.1873.2277l-.2713 1.1541a.3462.3462 0 00.4171.4161l1.153-.2713c.075.0638.151.1255.2279.1863l-.0415 1.1845a.3442.3442 0 00.49.327l1.0761-.49c.087.0486.1741.0951.2622.1407l.1903 1.1662a.3483.3483 0 00.5447.2268l.9587-.6904a9.299 9.299 0 00.2855.087l.414 1.1066a.3452.3452 0 00.5781.1154l.8079-.8656c.0972.0111.1954.0203.2936.0294l.6236 1.0073a.3472.3472 0 00.5892 0l.6236-1.0073c.0982-.0091.1964-.0183.2936-.0294l.8069.8656a.3483.3483 0 00.578-.1154l.4141-1.1066a8.4626 8.4626 0 00.2855-.087l.9587.6904a.3452.3452 0 00.5447-.2268l.1903-1.1662c.088-.0456.1751-.0931.2622-.1407l1.0762.49a.3472.3472 0 00.49-.327l-.0415-1.1845a6.7267 6.7267 0 00.2267-.1863l1.1531.2713a.3472.3472 0 00.4171-.416l-.2713-1.1542c.0628-.0749.1255-.1508.1863-.2278l1.1845.0415a.3442.3442 0 00.328-.49l-.49-1.076c.0475-.0872.0951-.1742.1407-.2623l1.1662-.1893a.3483.3483 0 00.2258-.5447l-.6904-.9587.087-.2855 1.1066-.414a.3462.3462 0 00.1154-.5781l-.8656-.8079c.0101-.0972.0202-.1954.0283-.2936l1.0073-.6236a.3442.3442 0 000-.5892zm-6.7413 8.3551a.7138.7138 0 01.2986-1.396.714.714 0 11-.2997 1.396zm-.3422-2.3142a.649.649 0 00-.7715.5l-.3573 1.6685c-1.1035.501-2.3285.7795-3.6193.7795a8.7368 8.7368 0 01-3.6951-.814l-.3574-1.6684a.648.648 0 00-.7714-.499l-1.473.3158a8.7216 8.7216 0 01-.7613-.898h7.1676c.081 0 .1356-.0141.1356-.088v-2.536c0-.074-.0536-.0881-.1356-.0881h-2.0966v-1.6077h2.2677c.2065 0 1.1065.0587 1.394 1.2088.0901.3533.2875 1.5044.4232 1.8729.1346.413.6833 1.2381 1.2685 1.2381h3.5716a.7492.7492 0 00.1296-.0131 8.7874 8.7874 0 01-.8119.9526zM6.8369 20.024a.714.714 0 11-.2997-1.396.714.714 0 01.2997 1.396zM4.1177 8.9972a.7137.7137 0 11-1.304.5791.7137.7137 0 011.304-.579zm-.8352 1.9813l1.5347-.6824a.65.65 0 00.33-.8585l-.3158-.7147h1.2432v5.6025H3.5669a8.7753 8.7753 0 01-.2834-3.348zm6.7343-.5437V8.7836h2.9601c.153 0 1.0792.1772 1.0792.8697 0 .575-.7107.7815-1.2948.7815zm10.7574 1.4862c0 .2187-.008.4363-.0243.651h-.9c-.09 0-.1265.0586-.1265.1477v.413c0 .973-.5487 1.1846-1.0296 1.2382-.4576.0517-.9648-.1913-1.0275-.4717-.2704-1.5186-.7198-1.8436-1.4305-2.4034.8817-.5599 1.799-1.386 1.799-2.4915 0-1.1936-.819-1.9458-1.3769-2.3153-.7825-.5163-1.6491-.6195-1.883-.6195H5.4682a8.7651 8.7651 0 014.907-2.7699l1.0974 1.151a.648.648 0 00.9182.0213l1.227-1.1743a8.7753 8.7753 0 016.0044 4.2762l-.8403 1.8982a.652.652 0 00.33.8585l1.6178.7188c.0283.2875.0425.577.0425.8717zm-9.3006-9.5993a.7128.7128 0 11.984 1.0316.7137.7137 0 01-.984-1.0316zm8.3389 6.71a.7107.7107 0 01.9395-.3625.7137.7137 0 11-.9405.3635z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="React" data-name="React" data-count="2" style="--brand:#61DAFB"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="Tailwind CSS" data-name="Tailwind CSS" data-count="2" style="--brand:#06B6D4"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="FastAPI" data-name="FastAPI" data-count="1" style="--brand:#009688"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .0387C5.3729.0384.0003 5.3931 0 11.9988c-.001 6.6066 5.372 11.9628 12 11.9625 6.628.0003 12.001-5.3559 12-11.9625-.0003-6.6057-5.3729-11.9604-12-11.96m-.829 5.4153h7.55l-7.5805 5.3284h5.1828L5.279 18.5436q2.9466-6.5444 5.892-13.0896"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="Flask" data-name="Flask" data-count="1" style="--brand:#3BABC3"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10.773 2.878c-.013 1.434.322 4.624.445 5.734l-8.558 3.83c-.56-.959-.98-2.304-1.237-3.38l-.06.027c-.205.09-.406.053-.494-.088l-.011-.018-.82-1.506c-.058-.105-.05-.252.024-.392a.78.78 0 0 1 .358-.331l9.824-4.207c.146-.064.299-.063.4.004.106.062.127.128.13.327Zm.68 7c.523 1.97.675 2.412.832 2.818l-7.263 3.7a19.35 19.35 0 0 1-1.81-2.83l8.24-3.689Zm12.432 8.786h.003c.283.402-.047.657-.153.698l-.947.37c.037.125.035.319-.217.414l-.736.287c-.229.09-.398-.059-.42-.2l-.025-.125c-4.427 1.784-7.94 1.685-10.696.647-1.981-.745-3.576-1.983-4.846-3.379l6.948-3.54c.721 1.431 1.586 2.454 2.509 3.178 2.086 1.638 4.415 1.712 5.793 1.563l-.047-.233c-.015-.077.007-.135.086-.165l.734-.288a.302.302 0 0 1 .342.086l.748-.288a.306.306 0 0 1 .341.086l.583.89Z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="Node.js" data-name="Node.js" data-count="1" style="--brand:#5FA04E"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="PostgreSQL" data-name="PostgreSQL" data-count="1" style="--brand:#4169E1"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 1.342-2.0482 2.445-4.522 3.0411-6.8297.2714-1.0507.7982-3.5237.1222-4.7316a1.5641 1.5641 0 0 0-.1509-.235C21.6931.9086 19.8007.0248 17.5099.0005c-1.4947-.0158-2.7705.3461-3.1161.4794a9.449 9.449 0 0 0-.5159-.0816 8.044 8.044 0 0 0-1.3114-.1278c-1.1822-.0184-2.2038.2642-3.0498.8406-.8573-.3211-4.7888-1.645-7.2219.0788C.9359 2.1526.3086 3.8733.4302 6.3043c.0409.818.5069 3.334 1.2423 5.7436.4598 1.5065.9387 2.7019 1.4334 3.582.553.9942 1.1259 1.5933 1.7143 1.7895.4474.1491 1.1327.1441 1.8581-.7279.8012-.9635 1.5903-1.8258 1.9446-2.2069.4351.2355.9064.3625 1.39.3772a.0569.0569 0 0 0 .0004.0041 11.0312 11.0312 0 0 0-.2472.3054c-.3389.4302-.4094.5197-1.5002.7443-.3102.064-1.1344.2339-1.1464.8115-.0025.1224.0329.2309.0919.3268.2269.4231.9216.6097 1.015.6331 1.3345.3335 2.5044.092 3.3714-.6787-.017 2.231.0775 4.4174.3454 5.0874.2212.5529.7618 1.9045 2.4692 1.9043.2505 0 .5263-.0291.8296-.0941 1.7819-.3821 2.5557-1.1696 2.855-2.9059.1503-.8707.4016-2.8753.5388-4.1012.0169-.0703.0357-.1207.057-.1362.0007-.0005.0697-.0471.4272.0307a.3673.3673 0 0 0 .0443.0068l.2539.0223.0149.001c.8468.0384 1.9114-.1426 2.5312-.4308.6438-.2988 1.8057-1.0323 1.5951-1.6698zM2.371 11.8765c-.7435-2.4358-1.1779-4.8851-1.2123-5.5719-.1086-2.1714.4171-3.6829 1.5623-4.4927 1.8367-1.2986 4.8398-.5408 6.108-.13-.0032.0032-.0066.0061-.0098.0094-2.0238 2.044-1.9758 5.536-1.9708 5.7495-.0002.0823.0066.1989.0162.3593.0348.5873.0996 1.6804-.0735 2.9184-.1609 1.1504.1937 2.2764.9728 3.0892.0806.0841.1648.1631.2518.2374-.3468.3714-1.1004 1.1926-1.9025 2.1576-.5677.6825-.9597.5517-1.0886.5087-.3919-.1307-.813-.5871-1.2381-1.3223-.4796-.839-.9635-2.0317-1.4155-3.5126zm6.0072 5.0871c-.1711-.0428-.3271-.1132-.4322-.1772.0889-.0394.2374-.0902.4833-.1409 1.2833-.2641 1.4815-.4506 1.9143-1.0002.0992-.126.2116-.2687.3673-.4426a.3549.3549 0 0 0 .0737-.1298c.1708-.1513.2724-.1099.4369-.0417.156.0646.3078.26.3695.4752.0291.1016.0619.2945-.0452.4444-.9043 1.2658-2.2216 1.2494-3.1676 1.0128zm2.094-3.988-.0525.141c-.133.3566-.2567.6881-.3334 1.003-.6674-.0021-1.3168-.2872-1.8105-.8024-.6279-.6551-.9131-1.5664-.7825-2.5004.1828-1.3079.1153-2.4468.079-3.0586-.005-.0857-.0095-.1607-.0122-.2199.2957-.2621 1.6659-.9962 2.6429-.7724.4459.1022.7176.4057.8305.928.5846 2.7038.0774 3.8307-.3302 4.7363-.084.1866-.1633.3629-.2311.5454zm7.3637 4.5725c-.0169.1768-.0358.376-.0618.5959l-.146.4383a.3547.3547 0 0 0-.0182.1077c-.0059.4747-.054.6489-.115.8693-.0634.2292-.1353.4891-.1794 1.0575-.11 1.4143-.8782 2.2267-2.4172 2.5565-1.5155.3251-1.7843-.4968-2.0212-1.2217a6.5824 6.5824 0 0 0-.0769-.2266c-.2154-.5858-.1911-1.4119-.1574-2.5551.0165-.5612-.0249-1.9013-.3302-2.6462.0044-.2932.0106-.5909.019-.8918a.3529.3529 0 0 0-.0153-.1126 1.4927 1.4927 0 0 0-.0439-.208c-.1226-.4283-.4213-.7866-.7797-.9351-.1424-.059-.4038-.1672-.7178-.0869.067-.276.1831-.5875.309-.9249l.0529-.142c.0595-.16.134-.3257.213-.5012.4265-.9476 1.0106-2.2453.3766-5.1772-.2374-1.0981-1.0304-1.6343-2.2324-1.5098-.7207.0746-1.3799.3654-1.7088.5321a5.6716 5.6716 0 0 0-.1958.1041c.0918-1.1064.4386-3.1741 1.7357-4.4823a4.0306 4.0306 0 0 1 .3033-.276.3532.3532 0 0 0 .1447-.0644c.7524-.5706 1.6945-.8506 2.802-.8325.4091.0067.8017.0339 1.1742.081 1.939.3544 3.2439 1.4468 4.0359 2.3827.8143.9623 1.2552 1.9315 1.4312 2.4543-1.3232-.1346-2.2234.1268-2.6797.779-.9926 1.4189.543 4.1729 1.2811 5.4964.1353.2426.2522.4522.2889.5413.2403.5825.5515.9713.7787 1.2552.0696.087.1372.1714.1885.245-.4008.1155-1.1208.3825-1.0552 1.717-.0123.1563-.0423.4469-.0834.8148-.0461.2077-.0702.4603-.0994.7662zm.8905-1.6211c-.0405-.8316.2691-.9185.5967-1.0105a2.8566 2.8566 0 0 0 .135-.0406 1.202 1.202 0 0 0 .1342.103c.5703.3765 1.5823.4213 3.0068.1344-.2016.1769-.5189.3994-.9533.6011-.4098.1903-1.0957.333-1.7473.3636-.7197.0336-1.0859-.0807-1.1721-.151zm.5695-9.2712c-.0059.3508-.0542.6692-.1054 1.0017-.055.3576-.112.7274-.1264 1.1762-.0142.4368.0404.8909.0932 1.3301.1066.887.216 1.8003-.2075 2.7014a3.5272 3.5272 0 0 1-.1876-.3856c-.0527-.1276-.1669-.3326-.3251-.6162-.6156-1.1041-2.0574-3.6896-1.3193-4.7446.3795-.5427 1.3408-.5661 2.1781-.463zm.2284 7.0137a12.3762 12.3762 0 0 0-.0853-.1074l-.0355-.0444c.7262-1.1995.5842-2.3862.4578-3.4385-.0519-.4318-.1009-.8396-.0885-1.2226.0129-.4061.0666-.7543.1185-1.0911.0639-.415.1288-.8443.1109-1.3505.0134-.0531.0188-.1158.0118-.1902-.0457-.4855-.5999-1.938-1.7294-3.253-.6076-.7073-1.4896-1.4972-2.6889-2.0395.5251-.1066 1.2328-.2035 2.0244-.1859 2.0515.0456 3.6746.8135 4.8242 2.2824a.908.908 0 0 1 .0667.1002c.7231 1.3556-.2762 6.2751-2.9867 10.5405zm-8.8166-6.1162c-.025.1794-.3089.4225-.6211.4225a.5821.5821 0 0 1-.0809-.0056c-.1873-.026-.3765-.144-.5059-.3156-.0458-.0605-.1203-.178-.1055-.2844.0055-.0401.0261-.0985.0925-.1488.1182-.0894.3518-.1226.6096-.0867.3163.0441.6426.1938.6113.4186zm7.9305-.4114c.0111.0792-.049.201-.1531.3102-.0683.0717-.212.1961-.4079.2232a.5456.5456 0 0 1-.075.0052c-.2935 0-.5414-.2344-.5607-.3717-.024-.1765.2641-.3106.5611-.352.297-.0414.6111.0088.6356.1851z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="SQLite" data-name="SQLite" data-count="1" style="--brand:var(--ink)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.678.521c-1.032-.92-2.28-.55-3.513.544a8.71 8.71 0 0 0-.547.535c-2.109 2.237-4.066 6.38-4.674 9.544.237.48.422 1.093.544 1.561a13.044 13.044 0 0 1 .164.703s-.019-.071-.096-.296l-.05-.146a1.689 1.689 0 0 0-.033-.08c-.138-.32-.518-.995-.686-1.289-.143.423-.27.818-.376 1.176.484.884.778 2.4.778 2.4s-.025-.099-.147-.442c-.107-.303-.644-1.244-.772-1.464-.217.804-.304 1.346-.226 1.478.152.256.296.698.422 1.186.286 1.1.485 2.44.485 2.44l.017.224a22.41 22.41 0 0 0 .056 2.748c.095 1.146.273 2.13.5 2.657l.155-.084c-.334-1.038-.47-2.399-.41-3.967.09-2.398.642-5.29 1.661-8.304 1.723-4.55 4.113-8.201 6.3-9.945-1.993 1.8-4.692 7.63-5.5 9.788-.904 2.416-1.545 4.684-1.931 6.857.666-2.037 2.821-2.912 2.821-2.912s1.057-1.304 2.292-3.166c-.74.169-1.955.458-2.362.629-.6.251-.762.337-.762.337s1.945-1.184 3.613-1.72C21.695 7.9 24.195 2.767 21.678.521m-18.573.543A1.842 1.842 0 0 0 1.27 2.9v16.608a1.84 1.84 0 0 0 1.835 1.834h9.418a22.953 22.953 0 0 1-.052-2.707c-.006-.062-.011-.141-.016-.2a27.01 27.01 0 0 0-.473-2.378c-.121-.47-.275-.898-.369-1.057-.116-.197-.098-.31-.097-.432 0-.12.015-.245.037-.386a9.98 9.98 0 0 1 .234-1.045l.217-.028c-.017-.035-.014-.065-.031-.097l-.041-.381a32.8 32.8 0 0 1 .382-1.194l.2-.019c-.008-.016-.01-.038-.018-.053l-.043-.316c.63-3.28 2.587-7.443 4.8-9.791.066-.069.133-.128.198-.194Z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="Pinecone" data-name="Pinecone" data-count="1" style="--brand:#1C17FF"><span>Pinecone</span></a></li><li><a class="tile" href="#/projects" aria-label="OpenAI API" data-name="OpenAI API" data-count="1" style="--brand:var(--ink)"><span>OpenAI</span></a></li><li><a class="tile" href="#/projects" aria-label="scikit-learn" data-name="scikit-learn" data-count="2" style="--brand:#F7931E"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.601 5.53c-1.91.035-3.981.91-5.63 2.56-2.93 2.93-2.083 8.53-1.088 9.525.805.804 6.595 1.843 9.526-1.088a9.74 9.74 0 0 0 .584-.643c.043-.292.205-.66.489-1.106a1.848 1.848 0 0 1-.537.176c-.144.265-.37.55-.676.855-.354.335-.607.554-.76.656a.795.795 0 0 1-.437.152c-.35 0-.514-.308-.494-.924-.22.316-.425.549-.612.7a.914.914 0 0 1-.578.224c-.194 0-.36-.09-.496-.273a1.03 1.03 0 0 1-.193-.507 4.016 4.016 0 0 1-.726.583c-.224.132-.47.197-.74.197-.3 0-.543-.096-.727-.288a.978.978 0 0 1-.257-.524v.004c-.3.276-.564.48-.79.611a1.295 1.295 0 0 1-.649.197.693.693 0 0 1-.571-.275c-.145-.183-.218-.43-.218-.739 0-.464.101-1.02.302-1.67.201-.65.445-1.25.733-1.797l.842-.312a.21.21 0 0 1 .06-.013c.063 0 .116.047.157.14.04.095.061.221.061.38 0 .451-.104.888-.312 1.31-.207.422-.532.873-.974 1.352-.018.23-.027.388-.027.474 0 .193.036.345.106.458.071.113.165.169.282.169a.71.71 0 0 0 .382-.13c.132-.084.333-.26.602-.523.028-.418.187-.798.482-1.142.324-.38.685-.569 1.08-.569.206 0 .37.054.494.16a.524.524 0 0 1 .186.417c0 .458-.486.829-1.459 1.114.088.43.32.646.693.646a.807.807 0 0 0 .417-.117c.129-.076.321-.243.575-.497.032-.252.118-.495.259-.728.182-.3.416-.544.701-.73.285-.185.537-.278.756-.278.276 0 .47.127.58.381l.677-.374h.186l-.292.971c-.15.488-.226.823-.226 1.004 0 .19.067.285.202.285.086 0 .181-.045.285-.137.104-.092.25-.232.437-.42v.001c.143-.155.274-.32.392-.494-.19-.084-.285-.21-.285-.375 0-.17.058-.352.174-.545.116-.194.275-.29.479-.29.172 0 .258.088.258.265 0 .139-.05.338-.149.596.367-.04.687-.32.961-.842l.228-.01c1.059-2.438.828-5.075-.83-6.732-1.019-1.02-2.408-1.5-3.895-1.471zm4.725 8.203a8.938 8.938 0 0 1-1.333 2.151 1.09 1.09 0 0 0-.012.147c0 .168.047.309.14.423.092.113.206.17.34.17.296 0 .714-.264 1.254-.787-.001.04-.003.08-.003.121 0 .146.012.368.036.666l.733-.172c0-.2.003-.357.01-.474.01-.157.033-.33.066-.517.02-.11.07-.216.152-.315l.186-.216a5.276 5.276 0 0 1 .378-.397c.062-.055.116-.099.162-.13a.26.26 0 0 1 .123-.046c.055 0 .083.035.083.106 0 .07-.052.236-.156.497-.194.486-.292.848-.292 1.084 0 .175.046.314.136.418a.45.45 0 0 0 .358.155c.365 0 .803-.269 1.313-.808v-.381c-.361.426-.623.64-.784.64-.109 0-.163-.067-.163-.2 0-.1.065-.316.195-.65.19-.486.285-.836.285-1.048a.464.464 0 0 0-.112-.319.36.36 0 0 0-.282-.127c-.165 0-.354.077-.567.233-.213.156-.5.436-.863.84.053-.262.165-.622.335-1.08l-.809.156a6.54 6.54 0 0 0-.399 1.074c-.04.156-.07.316-.092.48a7.447 7.447 0 0 1-.49.45.38.38 0 0 1-.229.08.208.208 0 0 1-.174-.082.352.352 0 0 1-.064-.222c0-.1.019-.214.056-.343.038-.13.12-.373.249-.731l.308-.849zm-17.21-2.927c-.863-.016-1.67.263-2.261.854-1.352 1.352-1.07 3.827.631 5.527 1.7 1.701 4.95 1.21 5.527.632.467-.466 1.07-3.827-.631-5.527-.957-.957-2.158-1.465-3.267-1.486zm12.285.358h.166v.21H15.4zm.427 0h.166v.865l.46-.455h.195l-.364.362.428.684h-.198l-.357-.575-.164.166v.41h-.166zm1.016 0h.166v.21h-.166zm.481.122h.166v.288h.172v.135h-.172v.717c0 .037.006.062.02.075.012.013.037.02.074.02a.23.23 0 0 0 .078-.01v.141a.802.802 0 0 1-.136.014.23.23 0 0 1-.15-.043.15.15 0 0 1-.052-.123v-.79h-.141v-.136h.141zm-3.562.258c.081 0 .15.012.207.038.057.024.1.061.13.11s.045.106.045.173h-.176c-.006-.111-.075-.167-.208-.167a.285.285 0 0 0-.164.041.134.134 0 0 0-.06.117c0 .035.015.065.045.088.03.024.08.044.15.06l.16.039a.47.47 0 0 1 .224.105c.047.046.07.108.07.186a.3.3 0 0 1-.052.175.327.327 0 0 1-.152.116.585.585 0 0 1-.226.041c-.136 0-.24-.03-.309-.088-.069-.059-.105-.149-.109-.269h.176c.004.037.01.065.017.084a.166.166 0 0 0 .034.054c.044.043.112.065.204.065a.31.31 0 0 0 .177-.045.139.139 0 0 0 .067-.119.116.116 0 0 0-.038-.09.287.287 0 0 0-.124-.055l-.156-.038a1.248 1.248 0 0 1-.159-.05.359.359 0 0 1-.098-.061.22.22 0 0 1-.058-.083.32.32 0 0 1-.016-.108c0-.096.036-.174.109-.232a.45.45 0 0 1 .29-.087zm1.035 0a.46.46 0 0 1 .202.043.351.351 0 0 1 .187.212.577.577 0 0 1 .023.126h-.168a.256.256 0 0 0-.078-.168.242.242 0 0 0-.17-.06.248.248 0 0 0-.155.05.306.306 0 0 0-.1.144.662.662 0 0 0-.034.224.58.58 0 0 0 .035.214.299.299 0 0 0 .101.135.261.261 0 0 0 .157.048c.142 0 .227-.084.256-.252h.167a.519.519 0 0 1-.065.22.35.35 0 0 1-.146.138.464.464 0 0 1-.216.048.448.448 0 0 1-.246-.066.441.441 0 0 1-.161-.192.703.703 0 0 1-.057-.293c0-.085.01-.163.032-.233a.522.522 0 0 1 .095-.182.403.403 0 0 1 .15-.117.453.453 0 0 1 .191-.04zm.603.03h.166v1.046H15.4zm1.443 0h.166v1.046h-.166zm-5.05.618c-.08 0-.2.204-.356.611-.155.407-.308.977-.459 1.71.281-.312.509-.662.683-1.05.175-.387.262-.72.262-.999a.455.455 0 0 0-.036-.197c-.025-.05-.056-.075-.093-.075zm4.662 1.797c-.221 0-.431.188-.629.563-.197.376-.296.722-.296 1.038 0 .12.029.216.088.29a.273.273 0 0 0 .223.111c.221 0 .43-.188.625-.565.196-.377.294-.725.294-1.043a.457.457 0 0 0-.083-.29.269.269 0 0 0-.222-.104zm-2.848.007c-.146 0-.285.11-.417.333-.133.222-.2.51-.2.866.566-.159.849-.452.849-.881 0-.212-.077-.318-.232-.318Z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="pandas" data-name="pandas" data-count="2" style="--brand:var(--ink)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.922 0h2.623v18.104h-2.623zm-4.126 12.94h2.623v2.57h-2.623zm0-7.037h2.623v5.446h-2.623zm0 11.197h2.623v5.446h-2.623zM4.456 5.896h2.622V24H4.455zm4.213 2.559h2.623v2.57H8.67zm0 4.151h2.623v5.447H8.67zm0-11.187h2.623v5.446H8.67Z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="NumPy" data-name="NumPy" data-count="1" style="--brand:var(--ink)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10.315 4.876L6.3048 2.8517l-4.401 2.1965 4.1186 2.0683zm1.8381.9277l4.2045 2.1223-4.3622 2.1906-4.125-2.0718zm5.6153-2.9213l4.3193 2.1658-3.863 1.9402-4.2131-2.1252zm-1.859-.9329L12.021 0 8.1742 1.9193l4.0068 2.0208zm-3.0401 16.7443V24l4.7107-2.3507-.0053-5.3085zm4.7037-4.2057l-.0052-5.2528-4.6985 2.3356v5.2546zm5.6553-.9845v5.327l-4.0178 2.0052-.0029-5.3028zm0-1.8626V6.4214l-4.0253 2.001.0034 5.2633zM11.2062 11.571L8.0333 9.9756v6.895s-3.8804-8.2564-4.2399-8.998c-.0463-.0957-.2371-.2007-.2858-.2262C2.8118 7.2812.773 6.2485.773 6.2485V18.43l2.8204 1.5076v-6.3674s3.8392 7.3775 3.878 7.458c.0389.0807.4245.8582.8362 1.1314.5485.363 2.8992 1.7766 2.8992 1.7766z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="Stripe" data-name="Stripe" data-count="1" style="--brand:#635BFF"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z"></path></svg></a></li><li><a class="tile" href="#/projects" aria-label="Vercel" data-name="Vercel" data-count="1" style="--brand:var(--ink)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12 1.608 12 20.784H0Z"></path></svg></a></li></ul>
+        <p class="stack-foot label" id="stackCaption" aria-live="polite">Pick one to see its projects</p>
+      </aside>
+    </section>
+
+    <section class="band" id="building" data-rail="building">
+      <span class="pin" style="left:16px;top:20px">7</span>
+      <div class="band-head label">
+        <h2><span class="slash">/</span> Currently building</h2>
+        <span class="rule"></span>
+        <a class="more" href="https://pyx.finance" target="_blank" rel="noopener noreferrer">pyx.finance ↗</a>
+      </div>
+      <div class="build-top">
+        <div>
+          <div class="build-name">
+            <h3>Pyx</h3>
+            <span class="status label"><i></i>In beta</span>
+          </div>
+          <p class="build-tag">A local-first portfolio tracker.</p>
+        </div>
+        <div>
+          <p class="build-copy">
+            Pyx is a desktop app for people who manage their own investments. It pulls every account into one
+            encrypted file on your own machine, then gives you the tools to use it: charts, research, notes,
+            tags, and honest returns. There is no Pyx cloud and no login.
+          </p>
+          <div class="build-links">
+            <a class="btn btn-ink" href="https://pyx.finance" target="_blank" rel="noopener noreferrer">Visit pyx.finance <span class="slash" aria-hidden="true">/</span></a>
+          </div>
+        </div>
+      </div>
+      <a class="shot" href="https://pyx.finance" target="_blank" rel="noopener noreferrer" aria-label="Pyx overview screen. Opens pyx.finance">
+        <img class="for-light" src="assets/pyx-overview-light.webp" width="1680" height="859" alt="Pyx overview in light mode: total value, a six month performance chart, allocation, market snapshot, holdings, tags, and upcoming earnings">
+        <img class="for-dark" src="assets/pyx-overview-dark.webp" width="1680" height="860" alt="Pyx overview in dark mode: total value, a six month performance chart, allocation, market snapshot, holdings, tags, and upcoming earnings">
+      </a>
+      <dl class="facts">
+        <div><dt>Local first</dt><dd>Holdings, transactions, and history live in one encrypted SQLite file. The key stays in your system keychain.</dd></div>
+        <div><dt>Native and fast</dt><dd>Written in Rust with a GPU-rendered interface. Cold start is held under 750 ms in CI.</dd></div>
+        <div><dt>Bring your own AI</dt><dd>Pyx ships an MCP server instead of a chatbot, so Claude, Codex, or a local model can read the same data.</dd></div>
+      </dl>
+    </section>
+
+    <section class="band" id="work" data-rail="work">
+      <span class="pin" style="left:16px;top:20px">8</span>
+      <div class="band-head label">
+        <h2><span class="slash">/</span> Selected work</h2>
+        <span class="rule"></span>
+        <a class="more" href="#/projects">All 6 projects →</a>
+      </div>
+      <div class="work-grid">
+        <a class="plate" href="#/projects">
+          <img src="assets/cure-ai.webp" width="960" height="506" alt="Cure AI answering a research question with cited sources" loading="lazy">
+          <div class="plate-body">
+            <div><h3>Cure AI</h3><span class="label">AI research assistant</span></div>
+            <span class="label">2024</span>
+          </div>
+        </a>
+        <a class="plate" href="#/projects">
+          <img src="assets/wildfire.webp" width="960" height="540" alt="Map of the largest U.S. wildfires from 1992 to 2015" loading="lazy">
+          <div class="plate-body">
+            <div><h3>U.S. Wildfire Analysis</h3><span class="label">Data science</span></div>
+            <span class="label">2024</span>
+          </div>
+        </a>
+        <a class="plate" href="#/projects">
+          <img src="assets/dooley.webp" width="960" height="539" alt="DooleyAFavor task board" loading="lazy">
+          <div class="plate-body">
+            <div><h3>DooleyAFavor</h3><span class="label">Full stack</span></div>
+            <span class="label">2023</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="band" id="writing" data-rail="writing">
+      <span class="pin" style="left:16px;top:20px">9</span>
+      <div class="band-head label">
+        <h2><span class="slash">/</span> Writing</h2>
+        <span class="rule"></span>
+        <a class="more" href="#/blog">All posts →</a>
+      </div>
+      <div class="posts">
+        <a class="post" href="https://www.pyx.finance/blog/nine-hosts" target="_blank" rel="noopener noreferrer">
+          <time class="label" datetime="2026-09-17">Sep 17, 2026</time>
+          <div>
+            <h3>Nine hosts: everything Pyx connects to, and how to check for yourself</h3>
+            <p>Every internet address the Pyx desktop app can reach, what each request carries, what it never carries, and how to check it yourself.</p>
+          </div>
+          <span class="src label">pyx.finance ↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="band" id="about" data-rail="about">
+      <span class="pin" style="left:16px;top:20px">10</span>
+      <div class="band-head label">
+        <h2><span class="slash">/</span> About</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="two">
+        <div>
+          <p class="two-lead">I build AI systems that hold up in production and make sense to the people using them.</p>
+          <dl class="about-facts">
+            <div><dt class="label">Education</dt><dd>Computer Science, Emory University, 2025</dd></div>
+            <div><dt class="label">Hometown</dt><dd>Tampa, Florida</dd></div>
+            <div><dt class="label">Startup</dt><dd>Cure AI, junior year</dd></div>
+            <div><dt class="label">Patent</dt><dd><a class="link" href="https://patents.justia.com/patent/11971914" target="_blank" rel="noopener noreferrer">US 11,971,914</a>, AI query processing</dd></div>
+            <div><dt class="label">Now</dt><dd>AI Engineer, SMART</dd></div>
+          </dl>
+        </div>
+        <div class="prose">
+          <p>I grew up in Tampa, Florida, and started programming in high school. Python was my first language, and it led me to study computer science at Emory University in Atlanta, where I graduated in 2025.</p>
+          <p>At Emory I kept building things outside of class. In my junior year that work became my first startup, Cure AI, a research tool that answers scientific questions from 26 million peer-reviewed articles with full citations. The retrieval method behind it was later granted a patent.</p>
+          <p>Today I’m an AI Engineer at SMART, where I work on the company’s AI chat service and graph-based features. Nights and weekends go to Pyx.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="experience" data-rail="experience">
+      <div class="band-head label">
+        <h2><span class="slash">/</span> Experience</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="two">
+        <p class="two-lead">Two internships, a startup, and a full-time AI engineering role.</p>
+        <ol class="roles">
+          <li>
+            <span class="when label"><i></i>Jun 2025 – Present</span>
+            <div><h3>SMART <span><span class="slash">/</span> AI Engineer</span></h3><p>Develop SMART’s AI chat service and graph-based features, including the retrieval and model layer behind conversations and its integration with the company’s data graph.</p></div>
+          </li>
+          <li>
+            <span class="when label">2023 – 2024</span>
+            <div><h3>Cure AI <span><span class="slash">/</span> Founder</span></h3><p>Founded during junior year at Emory. Designed and built the retrieval system and product, launched on Product Hunt as Product of the Day, and secured a patent for the query-processing method.</p></div>
+          </li>
+          <li>
+            <span class="when label">Jun 2023 – Aug 2023</span>
+            <div><h3>AMNI <span><span class="slash">/</span> Software Engineer Intern</span></h3><p>Built a full stack AI chatbot platform on the OpenAI API and a vector database that lets users ask questions about large sets of regulatory documents and get answers grounded in the source text.</p></div>
+          </li>
+          <li>
+            <span class="when label">May 2022 – Aug 2022</span>
+            <div><h3>Synapse Florida <span><span class="slash">/</span> Technology Intern</span></h3><p>Built a statewide WordPress calendar that gathers and publishes technology events across Florida, integrated Typeform and HubSpot CRM, and handled data parsing with pandas.</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <!-- =============== PROJECTS =============== -->
+  <main id="view-projects" data-view="projects" hidden>
+    <div class="page-head">
+      <h1>Projects <span class="slash">/</span> <small>selected work</small></h1>
+      <p>Six things I’ve built, newest first. Pick a technology to filter.</p>
+    </div>
+    <div class="page-body">
+      <div class="chips" role="group" aria-label="Filter by technology">
+        <button type="button" class="chip" aria-pressed="true">All</button>
+        <button type="button" class="chip" aria-pressed="false">Python</button>
+        <button type="button" class="chip" aria-pressed="false">Rust</button>
+        <button type="button" class="chip" aria-pressed="false">React</button>
+        <button type="button" class="chip" aria-pressed="false">FastAPI</button>
+        <button type="button" class="chip" aria-pressed="false">PostgreSQL</button>
+        <button type="button" class="chip" aria-pressed="false">scikit-learn</button>
+      </div>
+      <ul class="rows">
+        <li>
+          <img src="assets/pyx-charts-dark.webp" width="1680" height="864" alt="Pyx chart workspace comparing semiconductor stocks against the market" loading="lazy">
+          <div>
+            <h3>Pyx</h3>
+            <div class="meta label">Desktop app, fintech, 2026</div>
+            <p>A local-first portfolio tracker and research terminal. Every account lands in one encrypted file on disk, with charts, notes, tags, and an MCP server for the AI of your choice.</p>
+            <div class="chips"><span class="chip">Rust</span><span class="chip">Floem</span><span class="chip">wgpu</span><span class="chip">SQLite</span><span class="chip">Tantivy</span></div>
+          </div>
+        </li>
+        <li>
+          <img src="assets/cure-ai.webp" width="960" height="506" alt="Cure AI answering a research question with cited sources" loading="lazy">
+          <div>
+            <h3>Cure AI</h3>
+            <div class="meta label">AI, research, 2024</div>
+            <p>An AI research assistant that answers scientific questions using 26 million peer-reviewed articles, with every answer linked to its sources. Product of the Day on Product Hunt.</p>
+            <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Pinecone</span><span class="chip">OpenAI API</span><span class="chip">React</span></div>
+          </div>
+        </li>
+        <li>
+          <img src="assets/wildfire.webp" width="960" height="540" alt="Map of the largest U.S. wildfires from 1992 to 2015" loading="lazy">
+          <div>
+            <h3>U.S. Wildfire Analysis</h3>
+            <div class="meta label">Data science, 2024</div>
+            <p>An analysis of 1.88 million U.S. wildfire records from 1992 to 2015: where large fires cluster, when they occur, and how long they take to contain.</p>
+            <div class="chips"><span class="chip">Python</span><span class="chip">pandas</span><span class="chip">scikit-learn</span><span class="chip">Matplotlib</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- =============== BLOG =============== -->
+  <main id="view-blog" data-view="blog" hidden>
+    <div class="page-head">
+      <h1>Blog <span class="slash">/</span> <small>thoughts and notes</small></h1>
+      <p>Notes on what I’m building. Some posts live on other sites and open in a new tab.</p>
+    </div>
+    <div class="page-body">
+      <div class="posts">
+        <a class="post" href="https://www.pyx.finance/blog/nine-hosts" target="_blank" rel="noopener noreferrer">
+          <time class="label" datetime="2026-09-17">Sep 17, 2026</time>
+          <div>
+            <h3>Nine hosts: everything Pyx connects to, and how to check for yourself</h3>
+            <p>Every internet address the Pyx desktop app can reach, what each request carries, what it never carries, and how to check it yourself.</p>
+          </div>
+          <span class="src label">pyx.finance ↗</span>
+        </a>
+      </div>
+      <p class="posts-note">Posts written here appear in the same list, without the source tag.</p>
+    </div>
+  </main>
+
+  <!-- =============== .MD =============== -->
+  <main id="view-md" data-view="md" hidden>
+<div class="md"><span class="c">&lt;!-- /index.md: the same page, as plain markdown --&gt;</span>
+
+<span class="h"><span class="slash">#</span> Jared Watson</span>
+
+Software engineer building AI applications.
+
+Currently an AI engineer at SMART. Before that I founded <a href="#/projects">[Cure AI](/projects.md)</a>, a research
+assistant with a patented retrieval method. On the side I’m building <a href="https://pyx.finance">[Pyx](https://pyx.finance)</a>,
+a local-first portfolio tracker.
+
+- <a href="#/projects">[View projects](/projects.md)</a>
+- <a href="mailto:jaredswatson55@gmail.com">[Get in touch](mailto:jaredswatson55@gmail.com)</a>
+
+<span class="h"><span class="slash">##</span> Currently building</span>
+
+<span class="h"><span class="slash">###</span> Pyx</span> <span class="c">(in beta)</span>
+A local-first portfolio tracker.
+No Pyx cloud, no login. One encrypted SQLite file on your own machine.
+- <a href="https://pyx.finance">[pyx.finance](https://pyx.finance)</a>
+
+<span class="h"><span class="slash">##</span> Selected work</span>
+
+- <a href="#/projects">[Cure AI](/projects.md#cure-ai)</a> 2024. Answers science questions from 26 million papers.
+- <a href="#/projects">[U.S. Wildfire Analysis](/projects.md#us-wildfire-analysis)</a> 2024. 1.88 million wildfire records.
+- <a href="#/projects">[DooleyAFavor](/projects.md#dooleyafavor)</a> 2023. A task marketplace for Emory students.
+- <a href="#/projects">[All 6 projects](/projects.md)</a>
+
+<span class="h"><span class="slash">##</span> Writing</span>
+
+- 2026-09-17 <a href="https://www.pyx.finance/blog/nine-hosts">[Nine hosts: everything Pyx connects to](https://www.pyx.finance/blog/nine-hosts)</a>
+
+<span class="h"><span class="slash">##</span> Experience</span>
+
+- Jun 2025 to present. SMART, AI Engineer
+- 2023 to 2024. Cure AI, Founder
+- Jun 2023 to Aug 2023. AMNI, Software Engineer Intern
+- May 2022 to Aug 2022. Synapse Florida, Technology Intern
+
+<span class="c">---</span>
+More: <a href="#/projects">[Projects](/projects.md)</a> · <a href="#/blog">[Blog](/blog.md)</a> · <a href="https://github.com/Jared-Watson1">[GitHub](https://github.com/Jared-Watson1)</a> · <a href="https://www.linkedin.com/in/jared-watson-b7b5b6220/">[LinkedIn](https://www.linkedin.com/in/jared-watson-b7b5b6220/)</a>
+</div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner label">
+    <span>© 2026 Jared Watson</span>
+    <nav aria-label="Footer">
+      <a href="https://github.com/Jared-Watson1" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/jared-watson-b7b5b6220/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <a href="mailto:jaredswatson55@gmail.com">Email ↗</a>
+    </nav>
+  </div>
+</footer>
+<div class="mock-gap" aria-hidden="true"></div>
+
+<div class="intro" id="intro" hidden>
+  <svg class="jw" viewBox="0 4 41 20" fill="none" stroke-width="2.8" stroke-miterlimit="8" aria-hidden="true">
+        <g clip-path="url(#jw-cut)">
+          <path class="jw-ink jw-j" pathLength="1" d="M13.6 0 8.4 19.6a4.2 4.2 0 0 1-4.1 3.1H2.2"></path>
+          <path class="jw-ink jw-w" pathLength="1" d="M16.2 0 21.6 24l5.6-20 5 20"></path>
+          <path class="jw-slash" pathLength="1" d="M31.2 28 38.6 0"></path>
+        </g>
+      </svg>
+  <div class="intro-name" id="introName" aria-label="Jared Watson"></div>
+</div>
+
+<div class="mockbar" role="group" aria-label="Mockup controls">
+  <span>Mockup</span>
+  <button type="button" id="playIntro">Play intro</button>
+  <button type="button" id="toggleNotes" aria-pressed="false">Spec pins</button>
+</div>
+<span class="pin" style="position:fixed;left:22px;top:50%">3</span>
+<span class="pin" style="position:fixed;right:150px;bottom:48px">11</span>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function store(key, value) {
+    try {
+      if (value === undefined) return localStorage.getItem(key);
+      localStorage.setItem(key, value);
+    } catch (e) { return null; }
+  }
+
+  /* ---- display mode: light / dark / .md ---- */
+  var modeButtons = document.querySelectorAll("[data-mode-btn]");
+  function systemTheme() {
+    if (root.dataset.theme === "dark" || root.dataset.theme === "light") return root.dataset.theme;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  var params = new URLSearchParams(location.search);
+  var mode = params.get("mode") || store("jw-mode") || systemTheme();
+  if (params.get("notes")) root.dataset.notes = "on";
+  function applyMode(next) {
+    mode = next;
+    if (next === "md") {
+      root.dataset.theme = "dark";
+      root.dataset.mode = "md";
+    } else {
+      root.dataset.theme = next;
+      delete root.dataset.mode;
+    }
+    modeButtons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.modeBtn === next)); });
+    store("jw-mode", next);
+    route();
+  }
+  modeButtons.forEach(function (b) { b.addEventListener("click", function () { applyMode(b.dataset.modeBtn); }); });
+
+  /* ---- views ---- */
+  var views = document.querySelectorAll("[data-view]");
+  function currentView() {
+    var h = location.hash.replace(/^#\/?/, "");
+    if (h === "projects" || h === "blog") return h;
+    return "home";
+  }
+  function route() {
+    var name = mode === "md" ? "md" : currentView();
+    views.forEach(function (v) { v.hidden = v.dataset.view !== name; });
+    document.querySelectorAll("[data-nav]").forEach(function (a) {
+      if (a.dataset.nav === currentView()) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    updateRail();
+  }
+  window.addEventListener("hashchange", function () {
+    var h = location.hash;
+    if (h === "#/" || h === "#/projects" || h === "#/blog") { route(); window.scrollTo(0, 0); }
+    else if (h.charAt(1) !== "/" && currentView() !== "home") { route(); }
+  });
+
+  /* ---- mobile menu ---- */
+  var menuBtn = document.getElementById("menuBtn");
+  var menuPanel = document.getElementById("menuPanel");
+  menuBtn.addEventListener("click", function () {
+    var open = menuPanel.hidden;
+    menuPanel.hidden = !open;
+    menuBtn.setAttribute("aria-expanded", String(open));
+    menuBtn.textContent = open ? "Close" : "Menu";
+  });
+  menuPanel.addEventListener("click", function () { menuPanel.hidden = true; menuBtn.textContent = "Menu"; menuBtn.setAttribute("aria-expanded", "false"); });
+
+  /* ---- scroll rail ---- */
+  var rail = document.getElementById("rail");
+  var marker = document.getElementById("railMarker");
+  var railCursor = document.getElementById("railCursor");
+  var railLabel = document.getElementById("railLabel");
+  var idleTimer = null;
+  function updateRail() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    marker.style.transform = "translateY(" + Math.round(p * (window.innerHeight - 2)) + "px)";
+    var label = mode === "md" ? "index.md" : currentView();
+    if (mode !== "md" && currentView() === "home") {
+      var probe = window.scrollY + window.innerHeight * 0.35;
+      document.querySelectorAll("[data-rail]").forEach(function (s) {
+        if (s.getBoundingClientRect().top + window.scrollY <= probe) label = s.dataset.rail;
+      });
+    }
+    railLabel.textContent = label;
+  }
+  window.addEventListener("scroll", function () {
+    updateRail();
+    rail.dataset.active = "true";
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(function () { rail.dataset.active = "false"; }, 900);
+  }, { passive: true });
+  window.addEventListener("resize", updateRail);
+  window.addEventListener("mousemove", function (e) {
+    railCursor.style.transform = "translateY(" + e.clientY + "px)";
+    railCursor.style.opacity = "1";
+  }, { passive: true });
+  document.addEventListener("mouseleave", function () { railCursor.style.opacity = "0"; });
+
+  /* ---- galaxy follows the cursor along the button row ---- */
+  var cta = document.getElementById("cta");
+  var galaxy = document.getElementById("galaxy");
+  var gx = 0, gTarget = 0;
+  if (!reduce) {
+    document.querySelector(".hero-text").addEventListener("mousemove", function (e) {
+      var r = cta.getBoundingClientRect();
+      gTarget = Math.min(Math.max(0, e.clientX - r.left - 18), Math.max(0, r.width - 48));
+    });
+    (function tick() {
+      var d = gTarget - gx;
+      gx = Math.abs(d) < 0.3 ? gTarget : gx + d * 0.06;
+      galaxy.style.transform = "translateX(" + gx + "px) rotate(" + (d * 0.12) + "deg)";
+      requestAnimationFrame(tick);
+    })();
+  }
+
+  /* ---- stack caption ---- */
+  var caption = document.getElementById("stackCaption");
+  document.querySelectorAll(".tile").forEach(function (t) {
+    function on() {
+      var n = Number(t.dataset.count);
+      caption.innerHTML = "<b>" + t.dataset.name + "</b>, " + n + " project" + (n === 1 ? "" : "s");
+    }
+    function off() { caption.textContent = "Pick one to see its projects"; }
+    t.addEventListener("mouseenter", on); t.addEventListener("focus", on);
+    t.addEventListener("mouseleave", off); t.addEventListener("blur", off);
+  });
+
+  /* ---- filter chips (visual only in the mockup) ---- */
+  document.querySelectorAll("button.chip").forEach(function (c) {
+    c.addEventListener("click", function () {
+      document.querySelectorAll("button.chip").forEach(function (o) { o.setAttribute("aria-pressed", String(o === c)); });
+    });
+  });
+
+  /* ---- intro ---- */
+  var intro = document.getElementById("intro");
+  var introName = document.getElementById("introName");
+  var introTimers = [];
+  function playIntro() {
+    introTimers.forEach(clearTimeout);
+    introName.innerHTML = "";
+    "Jared Watson".split("").forEach(function (ch, i) {
+      var s = document.createElement("span");
+      if (ch === " ") s.className = "sp";
+      s.textContent = ch;
+      s.style.animationDelay = (520 + i * 38) + "ms";
+      s.setAttribute("aria-hidden", "true");
+      introName.appendChild(s);
+    });
+    intro.dataset.state = "in";
+    intro.hidden = false;
+    var clone = intro.querySelector("svg");
+    clone.parentNode.replaceChild(clone.cloneNode(true), clone);
+    introTimers = [
+      setTimeout(function () { intro.dataset.state = "out"; }, 1800),
+      setTimeout(function () { intro.hidden = true; }, 2240)
+    ];
+  }
+  document.getElementById("playIntro").addEventListener("click", playIntro);
+
+  /* ---- spec pins ---- */
+  var notesBtn = document.getElementById("toggleNotes");
+  notesBtn.addEventListener("click", function () {
+    var on = root.dataset.notes !== "on";
+    root.dataset.notes = on ? "on" : "off";
+    notesBtn.setAttribute("aria-pressed", String(on));
+  });
+
+  applyMode(mode);
+})();
+</script>

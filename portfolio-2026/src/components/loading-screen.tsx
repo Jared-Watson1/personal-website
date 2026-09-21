@@ -1,61 +1,63 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Logo } from "@/components/logo";
+import { cn } from "@/lib/utils";
 
 interface LoadingScreenProps {
   onComplete: () => void;
 }
 
 const NAME = "Jared Watson";
-const STAGGER_MS = 60;
-const HOLD_MS = 400;
-const FADE_MS = 500;
+const LETTERS_START_MS = 520;
+const STAGGER_MS = 38;
+const FADE_AT_MS = 1800;
+const REDUCED_FADE_AT_MS = 600;
+const FADE_MS = 420;
 
 export function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [fadingOut, setFadingOut] = useState(false);
 
   useEffect(() => {
-    const letterCount = NAME.replace(" ", "").length;
-    const animationEnd = letterCount * STAGGER_MS + 400;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fadeAt = reduce ? REDUCED_FADE_AT_MS : FADE_AT_MS;
 
-    const holdTimer = setTimeout(() => {
-      setFadingOut(true);
-    }, animationEnd + HOLD_MS);
-
-    const completeTimer = setTimeout(() => {
-      onComplete();
-    }, animationEnd + HOLD_MS + FADE_MS);
+    const fadeTimer = setTimeout(() => setFadingOut(true), fadeAt);
+    const completeTimer = setTimeout(onComplete, fadeAt + FADE_MS);
 
     return () => {
-      clearTimeout(holdTimer);
+      clearTimeout(fadeTimer);
       clearTimeout(completeTimer);
     };
   }, [onComplete]);
 
-  let letterIndex = 0;
-
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-background ${fadingOut ? "loading-fade-out" : ""}`}
+      className={cn(
+        "intro fixed inset-0 z-100 flex items-center justify-center gap-[18px] bg-background transition-opacity duration-[420ms] ease-in",
+        fadingOut && "opacity-0",
+      )}
     >
-      <h1 className="flex text-4xl font-bold tracking-tight sm:text-5xl">
-        {NAME.split("").map((char, i) => {
-          if (char === " ") {
-            return <span key={i} className="w-3" />;
-          }
-          const delay = letterIndex * STAGGER_MS;
-          letterIndex++;
-          return (
+      <Logo className="h-[34px] max-[520px]:h-7" />
+      <p
+        aria-label={NAME}
+        className="flex text-[26px] font-semibold tracking-[-0.025em] max-[520px]:text-[21px]"
+      >
+        {NAME.split("").map((char, i) =>
+          char === " " ? (
+            <span key={i} aria-hidden="true" className="w-[0.28em]" />
+          ) : (
             <span
               key={i}
+              aria-hidden="true"
               className="animate-letter-rise"
-              style={{ animationDelay: `${delay}ms` }}
+              style={{ animationDelay: `${LETTERS_START_MS + i * STAGGER_MS}ms` }}
             >
               {char}
             </span>
-          );
-        })}
-      </h1>
+          ),
+        )}
+      </p>
     </div>
   );
 }

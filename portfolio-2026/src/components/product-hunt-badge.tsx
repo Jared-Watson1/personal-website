@@ -34,8 +34,8 @@ export function ProductHuntBadge({ compact }: ProductHuntBadgeProps) {
       rel="noopener noreferrer"
       onClick={(e) => e.stopPropagation()}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 font-medium text-orange-600 transition-colors hover:bg-orange-100",
-        compact ? "px-2 py-0.5 text-[10px]" : "px-2.5 py-1 text-xs"
+        "label inline-flex items-center gap-1.5 border border-border text-brand-ink transition-colors hover:border-brand",
+        compact ? "h-5 px-1.5 text-[9.5px]" : "h-[38px] px-3 text-[10.5px]"
       )}
     >
       <ProductHuntLogo className={compact ? "size-3" : "size-3.5"} />

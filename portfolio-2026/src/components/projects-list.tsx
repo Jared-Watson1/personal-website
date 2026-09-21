@@ -12,6 +12,8 @@ import { SkillLogo } from "@/components/skill-logo";
 interface ProjectsListProps {
   projects: Project[];
   initialSkill: string | null;
+  /** Slug from `?project=`, opened in the modal on mount */
+  initialProject: string | null;
 }
 
 interface FilterChipProps {
@@ -29,16 +31,16 @@ function FilterChip({ label, skill, count, pressed, onClick }: FilterChipProps) 
       aria-pressed={pressed}
       onClick={onClick}
       className={cn(
-        "inline-flex h-[30px] cursor-pointer items-center gap-1.5 rounded-full border px-3 text-[12.5px] font-medium transition-[background-color,border-color,color,transform] duration-150 ease-out active:scale-[.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500",
+        "inline-flex h-[26px] cursor-pointer items-center gap-1.5 border px-2.5 text-[12.5px] transition-[background-color,border-color,color,transform] duration-150 ease-out active:scale-[.97]",
         pressed
           ? "border-foreground bg-foreground text-background"
-          : "border-border bg-white text-neutral-700 hover:bg-neutral-50",
+          : "border-border bg-background text-secondary-foreground hover:border-line-strong",
       )}
     >
       {skill && (
         <SkillLogo
           skill={skill}
-          className={cn("size-[13px]", pressed ? "text-background" : "text-neutral-500")}
+          className={cn("size-[13px]", pressed ? "text-background" : "text-muted-foreground")}
         />
       )}
       {label}
@@ -46,7 +48,7 @@ function FilterChip({ label, skill, count, pressed, onClick }: FilterChipProps) 
         <span
           className={cn(
             "font-mono text-[11px]",
-            pressed ? "text-background/60" : "text-neutral-400",
+            pressed ? "text-background/60" : "text-muted-foreground",
           )}
         >
           {count}
@@ -56,10 +58,12 @@ function FilterChip({ label, skill, count, pressed, onClick }: FilterChipProps) 
   );
 }
 
-export function ProjectsList({ projects, initialSkill }: ProjectsListProps) {
+export function ProjectsList({ projects, initialSkill, initialProject }: ProjectsListProps) {
   const router = useRouter();
   const [filter, setFilterState] = useState<string | null>(initialSkill);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(
+    () => projects.find((project) => project.slug === initialProject) ?? null,
+  );
 
   const usage = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -89,6 +93,15 @@ export function ProjectsList({ projects, initialSkill }: ProjectsListProps) {
     [router],
   );
 
+  const closeProject = useCallback(() => {
+    setSelectedProject(null);
+    if (initialProject) {
+      router.replace(filter ? `/projects?skill=${filter}` : "/projects", {
+        scroll: false,
+      });
+    }
+  }, [filter, initialProject, router]);
+
   const toggleSkill = useCallback(
     (id: string) => setFilter(filter === id ? null : id),
     [filter, setFilter],
@@ -104,7 +117,7 @@ export function ProjectsList({ projects, initialSkill }: ProjectsListProps) {
       <div
         role="group"
         aria-label="Filter by technology"
-        className="mt-5 flex flex-wrap items-center gap-1.5"
+        className="flex flex-wrap items-center gap-1.5"
       >
         <FilterChip label="All" pressed={filter === null} onClick={() => setFilter(null)} />
         {chipSkills.map((skill) => (
@@ -128,7 +141,7 @@ export function ProjectsList({ projects, initialSkill }: ProjectsListProps) {
             <button
               type="button"
               onClick={() => setFilter(null)}
-              className="cursor-pointer text-foreground underline underline-offset-[3px] transition-colors hover:text-orange-600"
+              className="link cursor-pointer"
             >
               Clear
             </button>
@@ -138,7 +151,7 @@ export function ProjectsList({ projects, initialSkill }: ProjectsListProps) {
         )}
       </p>
 
-      <div className="mt-6 grid gap-3.5">
+      <div className="mt-4 border-t border-border">
         {projects.map((project, index) => (
           <ProjectCard
             key={project.slug}
@@ -156,7 +169,7 @@ export function ProjectsList({ projects, initialSkill }: ProjectsListProps) {
         project={selectedProject}
         open={selectedProject !== null}
         onOpenChange={(open) => {
-          if (!open) setSelectedProject(null);
+          if (!open) closeProject();
         }}
       />
     </>

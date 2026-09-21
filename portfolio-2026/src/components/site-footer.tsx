@@ -1,29 +1,29 @@
 import { LINKS, EMAIL } from "@/lib/constants";
 
 const FOOTER_LINKS = [
-  { label: "Projects", href: LINKS.projects },
-  { label: "Blog", href: LINKS.blog },
-  { label: "GitHub", href: LINKS.github, external: true },
-  { label: "LinkedIn", href: LINKS.linkedin, external: true },
-  { label: EMAIL, href: `mailto:${EMAIL}` },
+  { label: "GitHub ↗", href: LINKS.github, external: true },
+  { label: "LinkedIn ↗", href: LINKS.linkedin, external: true },
+  { label: "Email ↗", href: `mailto:${EMAIL}` },
 ];
 
 export function SiteFooter() {
   return (
-    <footer className="mx-auto flex max-w-[1240px] flex-col items-start gap-3 border-t border-border px-6 pt-6 pb-8 text-[13px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-10 lg:px-16 lg:pt-7 lg:pb-9">
-      <span>© 2026 Jared Watson</span>
-      <nav aria-label="Footer" className="flex flex-wrap gap-x-[18px] gap-y-1.5">
-        {FOOTER_LINKS.map(({ label, href, external }) => (
-          <a
-            key={label}
-            href={href}
-            {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-            className="transition-colors hover:text-foreground"
-          >
-            {label}
-          </a>
-        ))}
-      </nav>
+    <footer className="border-t border-border bg-background">
+      <div className="label mx-auto flex min-h-[52px] max-w-[1080px] flex-wrap items-center justify-between gap-x-5 gap-y-1 px-(--pad) max-[720px]:py-3.5">
+        <span>© 2026 Jared Watson</span>
+        <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-1">
+          {FOOTER_LINKS.map(({ label, href, external }) => (
+            <a
+              key={label}
+              href={href}
+              {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+              className="transition-colors duration-150 hover:text-brand-ink"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+      </div>
     </footer>
   );
 }
